@@ -1,5 +1,5 @@
 # Project Ice
-Project Ice or the Integrative coding experience is a new way to teach and practice programing in the classroom. The goals of project Ice are as follows:
-1. Provide a tool for instructores to present, demonstrate, and build interactive activity to inhance there students learning
-2. provide a way for studetns to practive their programing skills through instructor made activities or in a sandbox envirnment
-3. Allow for a more integrative way to demonstrate programing skills 
+Project Ice or the Integrated coding experience is a new way to teach and practice programing in the classroom. The goals of project Ice are as follows:
+1. Provide a tool for instructors to present, demonstrate, and build interactive activity to enhance their students learning
+2. Provide a way for studetns to practice their programing skills through instructor made activities or in a sandbox environment
+3. Allow for a more integrated way to demonstrate programing skills 
