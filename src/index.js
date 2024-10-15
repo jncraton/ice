@@ -1,8 +1,5 @@
 'use strict'
 
-// Update this if you are running your code locally or from another domain.
-const DOMAIN = 'http://localhost:8000/'
-
 // Load data from URL
 function loadDefaultData() {
   if (location.hash !== '') {
@@ -21,7 +18,8 @@ document.querySelector('#share').addEventListener('click', function () {
 
   const base64String = btoa(JSON.stringify([codeText, outputText]))
 
-  const url = DOMAIN + `#${base64String}`
+  const url = location.hostname + `#${base64String}`
+
   document.querySelector('#link-display').innerHTML = url
   document.querySelector('#link-display').href = url
 })
