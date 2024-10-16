@@ -18,7 +18,7 @@ document.querySelector('#share').addEventListener('click', function () {
 
   const base64String = btoa(JSON.stringify([codeText, outputText]))
 
-  const url = location.hostname + `#${base64String}`
+  const url = location.origin + location.pathname + `#${base64String}`
 
   document.querySelector('#link-display').innerHTML = url
   document.querySelector('#link-display').href = url
