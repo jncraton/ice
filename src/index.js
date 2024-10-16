@@ -24,7 +24,6 @@ document.querySelector('#share').addEventListener('click', function () {
   document.querySelector('#link-display').href = url
 })
 
-
 const linkDisplay = document.querySelector("#link-display")
 linkDisplay.addEventListener("click", function (event) {
   event.preventDefault()
