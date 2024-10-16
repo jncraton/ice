@@ -10,7 +10,7 @@ def test_title(page: Page):
     page.goto(full_path)
 
     #  Step 2: Check the page title
-    expect(page).to_have_title('I.C.E')
+    expect(page).to_have_title('Integrative Coding Expereince')
 
 def test_text(page: Page):
     #  Step 1: Navigate to the index.html page
