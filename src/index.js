@@ -24,14 +24,15 @@ document.querySelector('#share').addEventListener('click', function () {
   document.querySelector('#link-display').href = url
 })
 
-
-const linkDisplay = document.querySelector("#link-display")
-linkDisplay.addEventListener("click", function (event) {
+const linkDisplay = document.querySelector('#link-display')
+linkDisplay.addEventListener('click', function (event) {
   event.preventDefault()
-  navigator.clipboard.writeText(linkDisplay.href).then(function () {
-    console.log("Copied link successfully!")
-  }, 
-  function () {
-    console.log("Failed to copy link")
-  })
+  navigator.clipboard.writeText(linkDisplay.href).then(
+    function () {
+      console.log('Copied link successfully!')
+    },
+    function () {
+      console.log('Failed to copy link')
+    },
+  )
 })
