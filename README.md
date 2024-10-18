@@ -6,8 +6,6 @@ Project Ice or the Integrated Coding Experience is a new way to teach and practi
 2. Provide a way for students' to practice their programing skills through instructor made activities or in a sandbox environment
 3. Allow for a more integrated way to demonstrate programing skills
 
-## Downloading
-
 ## Testing
 
 We use Playwright and PyTest to run unit tests.
