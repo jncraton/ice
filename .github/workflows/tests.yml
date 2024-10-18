@@ -10,4 +10,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: pip install pytest-playwright
-      - run: pytest
+      - run: pytest testSpec.py
