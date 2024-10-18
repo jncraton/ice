@@ -9,6 +9,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: playwright install
       - run: pip install pytest-playwright
       - run: pytest testSpec.py
