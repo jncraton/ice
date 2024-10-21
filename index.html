@@ -5,20 +5,30 @@
     <title>Integrative Coding Experience</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale-1.0" />
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
-    <h1>I.C.E</h1>
-    <p>Hello World!</p>
-    <div id="code-block">
-      <textarea id="code-area"></textarea>
-    </div>
-    <div id="output-displays">
-      <label for="output-text">Desired Output: </label>
-      <input type="text" id="output-text" name="output-text" />
-    </div>
-    <button id="share">Share Link</button>
-    <a href="" id="link-display"></a>
-    <script src="src/index.js"></script>
+    <main>
+      <h1>I.C.E</h1>
+      <p>Hello World!</p>
+      <div id="code-block">
+        <h1>Input:</h1>
+        <textarea id="code-area"></textarea>
+      </div>
+      <div id="output-displays">
+        <h1>Desired Output:</h1>
+        <input type="text" id="output-text" name="output-text" />
+      </div>
+      <div>
+        <button id="share">Share Link</button>
+      </div>
+      <nav>
+        <a id="url"></a>
+        <a href="" id="link-display"></a>
+      </nav>
+      <h3 id="alert"></h3>
+      <script src="src/index.js"></script>
+    </main>
   </body>
 </html>
