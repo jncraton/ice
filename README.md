@@ -10,7 +10,7 @@ Project Ice or the Integrated Coding Experience is a new way to teach and practi
 
 We use Playwright and PyTest to run unit tests.
 
-1. Create a new Python Virtual Environment (venv or conda works)
+1. (Optional) Create a new Python Virtual Environment (venv or conda works)
 2. Install dependancies from `requirements.txt`
 3. Open your command line in your project directory and run the following command
    `playwright install`
