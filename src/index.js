@@ -18,8 +18,22 @@ document.querySelector('#share').addEventListener('click', function () {
 
   const base64String = btoa(JSON.stringify([codeText, outputText]))
 
-  const url = location.origin + location.pathname + `#${base64String}`
+  const url =
+    location.origin + location.pathname + 'student.html' + `#${base64String}`
 
   document.querySelector('#link-display').innerHTML = url
   document.querySelector('#link-display').href = url
+})
+
+const linkDisplay = document.querySelector('#link-display')
+linkDisplay.addEventListener('click', function (event) {
+  event.preventDefault()
+  navigator.clipboard.writeText(linkDisplay.href).then(
+    function () {
+      console.log('Copied link successfully!')
+    },
+    function () {
+      console.log('Failed to copy link')
+    },
+  )
 })
