@@ -1,10 +1,21 @@
 # Project Ice
 
-Project Ice or the Integrated Coding Experience is a new way to teach and practice programing in the classroom. The goals of project Ice are as follows:
+Project Ice or the Integrated Coding Experience is a new way to teach and practice programming in the classroom. The goals of project Ice are as follows:
 
 1. Provide a tool for instructors to present, demonstrate, and build interactive activity to enhance their students learning
-2. Provide a way for students' to practice their programing skills through instructor made activities or in a sandbox environment
-3. Allow for a more integrated way to demonstrate programing skills
+2. Provide a way for students' to practice their programming skills through instructor made activities or in a sandbox environment
+3. Allow for a more integrated way to demonstrate programming skills
+
+## Running
+
+You can view a live version of the page at https://jncraton.github.io/ice/
+
+## Install
+
+1. Clone this repository
+2. Open the command prompt in the project directory
+3. Run `python -m http.server`
+4. Navigate to [localhost:8000](localhost:8000)
 
 ## Testing
 
