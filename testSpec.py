@@ -3,7 +3,7 @@ import os
 
 current_working_directory = os.getcwd()
 file_name = "index.html"
-full_path = os.path.join(current_working_directory, file_name)
+full_path = "file://" + os.path.join(current_working_directory, file_name)
 
 def test_title(page: Page):
     #  Step 1: Navigate to the index.html page
@@ -19,3 +19,17 @@ def test_text(page: Page):
     #  Step 2: Verify that the new page contains specific text
     expectedText = 'Hello World!'
     expect(page.locator('body')).to_contain_text(expectedText)
+
+
+# ------ Student View Tests ------
+def test_sharebutton_exists(page:Page):
+    page.goto(full_path)
+    expectedText = 'Share Link'
+    expect(page.locator('#share')).to_contain_text(expectedText)
+
+def test_link_generate(page:Page):
+    page.goto(full_path)
+    expectedText = 'http://'
+    page.locator('#share').click
+#test that link leads to valid page
+#test that student view cannot edit output or share
