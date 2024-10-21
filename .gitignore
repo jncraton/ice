@@ -61,5 +61,5 @@ node_modules/prettier/plugins/yaml.mjs
 package-lock.json
 git
 node_modules/
-_pycache_/
+__pycache__/
 
