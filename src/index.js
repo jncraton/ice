@@ -22,7 +22,7 @@ document.querySelector('#share').addEventListener('click', function () {
     location.origin + location.pathname + 'student.html' + `#${base64String}`
 
   document.querySelector('#link-display').innerHTML = url
-  document.querySelector('#url').innerHTML = "URL: "
+  document.querySelector('#url').innerHTML = 'URL: '
   document.querySelector('#link-display').href = url
 })
 
@@ -32,7 +32,7 @@ linkDisplay.addEventListener('click', function (event) {
   navigator.clipboard.writeText(linkDisplay.href).then(
     function () {
       console.log('Copied link successfully!')
-      document.querySelector('#alert').innerHTML = "Link copied to clipboard"
+      document.querySelector('#alert').innerHTML = 'Link copied to clipboard'
     },
     function () {
       console.log('Failed to copy link')
