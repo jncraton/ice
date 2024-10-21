@@ -8,7 +8,7 @@ Project Ice or the Integrated Coding Experience is a new way to teach and practi
 
 ## Install and Run
 
-1. Clone this repository 
+1. Clone this repository
 2. Open the command prompt in the project directory
 3. Run `python -m http.server`
 4. Navigate to [localhost:8000](localhost:8000)
