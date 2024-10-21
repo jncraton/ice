@@ -6,7 +6,11 @@ Project Ice or the Integrated Coding Experience is a new way to teach and practi
 2. Provide a way for students' to practice their programming skills through instructor made activities or in a sandbox environment
 3. Allow for a more integrated way to demonstrate programming skills
 
-## Install and Run
+## Running
+
+You can view a live version of the page at https://jncraton.github.io/ice/
+
+## Install
 
 1. Clone this repository
 2. Open the command prompt in the project directory
