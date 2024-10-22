@@ -31,5 +31,8 @@ def test_link_generate(page:Page):
     page.goto(full_path)
     expectedText = 'http://'
     page.locator('#share').click
+    expect(page.locator('#link-display')).to_contain_text(expectedText)
+
 #test that link leads to valid page
 #test that student view cannot edit output or share
+#test that student can edit input
