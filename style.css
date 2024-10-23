@@ -16,3 +16,9 @@ main {
   width: 30%;
   height: 60px;
 }
+
+sub {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 20px;
+}
