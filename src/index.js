@@ -24,6 +24,12 @@ document.querySelector('#share').addEventListener('click', function () {
   document.querySelector('#link-display').innerHTML = url
   document.querySelector('#url').innerHTML = 'URL: '
   document.querySelector('#link-display').href = url
+
+  // Generate the embed code
+  const embedCode = `<iframe src="https://jncraton.github.io/ice/student.html#WyJoaSIsImhpIl0=" width="100%" height="800" frameborder="0" allowfullscreen></iframe>`;
+
+  // Set the embed code in the textarea
+  document.querySelector('#embed-code').value = embedCode;  
 })
 
 const linkDisplay = document.querySelector('#link-display')
