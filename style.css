@@ -11,3 +11,9 @@ main {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+sub {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 20px;
+}
