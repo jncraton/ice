@@ -35,12 +35,11 @@ def test_student_link_navigates(page: Page):
     page.locator("#output-text").fill("test output")
 
     # Step 4: Pushing the (share) Button
+    page.context.grant_permissions(["clipboard-write"])
     page.locator("#share").click()
 
     # Step 5: Checking for Alert 
-    page.locator("#link-display").click() 
-
-    time.sleep(5)
+    page.locator("#link-display").click()
 
     expect(page.locator("#alert")).to_be_visible()
     expect(page.locator("#alert")).to_have_text("Link copied to clipboard")
