@@ -11,3 +11,8 @@ main {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+#embed-code {
+  width: 30%;
+  height: 60px;
+}
