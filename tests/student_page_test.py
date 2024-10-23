@@ -2,7 +2,7 @@ from playwright.sync_api import Page, expect
 import os
 
 current_working_directory = os.getcwd()
-file_name = "student.html"
+file_name = "www/student.html"
 full_path = "file://" + os.path.join(current_working_directory, file_name)
 
 def test_title(page: Page):
