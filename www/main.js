@@ -51,8 +51,8 @@ document.querySelector('#run').addEventListener('click', function () {
   const outputText = document.querySelector('#output-text').value
   const label = document.querySelector('#checkCodeResult')
   if (codeText === outputText) {
-    label.textContent = "Correct";
+    label.textContent = 'Correct'
   } else {
-    label.textContent = "Does not match target output";
+    label.textContent = 'Does not match target output'
   }
 })
