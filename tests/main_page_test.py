@@ -1,6 +1,5 @@
 from playwright.sync_api import Page, expect
 import os
-import time
 
 current_working_directory = os.getcwd()
 full_path = "http://localhost:8000"
@@ -42,6 +41,3 @@ def test_student_link_navigates(page: Page):
 
     expect(page.locator("#alert")).to_be_visible()
     expect(page.locator("#alert")).to_have_text("Link copied to clipboard")
-
-    
-    
