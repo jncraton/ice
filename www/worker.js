@@ -26,7 +26,7 @@ async function runPythonCode(code) {
   if (result == undefined) {
     return self.pythonConsoleString
   } else {
-    return self.pythonConsoleString + `\n\nReturned: ${result}` 
+    return self.pythonConsoleString + `\n\nReturned: ${result}`
   }
 }
 
