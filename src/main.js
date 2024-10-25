@@ -44,3 +44,16 @@ linkDisplay.addEventListener('click', function (event) {
     },
   )
 })
+
+// Make check output button function
+document.querySelector('#run').addEventListener('click', function () {
+  const codeText = document.querySelector('#code-area').value
+  const outputText = document.querySelector('#output-text').value
+  const label = document.querySelector('#checkCodeResult')
+  if (codeText.textContent == outputText.textContent){
+    label.textContent = "Correct"
+  }
+  else{
+    label.textContent = "Does not match target output"
+  }
+})
