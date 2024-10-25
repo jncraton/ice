@@ -49,7 +49,7 @@ linkDisplay.addEventListener('click', function (event) {
 document.querySelector('#run').addEventListener('click', function () {
   const codeText = document.querySelector('#code-area').value
   const outputText = document.querySelector('#output-text').value
-  const label = document.querySelector('#checkCodeResult')
+  const label = document.querySelector('#check-code-result')
   if (codeText === outputText) {
     label.textContent = 'Correct'
   } else {
