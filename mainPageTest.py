@@ -3,8 +3,7 @@ import os
 import time
 
 current_working_directory = os.getcwd()
-file_name = "index.html"
-full_path = "file://" + os.path.join(current_working_directory, file_name)
+full_path = "http://localhost:8000"
 
 def test_title(page: Page):
     #  Step 1: Navigate to the index.html page

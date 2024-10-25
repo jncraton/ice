@@ -11,5 +11,6 @@ jobs:
       - uses: actions/checkout@v4
       - run: pip install pytest-playwright
       - run: python -m playwright install
+      - run: python -m http.server
       - run: pytest mainPageTest.py
       - run: pytest studentPageTest.py
