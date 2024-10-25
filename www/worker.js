@@ -23,7 +23,11 @@ async function runPythonCode(code) {
 
   let result = await pyodide.runPythonAsync(code)
 
-  return self.pythonConsoleString + `\n\n${result}`
+  if (result == undefined) {
+    return self.pythonConsoleString
+  } else {
+    return self.pythonConsoleString + `\n\nReturned: ${result}` 
+  }
 }
 
 this.addEventListener('message', function (msg) {
