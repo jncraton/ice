@@ -11,7 +11,7 @@ loadDefaultData()
 
 // Create and configure a new web worker to run python code
 function createCodeWorker() {
-  const codeWorker = new Worker('/src/worker.js')
+  const codeWorker = new Worker('/worker.js')
 
   codeWorker.addEventListener('message', function (msg) {
     console.log('Message received')
