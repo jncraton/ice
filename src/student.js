@@ -9,31 +9,42 @@ function loadDefaultData() {
 }
 loadDefaultData()
 
-document.querySelector("#run-button").addEventListener("click", function (event) {
+let codeExecuting = false;
+const codeWorker = new Worker("/src/worker.js")
+const runButton = document.querySelector("#run-button")
+
+runButton.addEventListener("click", function () {
   const studentCode = document.querySelector("#code-area").value
-  const codeResultPromise =  runPythonCode(studentCode).then(
-    (codeResult) => {
-      console.log("Code finished running, getting result")
-      // result = codeResultPromise.pa
-      document.querySelector('#code-output').innerHTML = codeResult
-    }
-  )
+  runButton.disabled = true
+
+  console.log("Posting message")
+  codeWorker.postMessage({
+    type: "run",
+    language: "python",
+    code: studentCode,
+  })
+
+  // runPythonCode(studentCode).then(
+  //   (codeResult) => {
+  //     console.log("Code finished running, getting result")
+  //     // result = codeResultPromise.pa
+  //     document.querySelector('#code-output').innerHTML = codeResult
+  //   }
+  // )
+
+
+  // pythonWorker.postMessage("First message")
+
+//   const codeResult = runPythonCode(studentCode)
+//   console.log("Code finished running.")
+//   document.querySelector('#code-output').innerHTML = codeResult
 })
 
+codeWorker.addEventListener("message", function (msg) {
+  console.log("Message received")
 
-// Run python code and print the output
-async function runPythonCode(code) {
-  console.log(`Running code ${code}...`)
-  const pyodide = await loadPyodide()
-
-  let pythonConsoleString = "Results below: "
-  pyodide.setStdout({ batched: function (msg) { pythonConsoleString += `\n${msg}` } })
-
-  const pythonOutput = pyodide.runPython(code)
-  pythonConsoleString += `\n\nReturned ${pythonOutput}`
-
-  console.log(`Code resulted in ${pythonConsoleString}`)
-
-  return pythonConsoleString
-}
-// runStudentPython()
+  if (msg.data.type === "result") {
+    document.querySelector('#code-output').innerHTML = msg.data.result
+    runButton.disabled = false
+  }
+})
