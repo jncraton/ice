@@ -25,6 +25,7 @@ document.querySelector('#run').addEventListener('click', function () {
     label.classList.add('labelIncorrect')
     label.classList.remove('labelCorrect')
   }
+})
   // Create and configure a new web worker to run python code
   function createCodeWorker() {
     const codeWorker = new Worker('/worker.js')
@@ -76,4 +77,3 @@ document.querySelector('#run').addEventListener('click', function () {
     runButton.disabled = false
     endButton.disabled = true
   })
-})
