@@ -44,8 +44,24 @@ def test_python_runs(page: Page):
 
 def test_buttons_disable(page: Page):
     # Test that running a python program enables/disables the right buttons, and stopping it from running enables/disables the correct buttons.
-    pass
 
-def test_python_kills(page: Page):
-    # Test that we can kill a python program
-    pass
+    # 1. Go to page
+    page.goto(full_path + "/student.html")
+
+    # 2. Put code in code area
+    textarea_locator = page.locator("#code-area")
+    textarea_locator.fill("while True:\n\tprint(1)")
+
+    # 3. Click Run Button
+    page.locator("#run-button").click()
+
+    # 4. Expect run button to be disabled, end button to be enabled
+    expect(page.locator("#run-button")).to_be_disabled()
+    expect(page.locator("#end-button")).to_be_enabled()
+
+    # 5. Click the End button
+    page.locator("#end-button").click()
+
+    # 6. Expect the run button to be enabled, end button to be disabled.
+    expect(page.locator("#run-button")).to_be_enabled()
+    expect(page.locator("#end-button")).to_be_disabled()
