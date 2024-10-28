@@ -20,6 +20,7 @@ function createCodeWorker() {
       document.querySelector('#code-output').innerHTML = msg.data.result
       runButton.disabled = false
       endButton.disabled = true
+      
     }
   })
 
@@ -53,4 +54,6 @@ runButton.addEventListener('click', function () {
 endButton.addEventListener('click', function () {
   codeWorker.terminate()
   codeWorker = createCodeWorker() // send in the next worker
+  runButton.disabled = false
+  endButton.disabled = true
 })
