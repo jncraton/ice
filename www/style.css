@@ -5,6 +5,7 @@ main {
 #code-area {
   width: 500px;
   height: 250px;
+  tab-size: 4;
 }
 
 #share {
