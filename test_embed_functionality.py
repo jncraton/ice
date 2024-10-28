@@ -27,7 +27,7 @@ def test_embed_code_generation(page: Page):
 
     # Step 5: Verify that the embed code is correct
     # Generate the expected URL based on the inputs
-    expected_url = f"{page.evaluate('location.origin + location.pathname + \"student.html#\" + btoa(JSON.stringify([\"Sample code\", \"Sample output\"]))')}"
+    expected_url = page.evaluate("""location.origin + location.pathname + "student.html#" + btoa(JSON.stringify(["Sample code", "Sample output"]))""")
     # Construct the expected embed code
     expected_embed_code = f'<iframe src="{expected_url}" width="100%" height="800" frameborder="0" allowfullscreen></iframe>'
 
