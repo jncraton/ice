@@ -1,3 +1,5 @@
+'use strict'
+
 // Load data from URL
 function loadDefaultData() {
   if (location.hash !== '') {
@@ -8,6 +10,22 @@ function loadDefaultData() {
   }
 }
 loadDefaultData()
+
+// Make check output button function
+document.querySelector('#run').addEventListener('click', function () {
+  const codeText = document.querySelector('#code-area').value
+  const outputText = document.querySelector('#output-text').value
+  const label = document.querySelector('#check-code-result')
+  if (codeText === outputText) {
+    label.textContent = 'Correct   ✔'
+    label.classList.add('labelCorrect')
+    label.classList.remove('labelIncorrect')
+  } else {
+    label.textContent = 'Does not match target output   ❌'
+    label.classList.add('labelIncorrect')
+    label.classList.remove('labelCorrect')
+  }
+})
 
 // Create and configure a new web worker to run python code
 function createCodeWorker() {
