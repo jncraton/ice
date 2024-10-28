@@ -20,7 +20,6 @@ function createCodeWorker() {
       document.querySelector('#code-output').innerHTML = msg.data.result
       runButton.disabled = false
       endButton.disabled = true
-      
     }
   })
 
@@ -33,7 +32,7 @@ let codeWorker = createCodeWorker()
 // get HTML elements
 const runButton = document.querySelector('#run-button')
 const endButton = document.querySelector('#end-button')
-// Ensure the end button is disabled by default 
+// Ensure the end button is disabled by default
 endButton.disabled = true
 const timeDisplayP = document.querySelector('#time-displayed')
 
