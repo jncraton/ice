@@ -28,7 +28,9 @@ def test_student_input(page: Page):
 
 
 def test_python_runs(page: Page):
-    # Test that basic python runs
+    """
+    Test that basic python code can execute
+    """
 
     # 1. Put code in code area
     textarea_locator = page.locator("#code-area")
@@ -42,7 +44,10 @@ def test_python_runs(page: Page):
 
 
 def test_buttons_disable(page: Page):
-    # Test that running a python program enables/disables the right buttons, and stopping it from running enables/disables the correct buttons.
+    """
+    Test that running a python program enables/disables the right buttons,
+    and stopping it from running enables/disables the correct buttons.
+    """
 
     # 1. Put code in code area
     textarea_locator = page.locator("#code-area")
