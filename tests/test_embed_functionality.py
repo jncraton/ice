@@ -2,9 +2,9 @@ from playwright.sync_api import Page, expect
 import os
 
 # Get the current working directory
-current_working_directory = os.getcwd()
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 file_name = "www/index.html"
-full_path = "file://" + os.path.join(current_working_directory, file_name)
+full_path = "file://" + os.path.join(project_root, file_name)
 
 def test_embed_code_generation(page: Page):
     # Step 1: Navigate to the index.html page
