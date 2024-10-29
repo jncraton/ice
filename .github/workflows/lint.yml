@@ -12,3 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: npm run lint
+      - run: pip install -r requirements.txt
+      - run: black --check .
+      - run: pylint tests/*.py
