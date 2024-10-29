@@ -1,23 +1,27 @@
-from playwright.sync_api import Page, expect
-import os
+"""
+Tests for the student view of the application
 
-current_working_directory = os.getcwd()
-file_name = "www/student.html"
-full_path = "file://" + os.path.join(current_working_directory, file_name)
+These are the end-to-end UI tests for student.html
+"""
+
+from playwright.sync_api import Page, expect
+import pytest
+
+
+@pytest.fixture(scope="function", autouse=True)
+def before_each(page: Page):
+    """Load the page before each test"""
+    page.goto("http://localhost:8000/student.html")
 
 
 def test_title(page: Page):
-    #  Step 1: Navigate to the student.html page
-    page.goto(full_path)
+    """Confirm the page has an appropriate title"""
 
-    #  Step 2: Check the page title
     expect(page).to_have_title("Integrative Coding Experience")
 
 
 def test_student_input(page: Page):
-    #  Step 1: Navigate to the student.html page
-    page.goto(full_path)
+    """Confirm that output text is visible"""
 
-    # Step 2: Test that text area is on page
     textarea_locator = page.locator("#output-text")
     assert textarea_locator.is_visible()
