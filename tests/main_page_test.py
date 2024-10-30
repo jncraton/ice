@@ -46,26 +46,32 @@ def test_student_link_navigates(page: Page):
     expect(page.locator("#alert")).to_be_visible()
     expect(page.locator("#alert")).to_have_text("Link copied to clipboard")
 
+
 def test_embed_code_generation(page: Page):
     """Confirm that the embed link returns the expected URL"""
 
     # Step 1: Fill the necessary fields
-    page.fill('#code-area', 'Sample code')  # Fill the code area with sample code
-    page.fill('#output-text', 'Sample output')  # Fill the output text area with sample output
-
+    page.fill("#code-area", "Sample code")  # Fill the code area with sample code
+    page.fill(
+        "#output-text", "Sample output"
+    )  # Fill the output text area with sample output
 
     # Step 2: Click the Share button
-    page.click('#share')  # Interacts with the button by its ID
-
+    page.click("#share")  # Interacts with the button by its ID
 
     # Step 3: Wait for the embed code to appear in the textarea
-    embed_code_display = page.locator('#embed-code')  # Ensure this matches your HTML structure
-    expect(embed_code_display).to_be_visible()  # Ensure the embed code textarea is visible
-
+    embed_code_display = page.locator(
+        "#embed-code"
+    )  # Ensure this matches your HTML structure
+    expect(
+        embed_code_display
+    ).to_be_visible()  # Ensure the embed code textarea is visible
 
     # Step 4: Verify that the embed code is correct
     # Generate the expected URL based on the inputs
-    expected_url = page.evaluate("""location.origin + location.pathname + "student.html#" + btoa(JSON.stringify(["Sample code", "Sample output"]))""")
+    expected_url = page.evaluate(
+        """location.origin + location.pathname + "student.html#" + btoa(JSON.stringify(["Sample code", "Sample output"]))"""
+    )
     # Construct the expected embed code
     expected_embed_code = f'<iframe src="{expected_url}" width="100%" height="800" frameborder="0" allowfullscreen></iframe>'
 
