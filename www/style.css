@@ -8,12 +8,7 @@ main {
   tab-size: 4;
 }
 
-#share {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-#run {
+#control-panel {
   margin-top: 10px;
   margin-bottom: 10px;
 }
