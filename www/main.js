@@ -22,7 +22,7 @@ document.querySelector('#share').addEventListener('click', function () {
     location.origin + location.pathname + 'student.html' + `#${base64String}`
 
   document.querySelector('#link-display').innerHTML = url
-  document.querySelector('#copy-link').removeAttribute("hidden");
+  document.querySelector('#copy-link').removeAttribute('hidden')
   document.querySelector('#link-display').href = url
 
   const embedCode = `<iframe src="${url}" width="100%" height="800" frameborder="0" allowfullscreen></iframe>`
@@ -34,15 +34,17 @@ document.querySelector('#share').addEventListener('click', function () {
 const linkDisplay = document.querySelector('#copy-link')
 linkDisplay.addEventListener('click', function (event) {
   event.preventDefault()
-  navigator.clipboard.writeText(document.querySelector("#link-display").innerHTML).then(
-    function () {
-      console.log('Copied link successfully!')
-      document.querySelector('#alert').innerHTML = 'Link copied to clipboard'
-    },
-    function () {
-      console.log('Failed to copy link')
-    },
-  )
+  navigator.clipboard
+    .writeText(document.querySelector('#link-display').innerHTML)
+    .then(
+      function () {
+        console.log('Copied link successfully!')
+        document.querySelector('#alert').innerHTML = 'Link copied to clipboard'
+      },
+      function () {
+        console.log('Failed to copy link')
+      },
+    )
 })
 
 // Make check output button function
