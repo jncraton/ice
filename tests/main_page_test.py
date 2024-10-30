@@ -82,6 +82,7 @@ def test_embed_code_generation(page: Page):
     # Assert that the displayed embed code matches the expected embed code
     expect(embed_code_display).to_have_value(expected_embed_code)
 
+
 def test_python_runs(page: Page):
     """
     Test that basic python code can execute
@@ -121,4 +122,3 @@ def test_buttons_disable(page: Page):
     # 5. Expect the run button to be enabled, end button to be disabled.
     expect(page.locator("#run-button")).to_be_enabled()
     expect(page.locator("#end-button")).to_be_disabled()
-    
