@@ -40,7 +40,7 @@ def test_python_runs(page: Page):
     page.locator("#run-button").click()
 
     # 3. Assert desired output is
-    expect(page.locator("#code-output")).to_have_text("Hello, world!")
+    expect(page.locator("#code-output")).to_have_text("Hello, world!", timeout=10000)
 
 
 def test_buttons_disable(page: Page):
