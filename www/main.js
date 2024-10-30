@@ -22,7 +22,7 @@ document.querySelector('#share').addEventListener('click', function () {
     location.origin + location.pathname + 'student.html' + `#${base64String}`
 
   document.querySelector('#link-display').innerHTML = url
-  document.querySelector('#url').innerHTML = 'URL: '
+  document.querySelector('#copy-link').removeAttribute('hidden')
   document.querySelector('#link-display').href = url
 
   const embedCode = `<iframe src="${url}" width="100%" height="800" frameborder="0" allowfullscreen></iframe>`
@@ -31,32 +31,16 @@ document.querySelector('#share').addEventListener('click', function () {
   document.querySelector('#embed-code').value = embedCode
 })
 
-const linkDisplay = document.querySelector('#link-display')
+const linkDisplay = document.querySelector('#copy-link')
 linkDisplay.addEventListener('click', function (event) {
   event.preventDefault()
   navigator.clipboard.writeText(linkDisplay.href).then(
-    function () {
-      console.log('Copied link successfully!')
-      document.querySelector('#alert').innerHTML = 'Link copied to clipboard'
-    },
-    function () {
-      console.log('Failed to copy link')
-    },
-  )
-})
-
-// Make check output button function
-document.querySelector('#run').addEventListener('click', function () {
-  const codeText = document.querySelector('#code-area').value
-  const outputText = document.querySelector('#output-text').value
-  const label = document.querySelector('#check-code-result')
-  if (codeText === outputText) {
-    label.textContent = 'Correct   ✔'
-    label.classList.add('labelCorrect')
-    label.classList.remove('labelIncorrect')
-  } else {
-    label.textContent = 'Does not match target output   ❌'
-    label.classList.add('labelIncorrect')
-    label.classList.remove('labelCorrect')
-  }
+      function () {
+        console.log('Copied link successfully!')
+        document.querySelector('#alert').innerHTML = 'Link copied to clipboard'
+      },
+      function () {
+        console.log('Failed to copy link')
+      },
+    )
 })
