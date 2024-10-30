@@ -26,7 +26,6 @@ document.querySelector('#run').addEventListener('click', function () {
     label.classList.remove('labelCorrect')
   }
 })
-
 // Create and configure a new web worker to run python code
 function createCodeWorker() {
   const codeWorker = new Worker('./worker.js')
@@ -46,16 +45,19 @@ function createCodeWorker() {
 
 // Run python code in web worker and deal with run button
 let codeWorker = createCodeWorker()
+// let workerIsDead = false
 
 // get HTML elements
 const runButton = document.querySelector('#run-button')
 const endButton = document.querySelector('#end-button')
-// Ensure the end button is disabled by default
-endButton.disabled = true
 const timeDisplayP = document.querySelector('#time-displayed')
 
 // Run code when button pressed.
 runButton.addEventListener('click', function () {
+  //
+  // if (workerIsDead) {
+  //   codeWorker = createCodeWorker()
+  // }
   const studentCode = document.querySelector('#code-area').value
   runButton.disabled = true
   endButton.disabled = false
@@ -71,6 +73,7 @@ runButton.addEventListener('click', function () {
 endButton.addEventListener('click', function () {
   codeWorker.terminate()
   codeWorker = createCodeWorker() // send in the next worker
+
   runButton.disabled = false
   endButton.disabled = true
 })
