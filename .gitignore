@@ -64,7 +64,3 @@ node_modules/
 __pycache__/
 .venv
 .vscode
-.pytest_cache
-pytest
-python
-venv/
