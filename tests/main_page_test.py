@@ -4,7 +4,7 @@ Tests for the teacher view of the application
 These are the end-to-end UI test for index.html
 """
 
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page, expect, Error
 import pytest
 
 
@@ -37,7 +37,12 @@ def test_student_link_navigates(page: Page):
     page.locator("#output-text").fill("test output")
 
     # Step 3: Pushing the (share) Button
-    page.context.grant_permissions(["clipboard-write"])
+    try:
+        # Acquire clipboard-write. This is only supported and required in Chromium.
+        page.context.grant_permissions(["clipboard-write"])
+    except Error:
+        pass
+
     page.locator("#share").click()
 
     # Step 4: Checking for Alert
