@@ -41,7 +41,7 @@ def test_student_link_navigates(page: Page):
     page.locator("#share").click()
 
     # Step 4: Checking for Alert
-    page.locator("#link-display").click()
+    page.locator("#copy-link").click()
 
     expect(page.locator("#alert")).to_be_visible()
     expect(page.locator("#alert")).to_have_text("Link copied to clipboard")
