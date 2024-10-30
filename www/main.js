@@ -64,8 +64,9 @@ endButton.addEventListener('click', function () {
   endButton.disabled = true
 })
 
-saveOutput.addEventListener('click', function() {
-  document.querySelector('#output-text').value = document.querySelector('#code-output').innerHTML
+saveOutput.addEventListener('click', function () {
+  document.querySelector('#output-text').value =
+    document.querySelector('#code-output').innerHTML
 })
 
 // Make share button generate link to current page.
@@ -101,4 +102,3 @@ linkDisplay.addEventListener('click', function (event) {
     },
   )
 })
-
