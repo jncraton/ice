@@ -14,12 +14,10 @@ loadDefaultData()
 // Make check output button function
 function checkOutput(output){
   let targetText = document.querySelector('#target-text').value
-  console.log(targetText)
-  console.log(output)
   targetText = formatString(targetText)
   output = formatString(output)
   const label = document.querySelector('#check-code-result')
-  if (output == targetText) {
+  if (output === targetText) {
     label.textContent = 'Correct   ✔'
     label.classList.add('labelCorrect')
     label.classList.remove('labelIncorrect')
@@ -32,8 +30,9 @@ function checkOutput(output){
 
 //Removes leading and trailing white space from string
 function formatString(val){
-  val.strip()
-  return val
+  val.trim()
+  const withoutLineBreaks = val.replace(/[\r\n]/gm, '')
+  return withoutLineBreaks
 }
 
 // Create and configure a new web worker to run python code
