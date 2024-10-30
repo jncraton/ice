@@ -12,7 +12,7 @@ function loadDefaultData() {
 loadDefaultData()
 
 // Make check output button function
-function checkOutput(output){
+function checkOutput(output) {
   let targetText = document.querySelector('#target-text').value
   targetText = formatString(targetText)
   output = formatString(output)
@@ -29,7 +29,7 @@ function checkOutput(output){
 }
 
 //Removes leading and trailing white space from string
-function formatString(val){
+function formatString(val) {
   val.trim()
   const withoutLineBreaks = val.replace(/[\r\n]/gm, '')
   return withoutLineBreaks

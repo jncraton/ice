@@ -34,7 +34,9 @@ document.querySelector('#share').addEventListener('click', function () {
 const linkDisplay = document.querySelector('#copy-link')
 linkDisplay.addEventListener('click', function (event) {
   event.preventDefault()
-  navigator.clipboard.writeText(linkDisplay.href).then(
+  navigator.clipboard
+    .writeText(document.querySelector('#link-display').innerHTML)
+    .then(
       function () {
         console.log('Copied link successfully!')
         document.querySelector('#alert').innerHTML = 'Link copied to clipboard'
