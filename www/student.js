@@ -28,7 +28,7 @@ document.querySelector('#run').addEventListener('click', function () {
 })
 // Create and configure a new web worker to run python code
 function createCodeWorker() {
-  const codeWorker = new Worker('/worker.js')
+  const codeWorker = new Worker('./worker.js')
 
   codeWorker.addEventListener('message', function (msg) {
     console.log('Message received')
@@ -50,6 +50,10 @@ let codeWorker = createCodeWorker()
 // get HTML elements
 const runButton = document.querySelector('#run-button')
 const endButton = document.querySelector('#end-button')
+
+// Ensure the end button is disabled by default (firefox bug)
+endButton.disabled = true
+
 const timeDisplayP = document.querySelector('#time-displayed')
 
 // Run code when button pressed.
