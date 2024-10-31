@@ -23,7 +23,7 @@ def test_title(page: Page):
 def test_student_input(page: Page):
     """Confirm that output text is visible"""
 
-    textarea_locator = page.locator("#output-text")
+    textarea_locator = page.locator("#target-text")
     assert textarea_locator.is_visible()
 
 
