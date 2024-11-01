@@ -3,7 +3,6 @@ Tests for the ability to run code in both the student and teacher view of the ap
 """
 
 from playwright.sync_api import Page, expect
-import pytest
 
 
 def test_python_runs_teacher(page: Page):
