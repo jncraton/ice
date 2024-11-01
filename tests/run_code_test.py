@@ -8,13 +8,10 @@ from playwright.sync_api import Page, expect
 def test_python_runs_teacher(page: Page):
     """
     Go to teacher page
+    Test that basic python code can execute
     """
 
     page.goto("http://localhost:8000")
-
-    """
-    Test that basic python code can execute
-    """
 
     # 1. Put code in code area
     textarea_locator = page.locator("#code-area")
@@ -30,14 +27,11 @@ def test_python_runs_teacher(page: Page):
 def test_buttons_disable_teacher(page: Page):
     """
     Go to teacher page
-    """
-
-    page.goto("http://localhost:8000")
-
-    """
     Test that running a python program enables/disables the right buttons,
     and stopping it from running enables/disables the correct buttons.
     """
+
+    page.goto("http://localhost:8000")
 
     # 1. Put code in code area
     textarea_locator = page.locator("#code-area")
@@ -61,13 +55,10 @@ def test_buttons_disable_teacher(page: Page):
 def test_python_runs_student(page: Page):
     """
     Go to student page
+    Test that basic python code can execute
     """
 
     page.goto("http://localhost:8000/student.html")
-
-    """
-    Test that basic python code can execute
-    """
 
     # 1. Put code in code area
     textarea_locator = page.locator("#code-area")
@@ -83,14 +74,11 @@ def test_python_runs_student(page: Page):
 def test_buttons_disable_student(page: Page):
     """
     Go to student page
-    """
-
-    page.goto("http://localhost:8000/student.html")
-
-    """
     Test that running a python program enables/disables the right buttons,
     and stopping it from running enables/disables the correct buttons.
     """
+
+    page.goto("http://localhost:8000/student.html")
 
     # 1. Put code in code area
     textarea_locator = page.locator("#code-area")
