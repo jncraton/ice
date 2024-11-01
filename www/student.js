@@ -26,14 +26,12 @@ function checkOutput(output) {
     label.classList.add('labelIncorrect')
     label.classList.remove('labelCorrect')
   }
-})
+}
 
 // get HTML elements
 const runButton = document.querySelector('#run-button')
 const endButton = document.querySelector('#end-button')
 const timeDisplayP = document.querySelector('#time-displayed')
-
-}
 
 //Removes leading and trailing white space from string
 function formatString(val) {
@@ -41,7 +39,6 @@ function formatString(val) {
   const withoutLineBreaks = val.replace(/[\r\n]/gm, '')
   return withoutLineBreaks
 }
-
 
 // Create and configure a new web worker to run python code
 function createCodeWorker() {
