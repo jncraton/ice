@@ -11,6 +11,12 @@ function loadDefaultData() {
 }
 loadDefaultData()
 
+// get HTML elements
+const runButton = document.querySelector('#run-button')
+const endButton = document.querySelector('#end-button')
+const timeDisplayP = document.querySelector('#time-displayed')
+const saveOutput = document.querySelector('#save-output')
+
 // Create and configure a new web worker to run python code
 function createCodeWorker() {
   const codeWorker = new Worker('/worker.js')
@@ -31,12 +37,6 @@ function createCodeWorker() {
 // Run python code in web worker and deal with run button
 let codeWorker = createCodeWorker()
 // let workerIsDead = false
-
-// get HTML elements
-const runButton = document.querySelector('#run-button')
-const endButton = document.querySelector('#end-button')
-const timeDisplayP = document.querySelector('#time-displayed')
-const saveOutput = document.querySelector('#save-output')
 
 // Run code when button pressed.
 runButton.addEventListener('click', function () {
