@@ -21,7 +21,7 @@ def test_python_runs_teacher(page: Page):
     page.locator("#run-button").click()
 
     # 3. Assert desired output is
-    expect(page.locator("#code-output")).to_have_text("Hello, world!")
+    expect(page.locator("#code-output")).to_have_text('Hello, world!')
 
 
 def test_buttons_disable_teacher(page: Page):
@@ -68,7 +68,7 @@ def test_python_runs_student(page: Page):
     page.locator("#run-button").click()
 
     # 3. Assert desired output is
-    expect(page.locator("#code-output")).to_have_text("Hello, world!")
+    expect(page.locator("#code-output")).to_have_text('Hello, world!')
 
 
 def test_buttons_disable_student(page: Page):
