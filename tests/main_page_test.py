@@ -36,41 +36,29 @@ def test_student_link_navigates(page: Page):
     # Step 2: Input text in output field
     page.locator("#output-text").fill("test output")
 
-    # Step 3: Pushing the (share) Button
+    # Step 3: Copy Link
     try:
         # Acquire clipboard-write. This is only supported and required in Chromium.
         page.context.grant_permissions(["clipboard-write"])
     except Error:
         pass
 
-    page.locator("#share").click()
+    page.locator("#copy").click()
 
-    # Step 4: Checking for Alert
-    page.locator("#copy-link").click()
-
-    expect(page.locator("#alert")).to_be_visible()
-    expect(page.locator("#alert")).to_have_text("Link copied to clipboard")
+    expect(page.locator("#copy")).to_contain_text("Copied")
 
 
 def test_embed_code_generation(page: Page):
     """Confirm that the embed link returns the expected URL"""
 
-    # Step 1: Fill the necessary fields
-    page.fill("#code-area", "Sample code")  # Fill the code area with sample code
-    page.fill(
-        "#output-text", "Sample output"
-    )  # Fill the output text area with sample output
+    # Step 1: Input text in input field
+    page.locator("#code-area").fill("Sample code")
 
-    # Step 2: Click the Share button
-    page.click("#share")  # Interacts with the button by its ID
+    # Step 2: Input text in output field
+    page.locator("#output-text").fill("Sample output")
 
-    # Step 3: Wait for the embed code to appear in the textarea
-    embed_code_display = page.locator(
-        "#embed-code"
-    )  # Ensure this matches your HTML structure
-    expect(
-        embed_code_display
-    ).to_be_visible()  # Ensure the embed code textarea is visible
+    # Step 3: Select embed mode
+    page.select_option("select#share-type", label="Embed")
 
     # Step 4: Verify that the embed code is correct
     # Generate the expected URL based on the inputs
@@ -85,4 +73,4 @@ def test_embed_code_generation(page: Page):
     )
 
     # Assert that the displayed embed code matches the expected embed code
-    expect(embed_code_display).to_have_value(expected_embed_code)
+    expect(page.locator("#share-text")).to_have_value(expected_embed_code)
