@@ -21,6 +21,7 @@ async function runPythonCode(code) {
   // let pythonConsoleString = ""
   // pyodide.setStdout({ batched: function (msg) { pythonConsoleString += `\n${msg}` } })
 
+  try{
   let result = await pyodide.runPythonAsync(code)
 
   if (result == undefined) {
@@ -28,6 +29,11 @@ async function runPythonCode(code) {
   } else {
     return self.pythonConsoleString + `\n\nReturned: ${result}`
   }
+}
+catch (error) {
+  // Return the error message to student.js
+  return `Error: ${error.message}`
+}
 }
 
 this.addEventListener('message', function (msg) {
