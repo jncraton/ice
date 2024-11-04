@@ -19,7 +19,7 @@ document.querySelector('#share').addEventListener('click', function () {
   const base64String = btoa(JSON.stringify([codeText, outputText]))
 
   const url =
-    location.origin + location.pathname + 'student.html' + `#${base64String}`
+    location.origin + location.pathname + 'student' + `#${base64String}`
 
   document.querySelector('#link-display').innerHTML = url
   document.querySelector('#copy-link').removeAttribute('hidden')
