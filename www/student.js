@@ -43,7 +43,7 @@ function createCodeWorker() {
     console.log('Message received')
 
     if (msg.data.type === 'result') {
-      document.querySelector('#code-output').innerHTML = msg.data.result
+      document.querySelector('#code-output').innerHTML = msg.data.result.trim()
       runButton.disabled = false
       endButton.disabled = true
       checkOutput(msg.data.result)
