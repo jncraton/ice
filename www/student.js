@@ -60,6 +60,9 @@ let codeWorker = createCodeWorker()
 const runButton = document.querySelector('#run-button')
 const endButton = document.querySelector('#end-button')
 
+// Ensure the end button is disabled by default (firefox bug)
+endButton.disabled = true
+
 const timeDisplayP = document.querySelector('#time-displayed')
 
 // Run code when button pressed.
