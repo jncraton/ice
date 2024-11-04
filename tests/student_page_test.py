@@ -66,3 +66,35 @@ def test_buttons_disable(page: Page):
     # 5. Expect the run button to be enabled, end button to be disabled.
     expect(page.locator("#run-button")).to_be_enabled()
     expect(page.locator("#end-button")).to_be_disabled()
+
+def test_check_output_correct(page: Page):
+    
+    # 1. Put code in code area
+    textarea_locator = page.locator("#code-area")
+    textarea_locator.fill("Hello World!")
+    
+    # 2. Put code in Desired output
+    textarea_locator = page.locator("#target-text")
+    textarea_locator.fill("Hello World!")
+    
+    # 3. Click Run Button
+    page.locator("#run-button").click()
+    
+    # 4. Check Output
+    expect(page.locator("#check-code-result")).to_contain_text("Correct   ✔")
+    
+def test_check_output_incorrect(page: Page):
+    
+    # 1. Put code in code area
+    textarea_locator = page.locator("#code-area")
+    textarea_locator.fill("Hello Word")
+    
+    # 2. Put code in Desired output
+    textarea_locator = page.locator("#target-text")
+    textarea_locator.fill("Hello World!")
+    
+    # 3. Click Run Button
+    page.locator("#run-button").click()
+    
+    # 4. Check Output
+    expect(page.locator("#check-code-result")).to_contain_text("Does not match target output   ❌")
