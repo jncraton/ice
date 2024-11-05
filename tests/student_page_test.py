@@ -76,7 +76,7 @@ def test_check_output_correct(page: Page):
      
     # 1. Put code in code area
     codearea_locator = page.locator("#code-area")
-    codearea_locator.fill(print("Hello World!"))
+    codearea_locator.fill("print('Hello World!')")
     
     # 2. Put code in Desired output
     targettext_locator = page.locator("#target-text")
@@ -99,7 +99,7 @@ def test_check_output_incorrect(page: Page):
     
     # 1. Put code in code area
     codearea_locator = page.locator("#code-area")
-    codearea_locator.fill(print("Hello Word"))
+    codearea_locator.fill("print('Hello Word')")
     
     # 2. Put code in Desired output
     targettext_locator = page.locator("#target-text")
