@@ -7,11 +7,18 @@ These are the end-to-end UI test for index.html
 from playwright.sync_api import Page, expect
 import pytest
 
+from app.app import app
+
+
+@pytest.fixture
+def client():
+    return app.test_client()
+
 
 @pytest.fixture(scope="function", autouse=True)
 def before_each(page: Page):
     """Load the page before each test"""
-    page.goto("http://localhost:8000")
+    page.goto("http://localhost:5000")
 
 
 def test_title(page: Page):
