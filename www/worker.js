@@ -21,19 +21,18 @@ async function runPythonCode(code) {
   // let pythonConsoleString = ""
   // pyodide.setStdout({ batched: function (msg) { pythonConsoleString += `\n${msg}` } })
 
-  try{
-  let result = await pyodide.runPythonAsync(code)
+  try {
+    let result = await pyodide.runPythonAsync(code)
 
-  if (result == undefined) {
-    return self.pythonConsoleString
-  } else {
-    return self.pythonConsoleString + `\n\nReturned: ${result}`
+    if (result == undefined) {
+      return self.pythonConsoleString
+    } else {
+      return self.pythonConsoleString + `\n\nReturned: ${result}`
+    }
+  } catch (error) {
+    // Return the error message to student.js
+    return `Error: ${error.message}`
   }
-}
-catch (error) {
-  // Return the error message to student.js
-  return `Error: ${error.message}`
-}
 }
 
 this.addEventListener('message', function (msg) {
