@@ -14,8 +14,15 @@ You can view a live version of the page at https://jncraton.github.io/ice/
 
 1. Clone this repository
 2. Open the command prompt in the project directory
-3. Run `python -m http.server`
-4. Navigate to [localhost:8000](localhost:8000)
+3. Navigate to the app directory (`cd app`)
+4. Run the command: `flask run`
+5. Open your browser and navigate to [localhost:5000](localhost:5000)
+
+## Running
+
+1. Navigate to the app directory (`cd app`)
+2. Run the command: `flask run`
+3. Open your browser and navigate to [localhost:5000](localhost:5000)
 
 ## Testing
 
@@ -25,4 +32,6 @@ We use Playwright and PyTest to run unit tests.
 2. Install dependencies from `requirements.txt`
 3. Open your command line in your project directory and run the following command
    `playwright install`
-4. Run `pytest`
+4. Run the server using the "running" directions above. 
+5. Navigate back to the project directory
+6. Run `pytest`
