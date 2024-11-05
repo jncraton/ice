@@ -92,3 +92,25 @@ def test_buttons_disable_firefox_bug(page: Page):
     # 5. Expect run button to be enabled, end button to be disabled
     expect(page.locator("#run-button")).to_be_enabled()
     expect(page.locator("#end-button")).to_be_disabled()
+
+def test_error_message_displayed(page: Page):
+    """
+    Test that an error message is displayed when there is an execution error.
+    """
+    # 1. Enter code that will cause an error (e.g., division by zero)
+    textarea_locator = page.locator("#code-area")
+    textarea_locator.fill('print(1 / 0)')  # This will raise a ZeroDivisionError
+
+    # 2. Click the Run Button
+    page.locator("#run-button").click()
+
+    # 3. Wait for the output to be updated
+    page.wait_for_timeout(3000)  # Allow some time for the error message to render
+
+    # 4. Get the output text
+    error_output = page.locator("#code-output").text_content()
+    print("Error output:", error_output)  # Log the error output for debugging
+
+    # 5. Assert that an error message is displayed
+    assert error_output, "No output was generated."  # Ensure there is some output
+    assert "Error:" in error_output, f"Expected 'Error:' in output, but got: {error_output}"
