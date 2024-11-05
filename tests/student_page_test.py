@@ -70,12 +70,12 @@ def test_buttons_disable(page: Page):
 def test_check_output_correct(page: Page):
     
     # 1. Put code in code area
-    textarea_locator = page.locator("#code-area")
-    textarea_locator.fill("Hello World!")
+    codearea_locator = page.locator("#code-area")
+    codearea_locator.fill("Hello World!")
     
     # 2. Put code in Desired output
-    textarea_locator = page.locator("#target-text")
-    textarea_locator.fill("Hello World!")
+    targettext_locator = page.locator("#target-text")
+    targettext_locator.fill("Hello World!")
     
     # 3. Click Run Button
     page.locator("#run-button").click()
@@ -86,12 +86,12 @@ def test_check_output_correct(page: Page):
 def test_check_output_incorrect(page: Page):
     
     # 1. Put code in code area
-    textarea_locator = page.locator("#code-area")
-    textarea_locator.fill("Hello Word")
+    codearea_locator = page.locator("#code-area")
+    codearea_locator.fill("Hello Word")
     
     # 2. Put code in Desired output
-    textarea_locator = page.locator("#target-text")
-    textarea_locator.fill("Hello World!")
+    targettext_locator = page.locator("#target-text")
+    targettext_locator.fill("Hello World!")
     
     # 3. Click Run Button
     page.locator("#run-button").click()
