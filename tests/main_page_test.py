@@ -4,6 +4,7 @@ Tests for the teacher view of the application
 These are the end-to-end UI test for index.html
 """
 
+import re
 from playwright.sync_api import Page, expect, Error
 import pytest
 
@@ -46,6 +47,12 @@ def test_student_link_navigates(page: Page):
     page.locator("#copy").click()
 
     expect(page.locator("#copy")).to_contain_text("Copied")
+
+
+def test_initial_share_url(page: Page):
+    """Confirm that the sharing url is populated on page load"""
+
+    expect(page.locator("#share-text")).to_have_value(re.compile(r"http.*"))
 
 
 def test_embed_code_generation(page: Page):
