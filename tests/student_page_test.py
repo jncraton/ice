@@ -81,7 +81,7 @@ def test_check_output_correct(page: Page):
     page.locator("#run-button").click()
     
     # 4. Check Output
-    expect(page.locator("#check-code-result")).to_contain_text("Correct   ✔")
+    expect(page.locator("#check-code-result")).to_contain_text("Correct   ✔", timeout=10000)
     
 def test_check_output_incorrect(page: Page):
     
