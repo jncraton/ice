@@ -35,6 +35,21 @@ sub {
   display: inline-block;
 }
 
+#output-text {
+  width: 500px;
+  height: 175px;
+}
+
+#code-output {
+  width: 500px;
+  height: 175px;
+}
+
+#target-text {
+  width: 500px;
+  height: 175px;
+}
+
 .labelIncorrect {
   border: 2px solid rgba(255, 0, 0, 0.5);
 }
