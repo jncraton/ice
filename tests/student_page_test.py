@@ -105,12 +105,12 @@ def test_error_message_displayed(page: Page):
     page.locator("#run-button").click()
 
     # 3. Wait for the output to be updated
-    page.wait_for_timeout(3000)  # Allow some time for the error message to render
+    page.wait_for_timeout(3000) 
 
     # 4. Get the output text
     error_output = page.locator("#code-output").text_content()
-    print("Error output:", error_output)  # Log the error output for debugging
+    print("Error output:", error_output) 
 
     # 5. Assert that an error message is displayed
-    assert error_output, "No output was generated."  # Ensure there is some output
+    assert error_output, "No output was generated."  
     assert "Error:" in error_output, f"Expected 'Error:' in output, but got: {error_output}"
