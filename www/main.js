@@ -28,7 +28,7 @@ function updateSharing() {
     document.querySelector('#share-text').value = embedCode
   }
 }
-updateSharing()
+window.addEventListener('load', updateSharing)
 
 document.querySelectorAll('textarea,select').forEach(e => {
   e.addEventListener('input', updateSharing)
