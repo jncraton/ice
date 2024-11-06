@@ -104,6 +104,7 @@ def test_check_output_incorrect(page: Page):
     
     # 2. Put code in Desired output
     targettext_locator = page.locator("#target-text")
+    targettext_locator.evaluate("element => element.removeAttribute('disabled')")
     targettext_locator.fill("Hello World!")
 
     # 3. Click Run Button
