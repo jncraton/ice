@@ -7,21 +7,22 @@ import pytest
 
 
 @pytest.fixture(
-    name="link", params=["http://localhost:8000", "http://localhost:8000/student.html"]
+    scope="function",
+    autouse=True,
+    name="link",
+    params=["http://localhost:8000", "http://localhost:8000/student.html"],
 )
-def setup_fixture(request):
+def before_each(page: Page, request):
     """
-    Passes both page links into each test
+    Load both pages before each test
     """
-    return request.param
+    page.goto(request.param)
 
 
-def test_python_runs(page: Page, link):
+def test_python_runs(page: Page):
     """
     Test that basic python code can execute
     """
-
-    page.goto(link)
 
     # 1. Put code in code area
     textarea_locator = page.locator("#code-area")
@@ -34,13 +35,11 @@ def test_python_runs(page: Page, link):
     expect(page.locator("#code-output")).to_have_text("Hello, world!", timeout=10000)
 
 
-def test_buttons_disable(page: Page, link):
+def test_buttons_disable(page: Page):
     """
     Test that running a python program enables/disables the right buttons,
     and stopping it from running enables/disables the correct buttons.
     """
-
-    page.goto(link)
 
     # 1. Put code in code area
     textarea_locator = page.locator("#code-area")
@@ -61,13 +60,11 @@ def test_buttons_disable(page: Page, link):
     expect(page.locator("#end-button")).to_be_disabled()
 
 
-def test_buttons_disable_firefox_bug(page: Page, link):
+def test_buttons_disable_firefox_bug(page: Page):
     """
     Test that refreshing the page while the program is running leaves the
     buttons in appropriate states
     """
-
-    page.goto(link)
 
     # 1. Put code in code area
     textarea_locator = page.locator("#code-area")
