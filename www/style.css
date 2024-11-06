@@ -2,9 +2,9 @@ main {
   text-align: center;
 }
 
-#code-area {
+textarea {
   width: 500px;
-  height: 250px;
+  height: 200px;
   tab-size: 4;
 }
 

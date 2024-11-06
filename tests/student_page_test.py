@@ -68,6 +68,54 @@ def test_buttons_disable(page: Page):
     expect(page.locator("#end-button")).to_be_disabled()
 
 
+def test_check_output_correct(page: Page):
+    """
+    Test that the check output functionality works when the result of running the code
+    matches the target output.
+    """
+
+    # 1. Put code in code area
+    codearea_locator = page.locator("#code-area")
+    codearea_locator.fill("print('Hello World!')")
+
+    # 2. Put code in Desired output
+    targettext_locator = page.locator("#target-text")
+    targettext_locator.evaluate("element => element.removeAttribute('disabled')")
+    targettext_locator.fill("Hello World!")
+
+    # 3. Click Run Button
+    page.locator("#run-button").click()
+
+    # 4. Check Output
+    expect(page.locator("#check-code-result")).to_contain_text(
+        "Correct   ✔", timeout=10000
+    )
+
+
+def test_check_output_incorrect(page: Page):
+    """
+    Test that the check output functionality works when the result of running the code
+    does not match the target output.
+    """
+
+    # 1. Put code in code area
+    codearea_locator = page.locator("#code-area")
+    codearea_locator.fill("print('Hello Word')")
+
+    # 2. Put code in Desired output
+    targettext_locator = page.locator("#target-text")
+    targettext_locator.evaluate("element => element.removeAttribute('disabled')")
+    targettext_locator.fill("Hello World!")
+
+    # 3. Click Run Button
+    page.locator("#run-button").click()
+
+    # 4. Check Output
+    expect(page.locator("#check-code-result")).to_contain_text(
+        "Does not match target output   ❌", timeout=10000
+    )
+
+
 def test_buttons_disable_firefox_bug(page: Page):
     """
     Test that refreshing the page while the program is running leaves the
