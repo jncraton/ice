@@ -80,6 +80,7 @@ def test_check_output_correct(page: Page):
     
     # 2. Put code in Desired output
     targettext_locator = page.locator("#target-text")
+    targettext_locator.inner_html("enabled")
     targettext_locator.fill("Hello World!")
 
     # 3. Click Run Button
