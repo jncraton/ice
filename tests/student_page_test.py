@@ -154,3 +154,20 @@ def test_error_message_displayed(page: Page):
     # Use expect to wait until the error message appears
     error_locator = page.locator("#code-output")
     expect(error_locator).to_contain_text("Error:", timeout=10000)
+
+def test_timer(page: Page):
+    """
+    Test that the timer runs at the start of the page and stops
+    when the correct output is found
+    """
+
+    # 1. Check timer 1 after 1 second
+    #need function to wait
+    expect(page.locator("#sec")).to_have_text("01")
+
+    # Check timer after 13 seconds
+    expect(page.locator("#sec")).to_have_text("13")
+
+    # Check timer after 1 minute
+
+    expect(page.locator("#min")).to_have_text("01")
