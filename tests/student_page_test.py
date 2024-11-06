@@ -70,14 +70,14 @@ def test_buttons_disable(page: Page):
 
 def test_check_output_correct(page: Page):
     """
-    Test that the check output functionality works when the result of running the code 
+    Test that the check output functionality works when the result of running the code
     matches the target output.
     """
-     
+
     # 1. Put code in code area
     codearea_locator = page.locator("#code-area")
     codearea_locator.fill("print('Hello World!')")
-    
+
     # 2. Put code in Desired output
     targettext_locator = page.locator("#target-text")
     targettext_locator.evaluate("element => element.removeAttribute('disabled')")
@@ -94,14 +94,14 @@ def test_check_output_correct(page: Page):
 
 def test_check_output_incorrect(page: Page):
     """
-    Test that the check output functionality works when the result of running the code 
+    Test that the check output functionality works when the result of running the code
     does not match the target output.
     """
-    
+
     # 1. Put code in code area
     codearea_locator = page.locator("#code-area")
     codearea_locator.fill("print('Hello Word')")
-    
+
     # 2. Put code in Desired output
     targettext_locator = page.locator("#target-text")
     targettext_locator.evaluate("element => element.removeAttribute('disabled')")
