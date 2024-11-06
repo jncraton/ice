@@ -92,3 +92,16 @@ def test_buttons_disable_firefox_bug(page: Page):
     # 5. Expect run button to be enabled, end button to be disabled
     expect(page.locator("#run-button")).to_be_enabled()
     expect(page.locator("#end-button")).to_be_disabled()
+
+def test_error_message_displayed(page: Page):
+    """
+    Test that an error message is displayed when there is an execution error.
+    """
+    textarea_locator = page.locator("#code-area")
+    textarea_locator.fill("print('Hello world'")  # Missing closing parenthesis
+
+    page.locator("#run-button").click()
+
+    # Use expect to wait until the error message appears
+    error_locator = page.locator("#code-output")
+    expect(error_locator).to_contain_text("Error:", timeout=10000)
