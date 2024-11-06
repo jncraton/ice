@@ -93,6 +93,7 @@ def test_buttons_disable_firefox_bug(page: Page):
     expect(page.locator("#run-button")).to_be_enabled()
     expect(page.locator("#end-button")).to_be_disabled()
 
+
 def test_error_message_displayed(page: Page):
     """
     Test that an error message is displayed when there is an execution error.
