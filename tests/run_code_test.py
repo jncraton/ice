@@ -6,8 +6,10 @@ from playwright.sync_api import Page, expect
 import pytest
 
 
-@pytest.fixture(params=["http://localhost:8000", "http://localhost:8000/student.html"])
-def link(request):
+@pytest.fixture(
+    name="link", params=["http://localhost:8000", "http://localhost:8000/student.html"]
+)
+def setup_fixture(request):
     """
     Passes both page links into each test
     """
