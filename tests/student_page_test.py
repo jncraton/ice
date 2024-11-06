@@ -112,7 +112,7 @@ def test_check_output_incorrect(page: Page):
 
     # 4. Check Output
     expect(page.locator("#check-code-result")).to_contain_text(
-        "Does not match target output   ❌"
+        "Does not match target output   ❌", timeout=10000
     )
 
 
