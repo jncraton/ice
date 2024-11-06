@@ -4,6 +4,8 @@ const runButton = document.querySelector('#run-button')
 const endButton = document.querySelector('#end-button')
 const timeDisplayP = document.querySelector('#time-displayed')
 
+endButton.disabled = true
+
 // Create and configure a new web worker to run python code
 function createCodeWorker() {
   const codeWorker = new Worker('/worker.js')
