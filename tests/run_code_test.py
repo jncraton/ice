@@ -8,6 +8,9 @@ import pytest
 
 @pytest.fixture(params=["http://localhost:8000", "http://localhost:8000/student.html"])
 def link(request):
+    """
+    Passes both page links into each test
+    """
     return request.param
 
 
