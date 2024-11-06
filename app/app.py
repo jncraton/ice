@@ -1,13 +1,15 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, request
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../www")
 
 
 @app.route("/")
-def instructor_page():
-    return send_from_directory("static", "index.html")
+def serve_root():
+    return app.send_static_file("index.html")
 
 
-@app.route("/student")
-def student_page():
-    return send_from_directory("static", "student.html")
+@app.route("/<filename>.html")
+@app.route("/<filename>.js")
+@app.route("/<filename>.css")
+def serve_site(filename):
+    return app.send_static_file(request.path.lstrip("/"))
