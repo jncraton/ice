@@ -4,6 +4,7 @@ Tests for the student view of the application
 These are the end-to-end UI tests for student.html
 """
 
+import time
 from playwright.sync_api import Page, expect
 import pytest
 
@@ -162,12 +163,16 @@ def test_timer(page: Page):
     """
 
     # 1. Check timer 1 after 1 second
-    #need function to wait
+    # time.sleep(1)
+    # Test suit seems to take 1 second before it gets here
     expect(page.locator("#sec")).to_have_text("01")
 
     # Check timer after 13 seconds
+    time.sleep(12)
     expect(page.locator("#sec")).to_have_text("13")
 
     # Check timer after 1 minute
-
+    time.sleep(47)
     expect(page.locator("#min")).to_have_text("01")
+
+    # Check that timer stops when correct answer is found
