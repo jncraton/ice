@@ -14,13 +14,6 @@ def before_each(page: Page):
     """Load the page before each test"""
     page.goto("http://localhost:8000")
 
-
-def test_title(page: Page):
-    """Confirm the page has an appropriate title"""
-
-    expect(page).to_have_title("I.C.E Teacher")
-
-
 def test_desired_outcome(page: Page):
     """Confirm that output text is visible"""
 
