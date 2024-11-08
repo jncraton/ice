@@ -21,7 +21,7 @@ function checkOutput(output) {
     label.textContent = 'Correct   ✔'
     label.classList.add('labelCorrect')
     label.classList.remove('labelIncorrect')
-    timer_running = false
+    clearInterval(timer)
   } else {
     label.textContent = 'Does not match target output   ❌'
     label.classList.add('labelIncorrect')
@@ -89,30 +89,14 @@ endButton.addEventListener('click', function () {
 })
 
 // Timer functionality
-let timer_running = true
-let minute = 0
-let second = 0
+setInterval(timer, 1000)
+let seconds = 0
 
 function timer() {
-  if (timer_running) second++
-  if (second == 60) {
-    minute++
-    second = 0
-  }
-
-  let minString = minute
-  let secString = second
-
-  if (minute < 10) {
-    minString = '0' + minString
-  }
-  if (second < 10) {
-    secString = '0' + secString
-  }
-
-  document.querySelector('#min').innerHTML = minString
-  document.querySelector('#sec').innerHTML = secString
+  let timerValue = new Date(1000 * seconds).toISOString().substr(11, 8)
+  document.querySelector('#timer_val').innerHTML = timerValue
   setTimeout(timer, 1000)
+  seconds++
 }
 
 window.addEventListener('load', timer)
