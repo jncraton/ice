@@ -18,6 +18,7 @@ def serve_root():
 @app.route("/<filename>.html")
 @app.route("/<filename>.js")
 @app.route("/<filename>.css")
-def serve_site():
+def serve_site(filename):
     """Correctly route all elements within the `www` directory"""
+    # pylint: disable=unused-argument
     return app.send_static_file(request.path.lstrip("/"))
