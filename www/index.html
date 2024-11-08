@@ -1,36 +1,38 @@
 <!doctype html>
 
 <html lang="EN">
-  <head>
-    <title>Integrative Coding Experience</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css" />
-  </head>
 
-  <body>
-    <main>
-      <h1>I.C.E</h1>
-      <sub>Teacher View</sub>
-      <div id="code-block">
-        <h1>Input:</h1>
-        <textarea id="code-area"></textarea>
-      </div>
-      <div id="output-displays">
-        <h1>Desired Output:</h1>
-        <textarea type="text" id="output-text" name="output-text"></textarea>
-      </div>
+<head>
+  <title>Integrative Coding Experience</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-      <fieldset>
-        <select id="share-type">
-          <option value="share">Share</option>
-          <option value="embed">Embed</option>
-        </select>
-        <input id="share-text" readonly />
-        <button id="copy">Copy</button>
-      </fieldset>
+<body>
+  <main>
+    <h1>I.C.E</h1>
+    <sub>Teacher View</sub>
+    <div id="code-block">
+      <h1>Input:</h1>
+      <textarea id="code-area"></textarea>
+    </div>
+    <div id="output-displays">
+      <h1>Desired Output:</h1>
+      <textarea type="text" id="output-text" name="output-text"></textarea>
+    </div>
 
-      <script src="./main.js"></script>
-    </main>
-  </body>
+    <fieldset>
+      <select id="share-type">
+        <option value="share">Share</option>
+        <option value="embed">Embed</option>
+      </select>
+      <input id="share-text" readonly />
+      <button id="copy">Copy</button>
+    </fieldset>
+
+    <script src="main.js"></script>
+  </main>
+</body>
+
 </html>
