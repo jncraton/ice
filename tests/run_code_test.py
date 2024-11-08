@@ -3,14 +3,12 @@ Tests for the ability to run code in both the student and teacher view of the ap
 """
 
 from playwright.sync_api import Page, expect
-
 import pytest
 
 pytestmark = pytest.mark.parametrize("url",[("http://localhost:8000"),("http://localhost:8000/student.html")])
 
 def test_python_runs_teacher(page: Page, url):
     """
-    Go to teacher page
     Test that basic python code can execute
     """
 
@@ -29,7 +27,6 @@ def test_python_runs_teacher(page: Page, url):
 
 def test_buttons_disable_teacher(page: Page, url):
     """
-    Go to teacher page
     Test that running a python program enables/disables the right buttons,
     and stopping it from running enables/disables the correct buttons.
     """
@@ -47,9 +44,10 @@ def test_buttons_disable_teacher(page: Page, url):
     expect(page.locator("#run-button")).to_be_disabled()
     expect(page.locator("#end-button")).to_be_enabled()
 
-    # 4. Click the End button
-    page.locator("#end-button").click()
+    # 4. Refresh the page. This should kill the looping Python script.
 
-    # 5. Expect the run button to be enabled, end button to be disabled.
+    page.evaluate("window.location.reload()")
+
+    # 5. Expect run button to be enabled, end button to be disabled
     expect(page.locator("#run-button")).to_be_enabled()
     expect(page.locator("#end-button")).to_be_disabled()

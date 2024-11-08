@@ -24,22 +24,20 @@
         <span id="code-output"></span>
         <button id="save-output">Save Output</button>
         <h1>Desired Output:</h1>
-        <input type="text" id="output-text" name="output-text" />
+        <textarea type="text" id="output-text" name="output-text"></textarea>
       </div>
-      <div>
-        <h3>Share</h3>
-        <button id="share">Share Link</button>
-      </div>
-      <nav>
-        <button id="copy-link" hidden="hidden">Copy Link</button>
-        <a href="" id="link-display" target="_blank"></a>
-        <h3 id="alert"></h3>
-      </nav>
-      <div>
-        <h3>Embed Code</h3>
-        <textarea id="embed-code" readonly></textarea>
-      </div>
+
+      <fieldset>
+        <select id="share-type">
+          <option value="share">Share</option>
+          <option value="embed">Embed</option>
+        </select>
+        <input id="share-text" readonly />
+        <button id="copy">Copy</button>
+      </fieldset>
+
       <script src="main.js"></script>
+      <script src="python_run.js"></script>
     </main>
   </body>
 </html>
