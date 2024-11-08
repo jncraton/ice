@@ -176,3 +176,10 @@ def test_timer(page: Page):
     expect(page.locator("#min")).to_have_text("01")
 
     # Check that timer stops when correct answer is found
+    page.locator("#code-area").fill("print('Hello, world!')")
+    page.locator("#target-text").fill("Hello, world!")
+    page.locator("#run-button").click()
+
+    prev_time = page.locator("#sec")
+    time.sleep(3)
+    expect(page.locator("#sec")).to_have_text(prev_time)
