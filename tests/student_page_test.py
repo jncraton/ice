@@ -107,7 +107,7 @@ def test_check_output_incorrect(page: Page):
     targettext_locator = page.locator("#target-text")
     targettext_locator.evaluate("element => element.removeAttribute('disabled')")
     targettext_locator.fill("Hello World!")
-# 1. Put code in code area
+    # 1. Put code in code area
     codearea_locator = page.locator("#code-area")
     codearea_locator.fill("print('Hello Word')")
 
@@ -165,6 +165,7 @@ def test_error_message_displayed(page: Page):
     # Use expect to wait until the error message appears
     error_locator = page.locator("#code-output")
     expect(error_locator).to_contain_text("Error:", timeout=10000)
+
 
 def test_timer(page: Page):
     """
