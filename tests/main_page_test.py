@@ -12,7 +12,7 @@ import pytest
 @pytest.fixture(scope="function", autouse=True)
 def before_each(page: Page):
     """Load the page before each test"""
-    page.goto("http://localhost:5000")
+    page.goto("http://localhost:8000")
 
 
 def test_title(page: Page):
