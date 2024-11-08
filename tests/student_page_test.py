@@ -107,7 +107,17 @@ def test_check_output_incorrect(page: Page):
     targettext_locator = page.locator("#target-text")
     targettext_locator.evaluate("element => element.removeAttribute('disabled')")
     targettext_locator.fill("Hello World!")
+# 1. Put code in code area
+    codearea_locator = page.locator("#code-area")
+    codearea_locator.fill("print('Hello Word')")
 
+    # 2. Put code in Desired output
+    targettext_locator = page.locator("#target-text")
+    targettext_locator.evaluate("element => element.removeAttribute('disabled')")
+    targettext_locator.fill("Hello World!")
+
+    # 3. Click Run Button
+    page.locator("#run-button").click()
     # 3. Click Run Button
     page.locator("#run-button").click()
 
@@ -176,10 +186,15 @@ def test_timer(page: Page):
     expect(page.locator("#min")).to_have_text("01")
 
     # Check that timer stops when correct answer is found
-    page.locator("#code-area").fill("print('Hello, world!')")
-    page.locator("#target-text").fill("Hello, world!")
+
+    codearea_locator = page.locator("#code-area")
+    codearea_locator.fill("print('Hello World')")
+
+    targettext_locator = page.locator("#target-text")
+    targettext_locator.evaluate("element => element.removeAttribute('disabled')")
+    targettext_locator.fill("Hello World!")
     page.locator("#run-button").click()
 
     prev_time = page.locator("#sec")
     time.sleep(3)
-    expect(page.locator("#sec")).to_have_text(prev_time)
+    expect(page.locator("#sec")).to_have_text(prev_time.inner_text())
