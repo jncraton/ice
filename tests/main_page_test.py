@@ -4,7 +4,8 @@ Tests for the teacher view of the application
 These are the end-to-end UI test for index.html
 """
 
-from playwright.sync_api import Page, expect
+import re
+from playwright.sync_api import Page, expect, Error
 import pytest
 
 
@@ -36,12 +37,47 @@ def test_student_link_navigates(page: Page):
     # Step 2: Input text in output field
     page.locator("#output-text").fill("test output")
 
-    # Step 3: Pushing the (share) Button
-    page.context.grant_permissions(["clipboard-write"])
-    page.locator("#share").click()
+    # Step 3: Copy Link
+    try:
+        # Acquire clipboard-write. This is only supported and required in Chromium.
+        page.context.grant_permissions(["clipboard-write"])
+    except Error:
+        pass
 
-    # Step 4: Checking for Alert
-    page.locator("#copy-link").click()
+    page.locator("#copy").click()
 
-    expect(page.locator("#alert")).to_be_visible()
-    expect(page.locator("#alert")).to_have_text("Link copied to clipboard")
+    expect(page.locator("#copy")).to_contain_text("Copied")
+
+
+def test_initial_share_url(page: Page):
+    """Confirm that the sharing url is populated on page load"""
+
+    expect(page.locator("#share-text")).to_have_value(re.compile(r"http.*"))
+
+
+def test_embed_code_generation(page: Page):
+    """Confirm that the embed link returns the expected URL"""
+
+    # Step 1: Input text in input field
+    page.locator("#code-area").fill("Sample code")
+
+    # Step 2: Input text in output field
+    page.locator("#output-text").fill("Sample output")
+
+    # Step 3: Select embed mode
+    page.select_option("select#share-type", label="Embed")
+
+    # Step 4: Verify that the embed code is correct
+    # Generate the expected URL based on the inputs
+    expected_url = page.evaluate(
+        """location.origin + location.pathname + "student.html#" + 
+        btoa(JSON.stringify(["Sample code", "Sample output"]))"""
+    )
+    # Construct the expected embed code
+    expected_embed_code = (
+        f'<iframe src="{expected_url}" width="100%" '
+        f'height="800" frameborder="0" allowfullscreen></iframe>'
+    )
+
+    # Assert that the displayed embed code matches the expected embed code
+    expect(page.locator("#share-text")).to_have_value(expected_embed_code)

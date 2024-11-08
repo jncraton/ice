@@ -2,9 +2,9 @@ main {
   text-align: center;
 }
 
-#code-area {
+textarea {
   width: 500px;
-  height: 250px;
+  height: 200px;
   tab-size: 4;
 }
 
@@ -18,11 +18,6 @@ main {
   margin-bottom: 10px;
 }
 
-#embed-code {
-  width: 30%;
-  height: 60px;
-}
-
 sub {
   font-weight: bold;
   font-style: italic;
@@ -33,6 +28,29 @@ sub {
   padding: 5px;
   border-radius: 5px;
   display: inline-block;
+}
+
+#output-text {
+  width: 500px;
+  height: 175px;
+}
+
+#code-output {
+  width: 500px;
+  height: 175px;
+}
+
+#target-text {
+  width: 500px;
+  height: 175px;
+}
+
+#copy {
+  min-width: 6em;
+}
+
+fieldset {
+  border: 0;
 }
 
 .labelIncorrect {
