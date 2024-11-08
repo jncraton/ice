@@ -94,7 +94,6 @@ let minute = 0
 let second = 0
 
 function timer() {
-
   if (timer_running) second++
   if (second == 60) {
     minute++
