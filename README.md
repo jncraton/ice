@@ -21,7 +21,7 @@ You can view a live version of the page at https://jncraton.github.io/ice/
 ## Running
 
 1. Navigate to the app directory (`cd app`)
-2. Run the command: `flask run`
+2. Run the command: `flask --app ../app/app.py run`
 3. Open your browser and navigate to [localhost:5000](localhost:5000)
 
 ## Testing
