@@ -13,6 +13,7 @@ def before_each(page: Page):
     """Load the page before each test"""
     page.goto("http://localhost:8000/student.html")
 
+
 def test_student_input(page: Page):
     """Confirm that output text is visible"""
 
