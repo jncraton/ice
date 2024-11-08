@@ -26,7 +26,7 @@ You can view a live version of the page at https://jncraton.github.io/ice/
 
 ## Running Without Stats
 
-1. Navigate to the website's  directory (`cd www`)
+1. Navigate to the website's directory (`cd www`)
 2. Run the command: `python -m http.server`
 3. Open your browser and navigate to [localhost:8000](localhost:8000)
 
@@ -38,6 +38,6 @@ We use Playwright and PyTest to run unit tests.
 2. Install dependencies from `requirements.txt`
 3. Open your command line in your project directory and run the following command
    `playwright install`
-4. Run the server using the "running" directions above. 
+4. Run the server using the "running" directions above.
 5. Navigate back to the project directory
 6. Run `pytest`

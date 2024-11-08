@@ -1,42 +1,39 @@
 <!doctype html>
 
 <html lang="EN">
+  <head>
+    <title>Integrative Coding Experience</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src=" https://cdn.jsdelivr.net/pyodide/v0.26.3/full/pyodide.js"></script>
+  </head>
 
-<head>
-  <title>Integrative Coding Experience</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <link rel="stylesheet" href="./style.css"" />
-    <script src=" https://cdn.jsdelivr.net/pyodide/v0.26.3/full/pyodide.js">
-    </script>
-</head>
-
-<body>
-  <main>
-    <h1>I.C.E</h1>
-    <sub>Student View</sub>
-    <div id="code-block">
-      <h1>Input:</h1>
-      <textarea id="code-area"></textarea>
-    </div>
-    <div id="output-displays">
-      <button id="run-button">Run</button>
-      <button id="end-button" disabled>End</button>
-      <p id="time-displayed"></p>
-      <h1>Code Output:</h1>
-      <span id="code-output"></span>
-      <h1>Desired Output:</h1>
-      <input type="text" id="output-text" name="output-text" disabled />
-    </div>
-    <div id="run">
-      <button id="checkCode">Check Code</button>
-    </div>
-    <div id="run">
-      <label id="check-code-result"></label>
-    </div>
-    <script src="./student.js""></script>
-      <script src=" ./textarea.js""></script>
-  </main>
-</body>
-
+  <body>
+    <main>
+      <h1>I.C.E</h1>
+      <sub>Student View</sub>
+      <div id="code-block">
+        <h1>Input:</h1>
+        <textarea id="code-area"></textarea>
+      </div>
+      <div id="output-displays">
+        <button id="run-button">Run</button>
+        <button id="end-button" disabled>End</button>
+        <p id="time-displayed"></p>
+        <h1>Code Output:</h1>
+        <span id="code-output"></span>
+        <h1>Desired Output:</h1>
+        <input type="text" id="output-text" name="output-text" disabled />
+      </div>
+      <div id="run">
+        <button id="checkCode">Check Code</button>
+      </div>
+      <div id="run">
+        <label id="check-code-result"></label>
+      </div>
+      <script src="./student.js"></script>
+      <script src=" ./textarea.js"></script>
+    </main>
+  </body>
 </html>
