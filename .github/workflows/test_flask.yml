@@ -11,5 +11,6 @@ jobs:
       - uses: actions/checkout@v4
       - run: pip install pytest-playwright
       - run: python -m playwright install
+      - run: pip install flask
       - run: cd www && flask --app ../app/app.py run --port 8000 && cd .. &
       - run: pytest
