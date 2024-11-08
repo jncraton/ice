@@ -1,4 +1,4 @@
-name: Automated testing
+name: Automated HTTP server testing
 on:
   push:
     branches: ['main']

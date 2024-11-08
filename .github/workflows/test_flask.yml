@@ -1,4 +1,4 @@
-name: Automated testing
+name: Automated Flask testing
 on:
   push:
     branches: ['main']
