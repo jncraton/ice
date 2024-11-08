@@ -17,7 +17,7 @@ def before_each(page: Page):
 def test_title(page: Page):
     """Confirm the page has an appropriate title"""
 
-    expect(page).to_have_title("Integrative Coding Experience")
+    expect(page).to_have_title("I.C.E Student")
 
 
 def test_student_input(page: Page):
