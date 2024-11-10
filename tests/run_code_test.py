@@ -5,7 +5,10 @@ Tests for the ability to run code in both the student and teacher view of the ap
 from playwright.sync_api import Page, expect
 import pytest
 
-pytestmark = pytest.mark.parametrize("url",[("http://localhost:8000"),("http://localhost:8000/student.html")])
+pytestmark = pytest.mark.parametrize("url",
+                                    [("http://localhost:8000"),
+                                    ("http://localhost:8000/student.html")]
+                                    )
 
 def test_python_runs_teacher(page: Page, url):
     """
