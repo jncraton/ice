@@ -4,11 +4,54 @@
     Currently provides routes to all static files in the `www` directory
 """
 
-from flask import Flask, request
+import sqlite3
+import os.path
+from flask import Flask, request, g
 
 app = Flask(__name__, static_folder="../www")
 
+DATABASE_PATH = "db/ice-database.db"
 
+
+# Set up database
+def get_db():
+    """
+    Establishes a connection to the database. Requires an app context to run.
+    See https://flask.palletsprojects.com/en/stable/patterns/sqlite3/ for more details.
+    """
+    db = getattr(g, "_database", None)
+    if db is None:
+        if os.path().isfile(DATABASE_PATH):
+            # If the database file exists, load it. Otherwise, init the database.
+            db = g._database = sqlite3.connect(DATABASE_PATH)
+        else:
+            db = g._database = sqlite3.connect(DATABASE_PATH)
+            with app.open_resource("db/schema.sql") as f:
+                db.cursor().executescript(f.read())
+            db.commit()
+
+    db.row_factory = sqlite3.Row
+    return db
+
+
+@app.teardown_appcontext
+def close_db(exception):
+    """Closes the connection to the database when the app context is destroyed."""
+    db = getattr(g, "_database", None)
+    if db is not None:
+        db.close()
+
+
+def query_db(statement, args=(), one=False):
+    """Executes a SQL statement against the database and returns the results."""
+    cur = get_db().execute(statement, args)
+    results = cur.fetchall()
+    cur.close()
+
+    return (results[0] if results else None) if one else results
+
+
+# Web server routing
 @app.route("/")
 def serve_root():
     """Return index.html when the page is first loaded"""
