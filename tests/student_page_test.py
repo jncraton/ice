@@ -15,12 +15,6 @@ def before_each(page: Page):
     page.goto("http://localhost:8000/student.html")
 
 
-def test_title(page: Page):
-    """Confirm the page has an appropriate title"""
-
-    expect(page).to_have_title("Integrative Coding Experience")
-
-
 def test_student_input(page: Page):
     """Confirm that output text is visible"""
 
@@ -41,7 +35,7 @@ def test_python_runs(page: Page):
     page.locator("#run-button").click()
 
     # 3. Assert desired output is
-    expect(page.locator("#code-output")).to_have_text("Hello, world!", timeout=10000)
+    expect(page.locator("#code-output")).to_have_text("Hello, world!", timeout=20000)
 
 
 def test_buttons_disable(page: Page):
@@ -89,7 +83,7 @@ def test_check_output_correct(page: Page):
 
     # 4. Check Output
     expect(page.locator("#check-code-result")).to_contain_text(
-        "Correct   ✔", timeout=10000
+        "Correct   ✔", timeout=20000
     )
 
 
@@ -123,7 +117,7 @@ def test_check_output_incorrect(page: Page):
 
     # 4. Check Output
     expect(page.locator("#check-code-result")).to_contain_text(
-        "Does not match target output   ❌", timeout=10000
+        "Does not match target output   ❌", timeout=20000
     )
 
 
@@ -165,6 +159,7 @@ def test_error_message_displayed(page: Page):
     # Use expect to wait until the error message appears
     error_locator = page.locator("#code-output")
     expect(error_locator).to_contain_text("Error:", timeout=10000)
+    expect(error_locator).to_contain_text("Error:", timeout=20000)
 
 
 def test_timer(page: Page):

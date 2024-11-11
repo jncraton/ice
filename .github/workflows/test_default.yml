@@ -1,0 +1,15 @@
+name: Automated HTTP server testing
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install pytest-playwright
+      - run: python -m playwright install
+      - run: cd www && python -m http.server && cd .. &
+      - run: pytest --browser chromium --browser firefox
