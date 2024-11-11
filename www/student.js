@@ -43,7 +43,7 @@ function createCodeWorker() {
 
   codeWorker.addEventListener('message', function (msg) {
     console.log('Message received')
-
+    clearTimeout(executionTimeout); // clear timeout on successful execution
     if (msg.data.type === 'result') {
       document.querySelector('#code-output').innerHTML = msg.data.result.trim()
       runButton.disabled = false
