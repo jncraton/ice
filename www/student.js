@@ -1,5 +1,7 @@
 'use strict'
 
+let executionTimeout;
+
 // Load data from URL
 function loadDefaultData() {
   if (location.hash !== '') {
