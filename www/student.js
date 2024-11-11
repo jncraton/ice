@@ -19,7 +19,11 @@ function checkOutput(output) {
   targetText = formatString(targetText)
   output = formatString(output)
   const label = document.querySelector('#check-code-result')
-  if (output === targetText) {
+  if (output === 'Error: Execution timed out. Possible infinite loop detected.') {
+    label.textContent = 'Does not match target output   ❌' 
+    label.classList.add('labelIncorrect')
+    label.classList.remove('labelCorrect')
+  } else if (output === targetText) {
     label.textContent = 'Correct   ✔'
     label.classList.add('labelCorrect')
     label.classList.remove('labelIncorrect')
@@ -80,6 +84,7 @@ runButton.addEventListener('click', function () {
     runButton.disabled = false
     endButton.disabled = true
     timeDisplayP.textContent = ''
+    checkOutput('Error: Execution timed out. Possible infinite loop detected.')
   }, 5000) // Set timeout duration (5 seconds)
   console.log('Posting message')
   codeWorker.postMessage({
