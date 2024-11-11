@@ -108,7 +108,7 @@ def test_check_output_incorrect(page: Page):
     expect(page.locator("#check-code-result")).to_contain_text(
         "Does not match target output   ❌", timeout=20000
     )
-    
+
 
 def test_error_message_displayed(page: Page):
     """
