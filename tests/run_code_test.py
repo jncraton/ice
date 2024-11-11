@@ -10,7 +10,7 @@ pytestmark = pytest.mark.parametrize(
 )
 
 
-def test_python_runs_teacher(page: Page, url):
+def test_python_runs(page: Page, url):
     """
     Test that basic python code can execute
     """
@@ -28,10 +28,11 @@ def test_python_runs_teacher(page: Page, url):
     expect(page.locator("#code-output")).to_have_text("Hello, world!", timeout=15000)
 
 
-def test_buttons_disable_teacher(page: Page, url):
+def test_buttons_disable(page: Page, url):
     """
     Test that running a python program enables/disables the right buttons,
     and stopping it from running enables/disables the correct buttons.
+    Serves the purpose of checking if looping error in FireFox does not occur.
     """
 
     page.goto(url)
