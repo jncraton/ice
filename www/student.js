@@ -1,6 +1,6 @@
 'use strict'
 
-let executionTimeout
+let executionTimeout, warningTimeout
 
 // Load data from URL
 function loadDefaultData() {
@@ -78,6 +78,7 @@ runButton.addEventListener('click', function () {
   const studentCode = document.querySelector('#code-area').value
   runButton.disabled = true
   endButton.disabled = false
+  warningTimeout = setTimeout(showWarningBox, 2000)
   executionTimeout = setTimeout(() => {
     codeWorker.terminate()
     codeWorker = createCodeWorker() // reset the worker
@@ -86,6 +87,7 @@ runButton.addEventListener('click', function () {
     runButton.disabled = false
     endButton.disabled = true
     timeDisplayP.textContent = ''
+    hideWarningBox() // Hide warning when timeout occurs
     checkOutput('Error: Execution timed out. Possible infinite loop detected.')
   }, 20000) // Set timeout duration (20 seconds to match test)
   console.log('Posting message')
@@ -104,5 +106,7 @@ endButton.addEventListener('click', function () {
   runButton.disabled = false
   endButton.disabled = true
   clearTimeout(executionTimeout) // clear timeout on manual termination
+  clearTimeout(warningTimeout) // Clear warning timeout if execution is stopped
+  hideWarningBox() // Hide warning when execution is stopped
   timeDisplayP.textContent = ''
 })
