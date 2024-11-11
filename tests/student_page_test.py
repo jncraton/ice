@@ -176,15 +176,15 @@ def test_timer(page: Page):
     # 1. Check timer 1 after 1 second
     # time.sleep(1)
     # Test suit seems to take 1 second before it gets here
-    expect(page.locator("#sec")).to_have_text("01")
+    expect(page.locator("#timer_val")).to_have_text("00:00:01")
 
     # Check timer after 13 seconds
     time.sleep(12)
-    expect(page.locator("#sec")).to_have_text("13")
+    expect(page.locator("#timer_val")).to_have_text("00:00:13")
 
     # Check timer after 1 minute
     time.sleep(47)
-    expect(page.locator("#min")).to_have_text("01")
+    expect(page.locator("#timer_val")).to_have_text("00:01:00")
 
     # Check that timer stops when correct answer is found
 
@@ -196,6 +196,6 @@ def test_timer(page: Page):
     targettext_locator.fill("Hello World!")
     page.locator("#run-button").click()
 
-    prev_time = page.locator("#sec")
+    prev_time = page.locator("#timer_val")
     time.sleep(3)
-    expect(page.locator("#sec")).to_have_text(prev_time.inner_text())
+    expect(page.locator("#timer_val")).to_have_text(prev_time.inner_text())
