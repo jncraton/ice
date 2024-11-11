@@ -167,7 +167,7 @@ def test_infinite_loop_error_message(page: Page):
     # Wait for the error message to appear in the output
     error_locator = page.locator("#code-output")
 
-    # Use expect to check if the error message appears, with a longer timeout of 20 seconds
+    # Use expect to check if the error message appears
     expect(error_locator).to_contain_text(
-        "Error: Execution timed out. Possible infinite loop detected.", timeout=20000
+        "Error: Execution timed out. Possible infinite loop detected.", timeout=10000
     )
