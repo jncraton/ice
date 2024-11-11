@@ -1,7 +1,7 @@
 'use strict'
 
 let executionTimeout, warningTimeout
-let workerCompleted = false  // Flag to track if worker finishes execution
+let workerCompleted = false // Flag to track if worker finishes execution
 
 // Load data from URL
 function loadDefaultData() {
@@ -46,7 +46,8 @@ function formatString(val) {
 
 // Show warning box function
 function showWarningBox() {
-  if (!workerCompleted) {  // Only show if the worker is still running
+  if (!workerCompleted) {
+    // Only show if the worker is still running
     const warningBox = document.querySelector('#warning-box')
     warningBox.classList.remove('warningHidden')
     warningBox.classList.add('warningVisible')
@@ -55,9 +56,9 @@ function showWarningBox() {
 
 // Hide warning box function
 function hideWarningBox() {
-  const warningBox = document.querySelector('#warning-box');
-  warningBox.classList.remove('warningVisible');
-  warningBox.classList.add('warningHidden');
+  const warningBox = document.querySelector('#warning-box')
+  warningBox.classList.remove('warningVisible')
+  warningBox.classList.add('warningHidden')
 }
 
 // Create and configure a new web worker to run python code
@@ -67,7 +68,7 @@ function createCodeWorker() {
   codeWorker.addEventListener('message', function (msg) {
     console.log('Message received')
     clearTimeout(executionTimeout) // clear timeout on successful execution
-    workerCompleted = true  // Mark worker as completed
+    workerCompleted = true // Mark worker as completed
     clearTimeout(warningTimeout) // clear warning timeout if worker finishes in time
     if (msg.data.type === 'result') {
       document.querySelector('#code-output').innerHTML = msg.data.result.trim()
@@ -97,7 +98,7 @@ runButton.addEventListener('click', function () {
   const studentCode = document.querySelector('#code-area').value
   runButton.disabled = true
   endButton.disabled = false
-  workerCompleted = false  // Reset worker completion flag
+  workerCompleted = false // Reset worker completion flag
   warningTimeout = setTimeout(showWarningBox, 2000)
   executionTimeout = setTimeout(() => {
     codeWorker.terminate()
