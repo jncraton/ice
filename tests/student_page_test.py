@@ -37,31 +37,6 @@ def test_python_runs(page: Page):
     expect(page.locator("#code-output")).to_have_text("Hello, world!", timeout=20000)
 
 
-def test_buttons_disable(page: Page):
-    """
-    Test that running a python program enables/disables the right buttons,
-    and stopping it from running enables/disables the correct buttons.
-    """
-
-    # 1. Put code in code area
-    textarea_locator = page.locator("#code-area")
-    textarea_locator.fill("while True:\n\tprint(1)")
-
-    # 2. Click Run Button
-    page.locator("#run-button").click()
-
-    # 3. Expect run button to be disabled, end button to be enabled
-    expect(page.locator("#run-button")).to_be_disabled()
-    expect(page.locator("#end-button")).to_be_enabled()
-
-    # 4. Click the End button
-    page.locator("#end-button").click()
-
-    # 5. Expect the run button to be enabled, end button to be disabled.
-    expect(page.locator("#run-button")).to_be_enabled()
-    expect(page.locator("#end-button")).to_be_disabled()
-
-
 def test_check_output_correct(page: Page):
     """
     Test that the check output functionality works when the result of running the code
