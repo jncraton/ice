@@ -19,8 +19,10 @@ function checkOutput(output) {
   targetText = formatString(targetText)
   output = formatString(output)
   const label = document.querySelector('#check-code-result')
-  if (output === 'Error: Execution timed out. Possible infinite loop detected.') {
-    label.textContent = 'Does not match target output   ❌' 
+  if (
+    output === 'Error: Execution timed out. Possible infinite loop detected.'
+  ) {
+    label.textContent = 'Does not match target output   ❌'
     label.classList.add('labelIncorrect')
     label.classList.remove('labelCorrect')
   } else if (output === targetText) {
