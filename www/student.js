@@ -72,7 +72,14 @@ runButton.addEventListener('click', function () {
   const studentCode = document.querySelector('#code-area').value
   runButton.disabled = true
   endButton.disabled = false
-
+  executionTimeout = setTimeout(() => {
+    codeWorker.terminate()
+    codeWorker = createCodeWorker() // reset the worker
+    document.querySelector('#code-output').innerHTML = "Error: Execution timed out. Possible infinite loop detected."
+    runButton.disabled = false
+    endButton.disabled = true
+    timeDisplayP.textContent = ""
+  }, 5000) // Set timeout duration (5 seconds)
   console.log('Posting message')
   codeWorker.postMessage({
     type: 'run',
