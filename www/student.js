@@ -1,6 +1,6 @@
 'use strict'
 
-let executionTimeout;
+let executionTimeout
 
 // Load data from URL
 function loadDefaultData() {
@@ -43,7 +43,7 @@ function createCodeWorker() {
 
   codeWorker.addEventListener('message', function (msg) {
     console.log('Message received')
-    clearTimeout(executionTimeout); // clear timeout on successful execution
+    clearTimeout(executionTimeout) // clear timeout on successful execution
     if (msg.data.type === 'result') {
       document.querySelector('#code-output').innerHTML = msg.data.result.trim()
       runButton.disabled = false
@@ -75,10 +75,11 @@ runButton.addEventListener('click', function () {
   executionTimeout = setTimeout(() => {
     codeWorker.terminate()
     codeWorker = createCodeWorker() // reset the worker
-    document.querySelector('#code-output').innerHTML = "Error: Execution timed out. Possible infinite loop detected."
+    document.querySelector('#code-output').innerHTML =
+      'Error: Execution timed out. Possible infinite loop detected.'
     runButton.disabled = false
     endButton.disabled = true
-    timeDisplayP.textContent = ""
+    timeDisplayP.textContent = ''
   }, 5000) // Set timeout duration (5 seconds)
   console.log('Posting message')
   codeWorker.postMessage({
@@ -91,9 +92,10 @@ runButton.addEventListener('click', function () {
 endButton.addEventListener('click', function () {
   codeWorker.terminate()
   codeWorker = createCodeWorker() // send in the next worker
-  document.querySelector('#code-output').innerHTML = "Execution terminated by user."
+  document.querySelector('#code-output').innerHTML =
+    'Execution terminated by user.'
   runButton.disabled = false
   endButton.disabled = true
   clearTimeout(executionTimeout) // clear timeout on manual termination
-  timeDisplayP.textContent = ""
+  timeDisplayP.textContent = ''
 })
