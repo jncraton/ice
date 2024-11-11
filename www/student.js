@@ -91,7 +91,9 @@ runButton.addEventListener('click', function () {
 endButton.addEventListener('click', function () {
   codeWorker.terminate()
   codeWorker = createCodeWorker() // send in the next worker
-
+  document.querySelector('#code-output').innerHTML = "Execution terminated by user."
   runButton.disabled = false
   endButton.disabled = true
+  clearTimeout(executionTimeout) // clear timeout on manual termination
+  timeDisplayP.textContent = ""
 })
