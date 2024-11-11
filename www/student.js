@@ -87,7 +87,7 @@ runButton.addEventListener('click', function () {
     endButton.disabled = true
     timeDisplayP.textContent = ''
     checkOutput('Error: Execution timed out. Possible infinite loop detected.')
-  }, 5000) // Set timeout duration (5 seconds)
+  }, 20000) // Set timeout duration (20 seconds to match test)
   console.log('Posting message')
   codeWorker.postMessage({
     type: 'run',
