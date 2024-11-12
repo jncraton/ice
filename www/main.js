@@ -11,6 +11,12 @@ function loadDefaultData() {
 }
 loadDefaultData()
 
+const saveOutput = document.querySelector('#save-output')
+saveOutput.addEventListener('click', function () {
+  document.querySelector('#output-text').value =
+    document.querySelector('#code-output').innerHTML
+})
+
 // Make share button generate link to current page.
 function updateSharing() {
   const codeText = document.querySelector('#code-area').value
