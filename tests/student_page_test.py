@@ -4,7 +4,6 @@ Tests for the student view of the application
 These are the end-to-end UI tests for student.html
 """
 
-import time
 from playwright.sync_api import Page, expect
 import pytest
 
