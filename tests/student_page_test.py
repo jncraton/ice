@@ -12,6 +12,7 @@ import pytest
 @pytest.fixture(scope="function", autouse=True)
 def before_each(page: Page):
     """Load the page before each test"""
+    page.clock.install()
     page.goto("http://localhost:8000/student.html")
 
 
@@ -168,17 +169,14 @@ def test_timer(page: Page):
     when the correct output is found
     """
 
-    # 1. Check timer 1 after 1 second
-    # time.sleep(1)
-    # Test suit seems to take 1 second before it gets here
     expect(page.locator("#timer_val")).to_have_text("00:00:01")
 
     # Check timer after 13 seconds
-    time.sleep(12)
+    page.clock.run_for(11000)
     expect(page.locator("#timer_val")).to_have_text("00:00:13")
 
     # Check timer after 1 minute
-    time.sleep(47)
+    page.clock.run_for(46000)
     expect(page.locator("#timer_val")).to_have_text("00:01:00")
 
     # Check that timer stops when correct answer is found
@@ -192,5 +190,5 @@ def test_timer(page: Page):
     page.locator("#run-button").click()
 
     prev_time = page.locator("#timer_val")
-    time.sleep(3)
+    page.clock.run_for(5000)
     expect(page.locator("#timer_val")).to_have_text(prev_time.inner_text())
