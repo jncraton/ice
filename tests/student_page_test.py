@@ -148,3 +148,26 @@ def test_error_message_displayed(page: Page):
     # Use expect to wait until the error message appears
     error_locator = page.locator("#code-output")
     expect(error_locator).to_contain_text("Error:", timeout=20000)
+
+
+def test_infinite_loop_error_message(page: Page):
+    """
+    Test that an infinite loop is detected and feedback is given to the user.
+    """
+    textarea_locator = page.locator("#code-area")
+    textarea_locator.fill(
+        """
+    while True:
+        pass
+    """
+    )
+
+    page.locator("#run-button").click()
+
+    # Wait for the error message to appear in the output
+    error_locator = page.locator("#code-output")
+
+    # Use expect to check if the error message appears
+    expect(error_locator).to_contain_text(
+        "Error: Execution timed out. Possible infinite loop detected.", timeout=21000
+    )
