@@ -29,7 +29,7 @@ def get_db():
         else:
             db = g._database = sqlite3.connect(DATABASE_PATH)
             with app.open_resource("db/schema.sql") as f:
-                db.cursor().executescript(f.read())
+                db.cursor().executescript(f.read().decode("utf-8"))
             db.commit()
 
     db.row_factory = sqlite3.Row
