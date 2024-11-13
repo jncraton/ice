@@ -21,7 +21,11 @@ function updateSharing() {
   const classCode = document.querySelector('#class-code').value
 
   const url =
-    location.origin + location.pathname + 'student.html' + `#${base64String}` + `#${classCode}`
+    location.origin +
+    location.pathname +
+    'student.html' +
+    `#${base64String}` +
+    `#${classCode}`
 
   if (document.querySelector('#share-type').value == 'share') {
     document.querySelector('#share-text').value = url
@@ -59,5 +63,4 @@ linkDisplay.addEventListener('click', function (event) {
 const linkClass = document.querySelector('#link-to-class')
 linkClass.addEventListener('click', function (event) {
   updateSharing()
-}
-)
+})
