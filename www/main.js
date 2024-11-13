@@ -58,7 +58,4 @@ linkDisplay.addEventListener('click', function (event) {
     )
 })
 
-const linkClass = document.querySelector('#link-to-class')
-linkClass.addEventListener('click', function (event) {
-  updateSharing()
-})
+document.querySelector('#class-code').addEventListener('input', updateSharing)
