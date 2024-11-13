@@ -61,6 +61,14 @@ fieldset {
   border: 2px solid rgba(0, 255, 0, 0.5);
 }
 
+.result-output {
+  font-size: 50px;
+}
+
+#result-area {
+  margin-top: 75px;
+  margin-bottom: 10px;
+}
 .warningHidden {
   display: none;
 }

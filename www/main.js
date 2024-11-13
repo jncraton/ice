@@ -22,8 +22,9 @@ saveOutput.addEventListener('click', function () {
 function updateSharing() {
   const codeText = document.querySelector('#code-area').value
   const outputText = document.querySelector('#output-text').value
+  const classCode = document.querySelector('#class-code').value
 
-  const base64String = btoa(JSON.stringify([codeText, outputText]))
+  const base64String = btoa(JSON.stringify([codeText, outputText, classCode]))
 
   const url =
     location.origin + location.pathname + 'student.html' + `#${base64String}`
@@ -60,3 +61,5 @@ linkDisplay.addEventListener('click', function (event) {
       },
     )
 })
+
+document.querySelector('#class-code').addEventListener('input', updateSharing)

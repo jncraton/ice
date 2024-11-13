@@ -130,6 +130,23 @@ endButton.addEventListener('click', function () {
   timeDisplayP.textContent = ''
 })
 
+const switchView = document.querySelector('#switch')
+switchView.addEventListener('click', function (event) {
+  const codeView = document.querySelector('#code-view')
+  const statsView = document.querySelector('#stats-view')
+  const viewLabel = document.querySelector('#view-id')
+  if (codeView.style.display == 'block') {
+    codeView.style.display = 'none'
+    statsView.style.display = 'block'
+    viewLabel.innerText = 'Stats View'
+    switchView.innerText = 'Switch to Coding View'
+  } else {
+    codeView.style.display = 'block'
+    statsView.style.display = 'none'
+    viewLabel.innerText = 'Coding View'
+    switchView.innerText = 'Switch to Stats View'
+  }
+})
 // Timer functionality
 let timer_interval = setInterval(timer, 1000)
 let seconds = 0

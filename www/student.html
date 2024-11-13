@@ -11,33 +11,48 @@
   <body>
     <main>
       <h1>I.C.E</h1>
-      <sub>Student View</sub>
-      <br />
-      <div id="timer">
-        <span>Working time: </span><span id="timer_val">00:00:00</span>
-      </div>
-      <div id="code-block">
-        <h1>Input:</h1>
-        <textarea id="code-area"></textarea>
-      </div>
-      <div id="output-displays">
-        <button id="run-button" autocomplete="off">Run</button>
-        <button id="end-button" autocomplete="off" disabled>End</button>
-        <p id="time-displayed"></p>
-
-        <!-- Warning Box -->
-        <div id="warning-box" class="warningHidden">
-          Warning: Possible infinite loop detected. Press "End" if this is
-          unintended.
+      <fieldset>
+        <label id="view-id">Coding View</label>
+        <button id="switch">Switch to Stats view</button>
+      </fieldset>
+      <div id="code-view" style="display: block">
+        <br />
+        <div id="timer">
+          <span>Working time: </span><span id="timer_val">00:00:00</span>
         </div>
+        <div id="code-block">
+          <h1>Input:</h1>
+          <textarea id="code-area"></textarea>
+        </div>
+        <div id="output-displays">
+          <button id="run-button" autocomplete="off">Run</button>
+          <button id="end-button" autocomplete="off" disabled>End</button>
+          <p id="time-displayed"></p>
 
-        <h1>Code Output:</h1>
-        <textarea id="code-output"></textarea>
-        <h1>Desired Output:</h1>
-        <textarea id="target-text" disabled></textarea>
+          <!-- Warning Box -->
+          <div id="warning-box" class="warningHidden">
+            Warning: Possible infinite loop detected. Press "End" if this is
+            unintended.
+          </div>
+
+          <h1>Code Output:</h1>
+          <textarea id="code-output"></textarea>
+          <h1>Desired Output:</h1>
+          <textarea id="target-text" disabled></textarea>
+        </div>
+        <div id="run">
+          <label id="check-code-result"></label>
+        </div>
       </div>
-      <div id="run">
-        <label id="check-code-result"></label>
+      <div id="stats-view" style="display: none">
+        <div id="result-area">
+          <h1>Students Started</h1>
+          <label class="result-output" id="students-started">1/10</label>
+        </div>
+        <div>
+          <h1>Students Completed</h1>
+          <label class="result-output" id="students-completed">1/10</label>
+        </div>
       </div>
       <script src="student.js"></script>
       <script src="textarea.js"></script>
