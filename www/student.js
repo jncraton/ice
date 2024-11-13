@@ -134,17 +134,14 @@ const switchView = document.querySelector('#switch')
 switchView.addEventListener('click', function (event) {
   const codeView = document.querySelector('#code-view')
   const statsView = document.querySelector('#stats-view')
-  const viewLabel = document.querySelector('#view-id')
-  if (codeView.style.display == 'block') {
+  if (statsView.style.display == 'none') {
     codeView.style.display = 'none'
     statsView.style.display = 'block'
-    viewLabel.innerText = 'Stats View'
-    switchView.innerText = 'Switch to Coding View'
+    switchView.innerText = 'Show Code'
   } else {
     codeView.style.display = 'block'
     statsView.style.display = 'none'
-    viewLabel.innerText = 'Coding View'
-    switchView.innerText = 'Switch to Stats View'
+    switchView.innerText = 'Show Stats'
   }
 })
 // Timer functionality
