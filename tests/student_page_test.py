@@ -104,8 +104,6 @@ def test_check_output_incorrect(page: Page):
 
     # 3. Click Run Button
     page.locator("#run-button").click()
-    # 3. Click Run Button
-    page.locator("#run-button").click()
 
     # 4. Check Output
     expect(page.locator("#check-code-result")).to_contain_text(
@@ -150,9 +148,7 @@ def test_error_message_displayed(page: Page):
 
     # Use expect to wait until the error message appears
     error_locator = page.locator("#code-output")
-    expect(error_locator).to_contain_text("Error:", timeout=10000)
     expect(error_locator).to_contain_text("Error:", timeout=20000)
-
 
 def test_timer(page: Page):
     """
