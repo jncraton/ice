@@ -11,6 +11,7 @@ import pytest
 @pytest.fixture(scope="function", autouse=True)
 def before_each(page: Page):
     """Load the page before each test"""
+    page.clock.install()
     page.goto("http://localhost:8000/student.html")
 
 
@@ -97,6 +98,37 @@ def test_error_message_displayed(page: Page):
     # Use expect to wait until the error message appears
     error_locator = page.locator("#code-output")
     expect(error_locator).to_contain_text("Error:", timeout=20000)
+
+
+def test_timer(page: Page):
+    """
+    Test that the timer runs at the start of the page and stops
+    when the correct output is found
+    """
+
+    expect(page.locator("#timer_val")).to_have_text("00:00:01")
+
+    # Check timer after 13 seconds
+    page.clock.run_for(11000)
+    expect(page.locator("#timer_val")).to_have_text("00:00:13")
+
+    # Check timer after 1 minute
+    page.clock.run_for(46000)
+    expect(page.locator("#timer_val")).to_have_text("00:01:00")
+
+    # Check that timer stops when correct answer is found
+
+    codearea_locator = page.locator("#code-area")
+    codearea_locator.fill("print('Hello World')")
+
+    targettext_locator = page.locator("#target-text")
+    targettext_locator.evaluate("element => element.removeAttribute('disabled')")
+    targettext_locator.fill("Hello World!")
+    page.locator("#run-button").click()
+
+    prev_time = page.locator("#timer_val")
+    page.clock.run_for(5000)
+    expect(page.locator("#timer_val")).to_have_text(prev_time.inner_text())
 
 
 def test_infinite_loop_error_message(page: Page):

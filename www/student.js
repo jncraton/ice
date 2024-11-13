@@ -30,6 +30,7 @@ function checkOutput(output) {
     label.textContent = 'Correct   ✔'
     label.classList.add('labelCorrect')
     label.classList.remove('labelIncorrect')
+    clearInterval(timer_interval)
   } else {
     label.textContent = 'Does not match target output   ❌'
     label.classList.add('labelIncorrect')
@@ -128,3 +129,13 @@ endButton.addEventListener('click', function () {
   hideWarningBox() // Hide warning when execution is stopped
   timeDisplayP.textContent = ''
 })
+
+// Timer functionality
+let timer_interval = setInterval(timer, 1000)
+let seconds = 0
+
+function timer() {
+  let timerValue = new Date(1000 * seconds).toISOString().substr(11, 8)
+  document.querySelector('#timer_val').innerHTML = timerValue
+  seconds++
+}
