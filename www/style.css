@@ -98,10 +98,16 @@ fieldset {
 }
 
 #warning-box {
-  float: right;
-  position: relative;
-  top: 48px;
-  margin-top: -36px;
+  position: absolute;
+  width: 420px;
+  margin-left: -442px;
+  top: 36px;
+  text-align: left;
+  color: red;
+  background-color: #ffe6e6;
+  border: 1px solid red;
+  padding: 10px;
+  font-weight: bold;
 }
 
 .warningHidden {
@@ -109,12 +115,5 @@ fieldset {
 }
 
 .warningVisible {
-  display: block;
-  color: red;
-  background-color: #ffe6e6;
-  border: 1px solid red;
-  padding: 10px;
-  margin-top: 10px;
-  text-align: center;
-  font-weight: bold;
+  display: inline-block;
 }
