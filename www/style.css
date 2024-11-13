@@ -10,10 +10,9 @@ nav {
 }
 
 textarea {
-  width: 100%;
-  height: calc(50vh - 48px);
+  width: 500px;
+  height: 200px;
   tab-size: 4;
-  box-sizing: border-box;
 }
 
 #share {
@@ -36,6 +35,17 @@ sub {
   text-align: left;
 }
 
+#code-view textarea {
+  height: calc(25vh - 48px);
+  width: 100%;
+  box-sizing: border-box;
+  resize: none;
+}
+
+#code-view #code-area {
+  height: calc(75vh - 48px);
+}
+
 #check-code-result {
   margin: -7px;
   float: right;
@@ -47,6 +57,11 @@ sub {
   display: inline-block;
 }
 
+#output-text {
+  width: 500px;
+  height: 175px;
+}
+
 #output {
   display: flex;
   flex-flow: row wrap;
@@ -55,11 +70,6 @@ sub {
 #output label {
   text-align: left;
   flex: 1;
-}
-
-#output-text {
-  width: 500px;
-  height: 175px;
 }
 
 #copy {
