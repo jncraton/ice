@@ -65,4 +65,4 @@ __pycache__/
 .venv
 .vscode
 .pytest_cache
-app/db/ice_database_1-0.db
+app/db/ice-database.db
