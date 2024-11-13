@@ -20,10 +20,7 @@ function updateSharing() {
   const base64String = btoa(JSON.stringify([codeText, outputText, classCode]))
 
   const url =
-    location.origin +
-    location.pathname +
-    'student.html' +
-    `#${base64String}` 
+    location.origin + location.pathname + 'student.html' + `#${base64String}`
 
   if (document.querySelector('#share-type').value == 'share') {
     document.querySelector('#share-text').value = url
