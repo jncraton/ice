@@ -149,16 +149,18 @@ def test_error_message_displayed(page: Page):
     error_locator = page.locator("#code-output")
     expect(error_locator).to_contain_text("Error:", timeout=20000)
 
+
 def test_results_page(page: Page):
     """
     Test student page switches between coding view and stats view.
     """
-    
+
     # 1. switch to stats view
     page.locator("#switch").click()
-    
+
     # 2. check that stats is on page
     expect(page.locator("#students-started")).to_have_text("1/10", timeout=20000)
+
 
 def test_infinite_loop_error_message(page: Page):
     """
