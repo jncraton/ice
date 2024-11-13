@@ -6,12 +6,12 @@ CREATE TABLE section (
 ) STRICT;
 
 CREATE TABLE exercise (
-    pk_exercise INTEGER PRIMARY KEY, -- alias for ROWID
+    pk_exercise_id INTEGER PRIMARY KEY, -- alias for ROWID
     fk_section_id INTEGER,
     txt_starting_code TEXT,
     txt_desired_output TEXT,
     ts_time_recorded INTEGER,
-    FOREIGN KEY (fk_section) REFERENCES section (pk_section_id)
+    FOREIGN KEY (fk_section_id) REFERENCES section (pk_section_id)
 ) STRICT;
 
 CREATE TABLE student (
@@ -32,6 +32,6 @@ CREATE TABLE student_submission (
     ts_time_recorded INTEGER,
     fk_exercise_id INTEGER,
     fk_student_id INTEGER,
-    FOREIGN KEY (fk_exercise_id) REFERENCES exercise (pk_exercise)
+    FOREIGN KEY (fk_exercise_id) REFERENCES exercise (pk_exercise_id)
     FOREIGN KEY (fk_student_id) REFERENCES student (pk_student_id)
 ) STRICT;
