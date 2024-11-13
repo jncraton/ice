@@ -96,6 +96,14 @@ fieldset {
   margin-top: 75px;
   margin-bottom: 10px;
 }
+
+#warning-box {
+  float: right;
+  position: relative;
+  top: 48px;
+  margin-top: -36px;
+}
+
 .warningHidden {
   display: none;
 }

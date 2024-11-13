@@ -15,6 +15,10 @@
         <button id="run-button" autocomplete="off">Run</button>
         <button id="end-button" autocomplete="off" disabled>End</button>
         <button id="switch">Show Stats</button>
+        <div id="warning-box" class="warningHidden">
+          Warning: Possible infinite loop detected. Press "End" if this is
+          unintended.
+        </div>
       </nav>
       <section id="code-view">
         <label
@@ -26,11 +30,6 @@
             >Expected <span id="check-code-result"></span
             ><textarea id="target-text" disabled></textarea>
           </label>
-        </div>
-        <!-- Warning Box -->
-        <div id="warning-box" class="warningHidden">
-          Warning: Possible infinite loop detected. Press "End" if this is
-          unintended.
         </div>
       </section>
 
