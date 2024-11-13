@@ -58,7 +58,7 @@ def test_embed_code_generation(page: Page):
     # Step 2: Input text in output field
     page.locator("#output-text").fill("Sample output")
 
-    # Step 3: Input class code 
+    # Step 3: Input class code
     page.locator("#class-code").fill("ABC")
 
     # Step 4: Select embed mode
