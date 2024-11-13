@@ -59,7 +59,7 @@ def test_embed_code_generation(page: Page):
     page.locator("#output-text").fill("Sample output")
 
     # Step 3: Input class code 
-    page.locator("#class-code").fill("ABC")
+    page.locator("#class-code").fill("CLS1")
 
     # Step 4: Select embed mode
     page.select_option("select#share-type", label="Embed")
@@ -68,7 +68,7 @@ def test_embed_code_generation(page: Page):
     # Generate the expected URL based on the inputs
     expected_url = page.evaluate(
         """location.origin + location.pathname + "student.html#" + 
-        btoa(JSON.stringify(["Sample code", "Sample output"])) + "#ABC" """
+        btoa(JSON.stringify(["Sample code", "Sample output", "CLS1])) """
     )
     # Construct the expected embed code
     expected_embed_code = (

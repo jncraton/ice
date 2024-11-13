@@ -15,17 +15,15 @@ loadDefaultData()
 function updateSharing() {
   const codeText = document.querySelector('#code-area').value
   const outputText = document.querySelector('#output-text').value
-
-  const base64String = btoa(JSON.stringify([codeText, outputText]))
-
   const classCode = document.querySelector('#class-code').value
+
+  const base64String = btoa(JSON.stringify([codeText, outputText, classCode]))
 
   const url =
     location.origin +
     location.pathname +
     'student.html' +
-    `#${base64String}` +
-    `#${classCode}`
+    `#${base64String}` 
 
   if (document.querySelector('#share-type').value == 'share') {
     document.querySelector('#share-text').value = url
