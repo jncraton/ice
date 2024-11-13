@@ -6,7 +6,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.3/full/pyodide.js"></script>
   </head>
 
   <body>
@@ -22,11 +21,18 @@
           <textarea id="code-area"></textarea>
         </div>
         <div id="output-displays">
-          <button id="run-button">Run</button>
-          <button id="end-button" disabled>End</button>
+          <button id="run-button" autocomplete="off">Run</button>
+          <button id="end-button" autocomplete="off" disabled>End</button>
           <p id="time-displayed"></p>
+  
+          <!-- Warning Box -->
+          <div id="warning-box" class="warningHidden">
+            Warning: Possible infinite loop detected. Press "End" if this is
+            unintended.
+          </div>
+  
           <h1>Code Output:</h1>
-          <textarea id="code-output" disabled></textarea>
+          <textarea id="code-output"></textarea>
           <h1>Desired Output:</h1>
           <textarea id="target-text" disabled></textarea>
         </div>

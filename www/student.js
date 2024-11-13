@@ -1,5 +1,8 @@
 'use strict'
 
+let executionTimeout, warningTimeout
+let workerCompleted = false // Flag to track if worker finishes execution
+
 // Load data from URL
 function loadDefaultData() {
   if (location.hash !== '') {
@@ -17,7 +20,13 @@ function checkOutput(output) {
   targetText = formatString(targetText)
   output = formatString(output)
   const label = document.querySelector('#check-code-result')
-  if (output === targetText) {
+  if (
+    output === 'Error: Execution timed out. Possible infinite loop detected.'
+  ) {
+    label.textContent = 'Does not match target output   ❌'
+    label.classList.add('labelIncorrect')
+    label.classList.remove('labelCorrect')
+  } else if (output === targetText) {
     label.textContent = 'Correct   ✔'
     label.classList.add('labelCorrect')
     label.classList.remove('labelIncorrect')
@@ -35,13 +44,32 @@ function formatString(val) {
   return withoutLineBreaks
 }
 
+// Show warning box function
+function showWarningBox() {
+  if (!workerCompleted) {
+    // Only show if the worker is still running
+    const warningBox = document.querySelector('#warning-box')
+    warningBox.classList.remove('warningHidden')
+    warningBox.classList.add('warningVisible')
+  }
+}
+
+// Hide warning box function
+function hideWarningBox() {
+  const warningBox = document.querySelector('#warning-box')
+  warningBox.classList.remove('warningVisible')
+  warningBox.classList.add('warningHidden')
+}
+
 // Create and configure a new web worker to run python code
 function createCodeWorker() {
   const codeWorker = new Worker('./worker.js')
 
   codeWorker.addEventListener('message', function (msg) {
     console.log('Message received')
-
+    clearTimeout(executionTimeout) // clear timeout on successful execution
+    workerCompleted = true // Mark worker as completed
+    clearTimeout(warningTimeout) // clear warning timeout if worker finishes in time
     if (msg.data.type === 'result') {
       document.querySelector('#code-output').innerHTML = msg.data.result.trim()
       runButton.disabled = false
@@ -60,9 +88,6 @@ let codeWorker = createCodeWorker()
 const runButton = document.querySelector('#run-button')
 const endButton = document.querySelector('#end-button')
 
-// Ensure the end button is disabled by default (firefox bug)
-endButton.disabled = true
-
 const timeDisplayP = document.querySelector('#time-displayed')
 
 // Run code when button pressed.
@@ -70,7 +95,19 @@ runButton.addEventListener('click', function () {
   const studentCode = document.querySelector('#code-area').value
   runButton.disabled = true
   endButton.disabled = false
-
+  workerCompleted = false // Reset worker completion flag
+  warningTimeout = setTimeout(showWarningBox, 2000)
+  executionTimeout = setTimeout(() => {
+    codeWorker.terminate()
+    codeWorker = createCodeWorker() // reset the worker
+    document.querySelector('#code-output').innerHTML =
+      'Error: Execution timed out. Possible infinite loop detected.'
+    runButton.disabled = false
+    endButton.disabled = true
+    timeDisplayP.textContent = ''
+    hideWarningBox() // Hide warning when timeout occurs
+    checkOutput('Error: Execution timed out. Possible infinite loop detected.')
+  }, 20000) // Set timeout duration (20 seconds to match test)
   console.log('Posting message')
   codeWorker.postMessage({
     type: 'run',
@@ -82,9 +119,14 @@ runButton.addEventListener('click', function () {
 endButton.addEventListener('click', function () {
   codeWorker.terminate()
   codeWorker = createCodeWorker() // send in the next worker
-
+  document.querySelector('#code-output').innerHTML =
+    'Execution terminated by user.'
   runButton.disabled = false
   endButton.disabled = true
+  clearTimeout(executionTimeout) // clear timeout on manual termination
+  clearTimeout(warningTimeout) // Clear warning timeout if execution is stopped
+  hideWarningBox() // Hide warning when execution is stopped
+  timeDisplayP.textContent = ''
 })
 
 const switchView = document.querySelector('#switch')
