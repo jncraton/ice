@@ -10,9 +10,16 @@ from flask import Flask, request, g
 from datetime import datetime
 import time
 
+from .config import Config, TestConfig
+
 app = Flask(__name__, static_folder="../www")
 
-DATABASE_PATH = "../app/db/ice-database.db"
+if app.config["TESTING"]:
+    app.config.from_object(TestConfig)
+else:
+    app.config.from_object(Config)
+
+# DATABASE_PATH = "../app/db/ice-database.db"
 
 
 # Set up database
@@ -23,11 +30,11 @@ def get_db():
     """
     db = getattr(g, "_database", None)
     if db is None:
-        if os.path.isfile(DATABASE_PATH):
+        if os.path.isfile(app.config["DATABASE_PATH"]):
             # If the database file exists, load it. Otherwise, init the database.
-            db = g._database = sqlite3.connect(DATABASE_PATH)
+            db = g._database = sqlite3.connect(app.config["DATABASE_PATH"])
         else:
-            db = g._database = sqlite3.connect(DATABASE_PATH)
+            db = g._database = sqlite3.connect(app.config["DATABASE_PATH"])
             with app.open_resource("db/schema.sql") as f:
                 db.cursor().executescript(f.read().decode("utf-8"))
             db.commit()
