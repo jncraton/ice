@@ -1,19 +1,8 @@
 'use strict'
 
-// Load data from URL
-function loadDefaultData() {
-  if (location.hash !== '') {
-    const urlList = JSON.parse(atob(location.hash.split('#')[1]))
-
-    document.querySelector('#code-area').value = urlList[0]
-    document.querySelector('#output-text').value = urlList[1]
-  }
-}
-loadDefaultData()
-
 const saveOutput = document.querySelector('#save-output')
 saveOutput.addEventListener('click', function () {
-  const outputText = document.querySelector('#output-text')
+  const outputText = document.querySelector('#target-text')
   outputText.value = document.querySelector('#code-output').innerHTML
   outputText.dispatchEvent(new Event('input', { bubbles: true }))
 })
@@ -21,7 +10,7 @@ saveOutput.addEventListener('click', function () {
 // Make share button generate link to current page.
 function updateSharing() {
   const codeText = document.querySelector('#code-area').value
-  const outputText = document.querySelector('#output-text').value
+  const outputText = document.querySelector('#target-text').value
   const classCode = document.querySelector('#class-code').value
 
   const base64String = btoa(JSON.stringify([codeText, outputText, classCode]))
