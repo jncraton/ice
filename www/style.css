@@ -39,7 +39,6 @@ textarea {
   margin-bottom: 10px;
 }
 
-
 #code-view {
   text-align: left;
 }
@@ -128,4 +127,3 @@ textarea {
 .warningVisible {
   display: inline-block;
 }
-
