@@ -2,7 +2,7 @@
 
 
 class Config:
-    DATABASE_PATH = "app/db/ice-database.db"
+    DATABASE_PATH = "db/ice-database.db"
     TESTING = False
 
 

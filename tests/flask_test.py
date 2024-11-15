@@ -6,7 +6,7 @@ Only tests the program's backend API, not the front-end.
 
 import pytest
 import json
-from app.app import create_app
+from app import create_app
 import time
 from datetime import datetime
 
