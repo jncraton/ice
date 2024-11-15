@@ -14,7 +14,9 @@ function updateSharing() {
   const classCode = document.querySelector('#class-code').value
   const assignmentCode = document.querySelector('#assignment-code').value
 
-  const base64String = btoa(JSON.stringify([codeText, outputText, classCode, assignmentCode]))
+  const base64String = btoa(
+    JSON.stringify([codeText, outputText, classCode, assignmentCode]),
+  )
 
   const url =
     location.origin + location.pathname + 'student.html' + `#${base64String}`
@@ -53,4 +55,6 @@ linkDisplay.addEventListener('click', function (event) {
 })
 
 document.querySelector('#class-code').addEventListener('input', updateSharing)
-document.querySelector('#assignment-code').addEventListener('input', updateSharing)
+document
+  .querySelector('#assignment-code')
+  .addEventListener('input', updateSharing)

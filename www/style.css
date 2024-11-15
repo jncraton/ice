@@ -1,3 +1,5 @@
+/* General Styles */
+
 main {
   text-align: center;
   max-width: 960px;
@@ -5,8 +7,18 @@ main {
   margin: 0 auto;
 }
 
+fieldset {
+  border: 0;
+}
+
 nav {
   text-align: right;
+}
+
+sub {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 20px;
 }
 
 textarea {
@@ -14,6 +26,8 @@ textarea {
   height: 200px;
   tab-size: 4;
 }
+
+/* Specific Styles */
 
 #share {
   margin-top: 10px;
@@ -25,11 +39,6 @@ textarea {
   margin-bottom: 10px;
 }
 
-sub {
-  font-weight: bold;
-  font-style: italic;
-  font-size: 20px;
-}
 
 #code-view {
   text-align: left;
@@ -44,6 +53,10 @@ sub {
 
 #code-view #code-area {
   height: calc(75vh - 48px);
+}
+
+#identify-codes {
+  margin-top: 30px;
 }
 
 #check-code-result {
@@ -72,26 +85,6 @@ sub {
   flex: 1;
 }
 
-#copy {
-  min-width: 6em;
-}
-
-fieldset {
-  border: 0;
-}
-
-.labelIncorrect {
-  border: 2px solid rgba(255, 0, 0, 0.5);
-}
-
-.labelCorrect {
-  border: 2px solid rgba(0, 255, 0, 0.5);
-}
-
-.result-output {
-  font-size: 50px;
-}
-
 #result-area {
   margin-top: 75px;
   margin-bottom: 10px;
@@ -110,6 +103,24 @@ fieldset {
   font-weight: bold;
 }
 
+#copy {
+  min-width: 6em;
+}
+
+/* Style Classes */
+
+.labelIncorrect {
+  border: 2px solid rgba(255, 0, 0, 0.5);
+}
+
+.labelCorrect {
+  border: 2px solid rgba(0, 255, 0, 0.5);
+}
+
+.result-output {
+  font-size: 50px;
+}
+
 .warningHidden {
   display: none;
 }
@@ -117,3 +128,4 @@ fieldset {
 .warningVisible {
   display: inline-block;
 }
+
