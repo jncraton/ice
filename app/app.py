@@ -10,7 +10,7 @@ from flask import Flask, request, g
 from datetime import datetime
 import time
 
-from .config import Config, TestConfig
+from config import Config, TestConfig
 
 # app = Flask(__name__, static_folder="../www")
 
@@ -110,18 +110,36 @@ def create_app(testing=False):
 
         elif request.method == "GET":
             try:
-                return list(
-                    dict(row)
-                    for row in query_db(
-                        "SELECT * FROM student WHERE fk_section_id = ? AND txt_student_name LIKE ? AND ts_time_recorded BETWEEN ? AND ?;",
-                        (
-                            request.json["fk_section_id"],
-                            f'%{request.json["txt_student_name"]}%',
-                            request.json["ts_time_recorded_min"],
-                            request.json["ts_time_recorded_max"],
-                        ),
+                student_name = f'%{request.json["txt_student_name"] if "txt_student_name" in request.json.keys else ""}%'
+                time_recorded_min = request.json["ts_time_recorded_min"] if "ts_time_recorded_min" in request.json.keys else 0
+                time_recorded_max = request.json["ts_time_recorded_max"] if "ts_time_recorded_max" in request.json.keys else time.mktime(datetime.now().timetuple())
+                
+                if "fk_section_id" in request.json.keys:
+                    return list(
+                        dict(row)
+                        for row in query_db(
+                            f"SELECT * FROM student WHERE fk_section_id = ? AND txt_student_name LIKE ? AND ts_time_recorded BETWEEN ? AND ?;",
+                            (
+                                request.json["fk_section_id"],
+                                student_name,
+                                time_recorded_min,
+                                time_recorded_max
+                            ),
+                        )
                     )
-                )
+                else:
+                    return list(
+                        dict(row)
+                        for row in query_db(
+                            f"SELECT * FROM student WHERE txt_student_name LIKE ? AND ts_time_recorded BETWEEN ? AND ?;",
+                            (
+                                student_name,
+                                time_recorded_min,
+                                time_recorded_max
+                            ),
+                        )
+                    )
+
             except Exception as e:
                 return f"An error occurred.\n{e}"
 
