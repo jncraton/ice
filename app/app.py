@@ -34,12 +34,18 @@ def create_app(testing=False):
         db = getattr(g, "_database", None)
         if db is None:
             if os.path.isfile(app.config["DATABASE_PATH"]):
+                print(app.config["DATABASE_PATH"])
                 # If the database file exists, load it. Otherwise, init the database.
                 db = g._database = sqlite3.connect(app.config["DATABASE_PATH"])
             else:
                 db = g._database = sqlite3.connect(app.config["DATABASE_PATH"])
                 with app.open_resource("db/schema.sql") as f:
                     db.cursor().executescript(f.read().decode("utf-8"))
+
+                if app.config["TESTING"]:
+                    with app.open_resource("db/load_testing_data.sql") as f:
+                        db.cursor().executescript(f.read().decode("utf-8"))
+
                 db.commit()
 
         db.row_factory = sqlite3.Row
@@ -95,7 +101,12 @@ def create_app(testing=False):
             except Exception as e:
                 return f"An error occurred.\n{e}"
 
-            return list(dict(row) for row in query_db("SELECT * FROM student;"))
+            return dict(
+                query_db(
+                    "SELECT * FROM student WHERE pk_student_id = last_insert_rowid();",
+                    one=True,
+                )
+            )
 
         elif request.method == "GET":
             try:
@@ -134,7 +145,12 @@ def create_app(testing=False):
             except Exception as e:
                 return f"An error occurred.\n{e}"
 
-            return list(dict(row) for row in query_db("SELECT * FROM exercise;"))
+            return dict(
+                query_db(
+                    "SELECT * FROM exercise WHERE pk_exercise_id = last_insert_rowid();",
+                    one=True,
+                )
+            )
 
         elif request.method == "GET":
             try:
@@ -172,7 +188,12 @@ def create_app(testing=False):
                 )
             except Exception as e:
                 return f"An error occurred.\n{e}"
-            return list(dict(row) for row in query_db("SELECT * FROM section;"))
+            return dict(
+                query_db(
+                    "SELECT * FROM section WHERE pk_section_id = last_insert_rowid()",
+                    one=True,
+                )
+            )
 
         elif request.method == "GET":
             try:
@@ -215,8 +236,11 @@ def create_app(testing=False):
             except Exception as e:
                 return f"An error occurred.\n{e}"
 
-            return list(
-                dict(row) for row in query_db("SELECT * FROM student_submission;")
+            return dict(
+                query_db(
+                    "SELECT * FROM student_submission WHERE pk_student_submission_id = last_insert_rowid();",
+                    one=True,
+                )
             )
 
         elif request.method == "GET":
@@ -256,6 +280,3 @@ def create_app(testing=False):
                 return f"An error occurred.\n{e}"
 
     return app
-
-
-app = create_app()

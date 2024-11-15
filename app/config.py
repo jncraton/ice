@@ -1,7 +1,8 @@
 """ Configuration file for Flask App. """
 
+
 class Config:
-    DATABASE_PATH = "../app/db/ice-database.db"
+    DATABASE_PATH = "app/db/ice-database.db"
     TESTING = False
 
 
