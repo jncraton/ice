@@ -23,3 +23,8 @@ function timer() {
   document.querySelector('#timer_val').innerHTML = timerValue
   seconds++
 }
+
+function getCompletedStudents() {
+
+}
+window.onload = getCompletedStudents()
