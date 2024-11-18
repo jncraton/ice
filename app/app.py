@@ -169,9 +169,10 @@ def create_app(testing=False):
         if request.method == "POST":
             try:
                 query_db(
-                    "INSERT INTO exercise (fk_section_id, txt_starting_code, txt_desired_output, ts_time_recorded) VALUES (?, ?, ?, ?);",
+                    "INSERT INTO exercise (fk_section_id, txt_exercise_name, txt_starting_code, txt_desired_output, ts_time_recorded) VALUES (?, ?, ?, ?);",
                     (
                         request.json["fk_section_id"],
+                        request.json["txt_exercise_name"],
                         request.json["txt_starting_code"],
                         request.json["txt_desired_output"],
                         time.mktime(datetime.now().timetuple()),
@@ -200,6 +201,7 @@ def create_app(testing=False):
                 return f'No student found with id {request.json["pk_exercise_id"]}'
 
             try:
+                exercise_name = f'%{request.json["txt_exercise_name"] if "txt_exercise_name" in request.json.keys() else ""}%'
                 starting_code = f'%{request.json["txt_starting_code"] if "txt_starting_code" in request.json.keys() else ""}%'
                 desired_output = f'%{request.json["txt_desired_output"] if "txt_desired_output" in request.json.keys() else ""}%'
                 time_recorded_min = (
@@ -216,9 +218,10 @@ def create_app(testing=False):
                     return list(
                         dict(row)
                         for row in query_db(
-                            "SELECT * FROM exercise WHERE fk_section_id = ? AND txt_starting_code LIKE ? AND txt_desired_output LIKE ? AND ts_time_recorded BETWEEN ? AND ?;",
+                            "SELECT * FROM exercise WHERE fk_section_id = ? AND txt_exercise_name LIKE ? AND txt_starting_code LIKE ? AND txt_desired_output LIKE ? AND ts_time_recorded BETWEEN ? AND ?;",
                             (
                                 request.json["fk_section_id"],
+                                exercise_name,
                                 starting_code,
                                 desired_output,
                                 time_recorded_min,
@@ -230,8 +233,9 @@ def create_app(testing=False):
                     return list(
                         dict(row)
                         for row in query_db(
-                            "SELECT * FROM exercise WHERE txt_starting_code LIKE ? AND txt_desired_output LIKE ? AND ts_time_recorded BETWEEN ? AND ?;",
+                            "SELECT * FROM exercise WHERE txt_exercise_name LIKE ? AND txt_starting_code LIKE ? AND txt_desired_output LIKE ? AND ts_time_recorded BETWEEN ? AND ?;",
                             (
+                                exercise_name,
                                 starting_code,
                                 desired_output,
                                 time_recorded_min,

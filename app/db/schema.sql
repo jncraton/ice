@@ -8,6 +8,7 @@ CREATE TABLE section (
 CREATE TABLE exercise (
     pk_exercise_id INTEGER PRIMARY KEY, -- alias for ROWID
     fk_section_id INTEGER,
+    txt_exercise_name TEXT,
     txt_starting_code TEXT,
     txt_desired_output TEXT,
     ts_time_recorded INTEGER,

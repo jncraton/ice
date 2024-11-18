@@ -6,13 +6,13 @@ VALUES
     ('Database Systems', 'Dr. Kim', 1695000000),
     ('Web Development', 'Ms. Taylor', 1695500000);
 
-INSERT INTO exercise (fk_section_id, txt_starting_code, txt_desired_output, ts_time_recorded)
+INSERT INTO exercise (fk_section_id, txt_exercise_name, txt_starting_code, txt_desired_output, ts_time_recorded)
 VALUES
-    (1, 'print("Hello World")', 'Hello World', 1694000000),
-    (2, 'import pandas as pd', 'DataFrame created', 1694100000),
-    (3, 'def binary_search(): pass', 'Function implemented', 1694200000),
-    (4, 'SELECT * FROM students;', 'Table displayed', 1694300000),
-    (5, '<html><body>Hello!</body></html>', 'HTML displayed', 1694400000);
+    (1, 'Intro to Python', 'print("Hello World")', 'Hello World', 1694000000),
+    (2, 'Intro to Pandas', 'import pandas as pd', 'DataFrame created', 1694100000),
+    (3, 'Binary Search', 'def binary_search(): pass', 'Function implemented', 1694200000),
+    (4, 'Intro to SQL', 'SELECT * FROM students;', 'Table displayed', 1694300000),
+    (5, 'Web Design Fundamentals', '<html><body>Hello!</body></html>', 'HTML displayed', 1694400000);
 
 INSERT INTO student (txt_student_name, fk_section_id, ts_time_recorded)
 VALUES
