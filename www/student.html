@@ -11,9 +11,12 @@
   <body>
     <main>
       <nav>
+        <label for="student-name">Username: </label>
+        <input type="text" id="student-name" placeholder="Enter your name" />
         <span>Time: </span><span id="timer_val">00:00:00</span>
         <button id="run-button" autocomplete="off">Run</button>
         <button id="end-button" autocomplete="off" disabled>End</button>
+        <button id="submit-button" autocomplete="off" disabled>Submit Code</button>
         <button id="switch">Show Stats</button>
         <div id="warning-box" class="warningHidden">
           Warning: Possible infinite loop detected. Press "End" if this is
