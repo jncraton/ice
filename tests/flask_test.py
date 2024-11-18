@@ -100,9 +100,50 @@ def test_post_submission(client):
     assert response.json["fk_student_id"] == 0
 
     # Test Get Section
+def test_get_section(client):
+
+    response = client.get(
+        "/api/section",
+        data=json.dumps(
+            {
+                "pk_section_id":"1"
+            }
+        ),
+        mimetype="application/json",
+    )
+
+    assert response.json["txt_instructor_name"]=="Dr. Smith"
+    assert response.json["txt_section_name"]=="Intro to Programming"
+
 
     # Test Get Exercise
+def test_get_exercise(client):
+
+    response = client.get(
+        "/api/exercise",
+        data=json.dumps(
+            {
+                "pk_exercise_id":"1"
+            }
+        ),
+        mimetype="application/json",
+    )
+
+    assert response.json["txt_desired_output"]=="Hello World"
+    assert response.json["txt_starting_code"]=='print("Hello World")'
 
     # Test Get Student
+def test_get_student(client):
 
+    response = client.get(
+        "/api/exercise",
+        data=json.dumps(
+            {
+                "pk_student_id":"1"
+            }
+        ),
+        mimetype="application/json",
+    )
+
+    print(response.json)
     # Test Get Submission
