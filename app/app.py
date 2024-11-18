@@ -109,12 +109,33 @@ def create_app(testing=False):
             )
 
         elif request.method == "GET":
+
+            if "pk_student_id" in request.json.keys():
+                try:
+                    return dict(
+                        query_db(
+                            "SELECT * FROM student WHERE pk_student_id = ?;",
+                            (request.json["pk_student_id"],),
+                            one=True,
+                        )
+                    )
+                except TypeError as e:
+                    return f'No student found with id {request.json["pk_student_id"]}'
+
+            student_name = f'%{request.json["txt_student_name"] if "txt_student_name" in request.json.keys() else ""}%'
+
+            time_recorded_min = (
+                request.json["ts_time_recorded_min"]
+                if "ts_time_recorded_min" in request.json.keys()
+                else 0
+            )
+            time_recorded_max = (
+                request.json["ts_time_recorded_max"]
+                if "ts_time_recorded_max" in request.json.keys()
+                else time.mktime(datetime.now().timetuple())
+            )
             try:
-                student_name = f'%{request.json["txt_student_name"] if "txt_student_name" in request.json.keys else ""}%'
-                time_recorded_min = request.json["ts_time_recorded_min"] if "ts_time_recorded_min" in request.json.keys else 0
-                time_recorded_max = request.json["ts_time_recorded_max"] if "ts_time_recorded_max" in request.json.keys else time.mktime(datetime.now().timetuple())
-                
-                if "fk_section_id" in request.json.keys:
+                if "fk_section_id" in request.json.keys():
                     return list(
                         dict(row)
                         for row in query_db(
@@ -123,7 +144,7 @@ def create_app(testing=False):
                                 request.json["fk_section_id"],
                                 student_name,
                                 time_recorded_min,
-                                time_recorded_max
+                                time_recorded_max,
                             ),
                         )
                     )
@@ -132,11 +153,7 @@ def create_app(testing=False):
                         dict(row)
                         for row in query_db(
                             f"SELECT * FROM student WHERE txt_student_name LIKE ? AND ts_time_recorded BETWEEN ? AND ?;",
-                            (
-                                student_name,
-                                time_recorded_min,
-                                time_recorded_max
-                            ),
+                            (student_name, time_recorded_min, time_recorded_max),
                         )
                     )
 
@@ -152,9 +169,10 @@ def create_app(testing=False):
         if request.method == "POST":
             try:
                 query_db(
-                    "INSERT INTO exercise (fk_section_id, txt_starting_code, txt_desired_output, ts_time_recorded) VALUES (?, ?, ?, ?);",
+                    "INSERT INTO exercise (fk_section_id, txt_exercise_name, txt_starting_code, txt_desired_output, ts_time_recorded) VALUES (?, ?, ?, ?);",
                     (
                         request.json["fk_section_id"],
+                        request.json["txt_exercise_name"],
                         request.json["txt_starting_code"],
                         request.json["txt_desired_output"],
                         time.mktime(datetime.now().timetuple()),
@@ -162,7 +180,6 @@ def create_app(testing=False):
                 )
             except Exception as e:
                 return f"An error occurred.\n{e}"
-
             return dict(
                 query_db(
                     "SELECT * FROM exercise WHERE pk_exercise_id = last_insert_rowid();",
@@ -172,19 +189,60 @@ def create_app(testing=False):
 
         elif request.method == "GET":
             try:
-                return list(
-                    dict(row)
-                    for row in query_db(
-                        "SELECT * FROM exercise WHERE fk_section_id = ? AND txt_starting_code LIKE ? AND txt_desired_output LIKE ? AND ts_time_recorded BETWEEN ? AND ?;",
-                        (
-                            request.json["fk_section_id"],
-                            f'%{request.json["txt_starting_code"]}%',
-                            f'%{request.json["txt_desired_output"]}%',
-                            request.json["ts_time_recorded_min"],
-                            request.json["ts_time_recorded_max"],
-                        ),
+                if "pk_exercise_id" in request.json.keys():
+                    return dict(
+                        query_db(
+                            "SELECT * FROM exercise WHERE pk_exercise_id = ?;",
+                            (request.json["pk_exercise_id"],),
+                            one=True,
+                        )
                     )
+            except TypeError as e:
+                return f'No student found with id {request.json["pk_exercise_id"]}'
+
+            try:
+                exercise_name = f'%{request.json["txt_exercise_name"] if "txt_exercise_name" in request.json.keys() else ""}%'
+                starting_code = f'%{request.json["txt_starting_code"] if "txt_starting_code" in request.json.keys() else ""}%'
+                desired_output = f'%{request.json["txt_desired_output"] if "txt_desired_output" in request.json.keys() else ""}%'
+                time_recorded_min = (
+                    request.json["ts_time_recorded_min"]
+                    if "ts_time_recorded_min" in request.json.keys()
+                    else 0
                 )
+                time_recorded_max = (
+                    request.json["ts_time_recorded_max"]
+                    if "ts_time_recorded_max" in request.json.keys()
+                    else time.mktime(datetime.now().timetuple())
+                )
+                if "fk_section_id" in request.json.keys():
+                    return list(
+                        dict(row)
+                        for row in query_db(
+                            "SELECT * FROM exercise WHERE fk_section_id = ? AND txt_exercise_name LIKE ? AND txt_starting_code LIKE ? AND txt_desired_output LIKE ? AND ts_time_recorded BETWEEN ? AND ?;",
+                            (
+                                request.json["fk_section_id"],
+                                exercise_name,
+                                starting_code,
+                                desired_output,
+                                time_recorded_min,
+                                time_recorded_max,
+                            ),
+                        )
+                    )
+                else:
+                    return list(
+                        dict(row)
+                        for row in query_db(
+                            "SELECT * FROM exercise WHERE txt_exercise_name LIKE ? AND txt_starting_code LIKE ? AND txt_desired_output LIKE ? AND ts_time_recorded BETWEEN ? AND ?;",
+                            (
+                                exercise_name,
+                                starting_code,
+                                desired_output,
+                                time_recorded_min,
+                                time_recorded_max,
+                            ),
+                        )
+                    )
             except Exception as e:
                 return f"An error occurred.\n{e}"
 
@@ -206,6 +264,7 @@ def create_app(testing=False):
                 )
             except Exception as e:
                 return f"An error occurred.\n{e}"
+
             return dict(
                 query_db(
                     "SELECT * FROM section WHERE pk_section_id = last_insert_rowid()",
@@ -215,15 +274,39 @@ def create_app(testing=False):
 
         elif request.method == "GET":
             try:
+                if "pk_section_id" in request.json.keys():
+                    return dict(
+                        query_db(
+                            "SELECT * FROM section WHERE pk_section_id = ?;",
+                            (request.json["pk_section_id"],),
+                            one=True,
+                        )
+                    )
+            except TypeError as e:
+                return f'No student found with id {request.json["pk_section_id"]}'
+
+            try:
+                section_name = f'%{request.json["txt_section_name"] if "txt_section_name" in request.json.keys() else ""}%'
+                instructor_name = f'%{request.json["txt_instructor_name"] if "txt_instructor_name" in request.json.keys() else ""}%'
+                time_recorded_min = (
+                    request.json["ts_time_recorded_min"]
+                    if "ts_time_recorded_min" in request.json.keys()
+                    else 0
+                )
+                time_recorded_max = (
+                    request.json["ts_time_recorded_max"]
+                    if "ts_time_recorded_max" in request.json.keys()
+                    else time.mktime(datetime.now().timetuple())
+                )
                 return list(
                     dict(row)
                     for row in query_db(
                         "SELECT * FROM section WHERE txt_section_name LIKE ? AND txt_instructor_name LIKE ? AND ts_time_recorded BETWEEN ? AND ?;",
                         (
-                            f'%{request.json["txt_section_name"]}%',
-                            f'%{request.json["txt_instructor_name"]}%',
-                            request.json["ts_time_recorded_min"],
-                            request.json["ts_time_recorded_max"],
+                            section_name,
+                            instructor_name,
+                            time_recorded_min,
+                            time_recorded_max,
                         ),
                     )
                 )
@@ -263,37 +346,87 @@ def create_app(testing=False):
 
         elif request.method == "GET":
             try:
-                return list(
-                    dict(row)
-                    for row in query_db(
-                        """
-                            SELECT * 
-                            FROM student_submission 
-                            WHERE 
-                                txt_student_program LIKE ? 
-                                AND txt_student_program_output LIKE ? 
-                                AND bool_is_complete = ? 
-                                AND ts_starting_time BETWEEN ? AND ?
-                                AND ts_submission_time BETWEEN ? AND ?
-                                AND ts_time_recorded BETWEEN ? AND ?
-                                AND fk_exercise_id = ?
-                                AND fk_student_id = ?;
-                        """,
-                        (
-                            f'%{request.json["txt_student_program"]}%',
-                            f'%{request.json["txt_student_program_output"]}%',
-                            request.json["bool_is_complete"],
-                            request.json["ts_starting_time_min"],
-                            request.json["ts_starting_time_max"],
-                            request.json["ts_submission_time_min"],
-                            request.json["ts_submission_time_max"],
-                            request.json["ts_time_recorded_min"],
-                            request.json["ts_time_recorded_max"],
-                            request.json["fk_exercise_id"],
-                            request.json["fk_student_id"],
-                        ),
+                if "pk_student_submission_id" in request.json.keys():
+                    return dict(
+                        query_db(
+                            "SELECT * FROM student_submission WHERE pk_student_submission_id = ?;",
+                            (request.json["pk_student_submission_id"],),
+                            one=True,
+                        )
                     )
+            except TypeError as e:
+                return f'No student found with id {request.json["pk_student_submission_id"]}'
+
+            try:
+                student_program = f'%{request.json["txt_student_program"] if "txt_student_program" in request.json.keys() else ""}%'
+                student_program_output = f'%{request.json["txt_student_program_output"] if "txt_student_program_output" in request.json.keys() else ""}%'
+                # is_complete = request.json["bool_is_complete"] if "bool_is_complete" in request.json.keys else
+                starting_time_min = (
+                    request.json["ts_starting_time_min"]
+                    if "ts_starting_time_min" in request.json.keys()
+                    else 0
                 )
+                starting_time_max = (
+                    request.json["ts_starting_time_max"]
+                    if "ts_starting_time_max" in request.json.keys()
+                    else time.mktime(datetime.now().timetuple())
+                )
+                submission_time_min = (
+                    request.json["ts_submission_time_min"]
+                    if "ts_submission_time_min" in request.json.keys()
+                    else 0
+                )
+                submission_time_max = (
+                    request.json["ts_submission_time_max"]
+                    if "ts_submission_time_max" in request.json.keys()
+                    else time.mktime(datetime.now().timetuple())
+                )
+                time_recorded_min = (
+                    request.json["ts_time_recorded_min"]
+                    if "ts_time_recorded_min" in request.json.keys()
+                    else 0
+                )
+                time_recorded_max = (
+                    request.json["ts_time_recorded_max"]
+                    if "ts_time_recorded_max" in request.json.keys()
+                    else time.mktime(datetime.now().timetuple())
+                )
+
+                sql = f"""
+                    SELECT * 
+                    FROM student_submission 
+                    WHERE 
+                        txt_student_program LIKE ? 
+                        AND txt_student_program_output LIKE ? 
+                        AND ts_starting_time BETWEEN ? AND ?
+                        AND ts_submission_time BETWEEN ? AND ? 
+                        AND ts_time_recorded BETWEEN ? AND ? 
+                        {"AND bool_is_complete = ?" if "bool_is_complete" in request.json.keys() else ""}
+                        {"AND fk_exercise_id = ?" if "fk_exercise_id" in request.json.keys() else ""}
+                        {"AND fk_student_id = ?" if "fk_student_id" in request.json.keys() else ""}
+                    ;
+                """
+                args = (
+                    student_program,
+                    student_program_output,
+                    starting_time_min,
+                    starting_time_max,
+                    submission_time_min,
+                    submission_time_max,
+                    time_recorded_min,
+                    time_recorded_max,
+                )
+                if "bool_is_complete" in request.json.keys():
+                    args = args + (request.json["bool_is_complete"],)
+                if "fk_exercise_id" in request.json.keys():
+                    args = args + (request.json["fk_exercise_id"],)
+                if "fk_student_id" in request.json.keys():
+                    args = args + (request.json["fk_student_id"],)
+
+                rows = query_db(sql, args)
+
+                return list(dict(row) for row in rows)
+
             except Exception as e:
                 return f"An error occurred.\n{e}"
 
