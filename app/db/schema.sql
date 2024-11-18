@@ -1,7 +1,7 @@
 CREATE TABLE section (
     pk_section_id INTEGER PRIMARY KEY, -- alias for ROWID
     txt_section_name TEXT,
-    -- txt_instructor_name TEXT,
+    txt_instructor_name TEXT,
     ts_time_recorded INTEGER
 ) STRICT;
 
