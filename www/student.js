@@ -55,6 +55,13 @@ function sendIntialData(){
     },
     body: JSON.stringify({ txt_exercise_name: assignmentCode, txt_starting_code: startCode, txt_desired_output: desiredOutput })
   })
-
+  //Call API to send username to the database 
+  fetch ('/api/student', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application',
+    },
+    body: JSON.stringify({ txt_student_name: userName })
+  })
 }
 
