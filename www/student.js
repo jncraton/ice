@@ -24,13 +24,17 @@ function timer() {
   seconds++
 }
 
-function sendData(){  
+function sendIntialData(){  
+  let startCode = ""
+  let desiredOutput = ""
   let classCode = ""
   let assignmentCode = ""
   
   //Pull class and assignment code out of link
   if (location.hash !== '') {
     const urlList = JSON.parse(atob(location.hash.split('#')[1]))
+    startCode = urlList[0]
+    desiredOutput = urlList[1]
     classCode = urlList[2]
     assignmentCode = urlList[3] 
   }
@@ -43,5 +47,14 @@ function sendData(){
     body: JSON.stringify({ txt_section_name: classCode }),
   })
   .then((response) => response.json())
+  //Call API to send assignment code to the database
+  fetch ('/api/exercise', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application',
+    },
+    body: JSON.stringify({ txt_exercise_name: assignmentCode, txt_starting_code: startCode, txt_desired_output: desiredOutput })
+  })
+
 }
 
