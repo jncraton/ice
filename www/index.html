@@ -12,6 +12,24 @@
     <main>
       <h1>I.C.E</h1>
       <sub>Teacher View</sub>
+      <div id="identify-codes">
+        <fieldset>
+          <label for="class-code">Class Code:</label>
+          <input id="class-code" value="CLS1" />
+        </fieldset>
+        <fieldset>
+          <label for="assignment-code">Assignment Code:</label>
+          <input id="assignment-code" value="Assignment1" />
+        </fieldset>
+      </div>
+      <fieldset>
+        <select id="share-type">
+          <option value="share">Share</option>
+          <option value="embed">Embed</option>
+        </select>
+        <input id="share-text" readonly />
+        <button id="copy">Copy</button>
+      </fieldset>
       <nav>
         <div id="buttons">
           <button id="run-button" autocomplete="off">Run</button>
@@ -24,14 +42,14 @@
           Input:
           <textarea id="code-area" placeholder="Enter code..."></textarea>
         </label>
-        <div id="output-displays">
+        <div id="output">
           <p id="time-displayed"></p>
-          <label>Code Output:</label>
+          <label>Code Output:<textarea id="code-output"></textarea>
           <span id="code-output"></span>
           <button id="save-output">Save Output</button>
+        </label>
           <br />
           <br />
-          <div id="desired-output">
             <label>
               Desired Output:
               <textarea id="target-text" name="output-text"></textarea>
@@ -39,26 +57,6 @@
           </div>
         </div>
       </section>
-
-      <div id="identify-codes">
-        <fieldset>
-          <label for="class-code">Class Code:</label>
-          <input id="class-code" value="CLS1" />
-        </fieldset>
-        <fieldset>
-          <label for="assignment-code">Assignment Code:</label>
-          <input id="assignment-code" value="Assignment1" />
-        </fieldset>
-      </div>
-
-      <fieldset>
-        <select id="share-type">
-          <option value="share">Share</option>
-          <option value="embed">Embed</option>
-        </select>
-        <input id="share-text" readonly />
-        <button id="copy">Copy</button>
-      </fieldset>
 
       <script src="main.js"></script>
       <script src="python_run.js"></script>
