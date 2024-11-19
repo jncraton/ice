@@ -23,3 +23,10 @@ function timer() {
   document.querySelector('#timer_val').innerHTML = timerValue
   seconds++
 }
+
+//Start button and Code Area
+const startButton = document.querySelector('#start-button')
+startButton.addEventListener('click', function () {
+  document.querySelector('#code-area').disabled = false
+  startButton.disabled = true
+})
