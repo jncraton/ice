@@ -23,3 +23,25 @@ function timer() {
   document.querySelector('#timer_val').innerHTML = timerValue
   seconds++
 }
+
+function sendData(){  
+  let classCode = ""
+  let assignmentCode = ""
+  
+  //Pull class and assignment code out of link
+  if (location.hash !== '') {
+    const urlList = JSON.parse(atob(location.hash.split('#')[1]))
+    classCode = urlList[2]
+    assignmentCode = urlList[3] 
+  }
+  //Call API to send class code to the database
+  fetch ('/api/section', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application',
+    },
+    body: JSON.stringify({ txt_section_name: classCode }),
+  })
+  .then((response) => response.json())
+}
+
