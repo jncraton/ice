@@ -114,12 +114,17 @@ def test_results_page(page: Page):
 
 def test_timer(page: Page):
     """
-    Test that the timer runs at the start of the page and stops
-    when the correct output is found
+    Test that the timer runs when a name is entered && start-button is clicked
+    and stops when the correct output is found
     """
 
-    expect(page.locator("#timer_val")).to_have_text("00:00:01")
+    expect(page.locator("#timer_val")).to_have_text("00:00:00")
+    page.clock.run_for(5000)
+    start_time = page.locator("#timer_val").inner_text()
+    expect(page.locator("#timer_val")).to_have_text(start_time)
 
+    page.locator("#student-name").fill("Student1")
+    page.locator("#start-button").click()
     # Check timer after 13 seconds
     page.clock.run_for(11000)
     expect(page.locator("#timer_val")).to_have_text("00:00:13")

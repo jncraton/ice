@@ -15,8 +15,23 @@ switchView.addEventListener('click', function (event) {
   }
 })
 // Timer functionality
-let timer_interval = setInterval(timer, 1000)
+let timer_interval
 let seconds = 0
+
+let student_name = ''
+document.querySelector('#start-button').addEventListener('click', function() {
+	student_name = document.querySelector('#student-name').value
+	if (student_name) {
+		timer_interval = setInterval(timer, 1000)
+		document.querySelector("#start-button").disabled = true
+		document.querySelector("#student-name").disabled = true
+  		document.querySelector('#code-area').disabled = false
+		
+	}
+	else {
+		alert("Cannot start without student name")
+	}
+})
 
 function timer() {
   let timerValue = new Date(1000 * seconds).toISOString().substr(11, 8)
@@ -77,3 +92,4 @@ function getStats(){
     const result = response.json;
     
 }
+
