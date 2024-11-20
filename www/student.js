@@ -42,7 +42,7 @@ function sendIntialData(){
   fetch ('/api/section', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ txt_section_name: classCode }),
   })
@@ -51,7 +51,7 @@ function sendIntialData(){
   fetch ('/api/exercise', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ txt_exercise_name: assignmentCode, txt_starting_code: startCode, txt_desired_output: desiredOutput })
   })
@@ -59,9 +59,21 @@ function sendIntialData(){
   fetch ('/api/student', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ txt_student_name: userName })
   })
 }
 
+function getStats(){
+    fetch('/api/section', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+
+    const result = response.json;
+    
+}
