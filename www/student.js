@@ -25,8 +25,8 @@ document.querySelector('#start-button').addEventListener('click', function() {
 		timer_interval = setInterval(timer, 1000)
 		document.querySelector("#start-button").disabled = true
 		document.querySelector("#student-name").disabled = true
-  		document.querySelector('#code-area').disabled = false
-		
+  	document.querySelector('#code-area').disabled = false
+    sendIntialData()
 	}
 	else {
 		alert("Cannot start without student name")
@@ -76,20 +76,6 @@ function sendIntialData(){
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ txt_student_name: userName })
+    body: JSON.stringify({ txt_student_name: student_name })
   })
 }
-
-function getStats(){
-    fetch('/api/section', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-
-    const result = response.json;
-    
-}
-
