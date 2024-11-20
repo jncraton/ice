@@ -31,10 +31,6 @@ def test_python_runs(page: Page):
     page.locator("#student-name").fill("Student1")
     page.locator("#start-button").click()
 
-    # 1. Put code in code area
-    page.locator("#student-name").fill("Student1")
-    page.locator("#start-button").click()
-
     textarea_locator = page.locator("#code-area")
     textarea_locator.fill('print("Hello, world!")')
 
@@ -50,10 +46,6 @@ def test_check_output_correct(page: Page):
     Test that the check output functionality works when the result of running the code
     matches the target output.
     """
-
-    #0. Insert name so page unlocks
-    page.locator("#student-name").fill("Student1")
-    page.locator("#start-button").click()
 
     # 1. Put code in code area
     page.locator("#student-name").fill("Student1")
@@ -81,10 +73,6 @@ def test_check_output_incorrect(page: Page):
     Test that the check output functionality works when the result of running the code
     does not match the target output.
     """
-
-    #0. Insert name so page unlocks
-    page.locator("#student-name").fill("Student1")
-    page.locator("#start-button").click()
 
     # 1. Put code in code area
     page.locator("#student-name").fill("Student1")
