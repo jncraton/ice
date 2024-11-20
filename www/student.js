@@ -8,10 +8,12 @@ switchView.addEventListener('click', function (event) {
     codeView.style.display = 'none'
     statsView.style.display = 'block'
     switchView.innerText = 'Show Code'
+    let stats_interval = setInterval(getStats, 10000)
   } else {
     codeView.style.display = 'block'
     statsView.style.display = 'none'
     switchView.innerText = 'Show Stats'
+    clearInterval(stats_interval)
   }
 })
 // Timer functionality
@@ -64,4 +66,3 @@ function sendIntialData(){
     body: JSON.stringify({ txt_student_name: userName })
   })
 }
-
