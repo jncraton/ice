@@ -24,6 +24,7 @@ function timer() {
   seconds++
 }
 
+
 let student_name = ''
 document.querySelector('#start-button').addEventListener('click', function() {
 	student_name = document.querySelector('#student-name').value
@@ -31,6 +32,7 @@ document.querySelector('#start-button').addEventListener('click', function() {
 		timer_interval = setInterval(timer, 1000)
 		document.querySelector("#start-button").disabled = true
 		document.querySelector("#student-name").disabled = true
+  		document.querySelector('#code-area').disabled = false
 		
 	}
 	else {
