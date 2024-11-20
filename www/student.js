@@ -17,8 +17,23 @@ switchView.addEventListener('click', function (event) {
   }
 })
 // Timer functionality
-let timer_interval = setInterval(timer, 1000)
+let timer_interval
 let seconds = 0
+
+let student_name = ''
+document.querySelector('#start-button').addEventListener('click', function() {
+	student_name = document.querySelector('#student-name').value
+	if (student_name) {
+		timer_interval = setInterval(timer, 1000)
+		document.querySelector("#start-button").disabled = true
+		document.querySelector("#student-name").disabled = true
+  	document.querySelector('#code-area').disabled = false
+    sendIntialData()
+	}
+	else {
+		alert("Cannot start without student name")
+	}
+})
 
 function timer() {
   let timerValue = new Date(1000 * seconds).toISOString().substr(11, 8)
@@ -44,7 +59,7 @@ function sendIntialData(){
   fetch ('/api/section', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ txt_section_name: classCode }),
   })
@@ -53,7 +68,7 @@ function sendIntialData(){
   fetch ('/api/exercise', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ txt_exercise_name: assignmentCode, txt_starting_code: startCode, txt_desired_output: desiredOutput })
   })
@@ -61,8 +76,8 @@ function sendIntialData(){
   fetch ('/api/student', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application',
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ txt_student_name: userName })
+    body: JSON.stringify({ txt_student_name: student_name })
   })
 }
