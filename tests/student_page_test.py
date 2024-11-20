@@ -28,6 +28,9 @@ def test_python_runs(page: Page):
     """
 
     # 1. Put code in code area
+    page.locator("#student-name").fill("Student1")
+    page.locator("#start-button").click()
+
     textarea_locator = page.locator("#code-area")
     textarea_locator.fill('print("Hello, world!")')
 
@@ -45,6 +48,9 @@ def test_check_output_correct(page: Page):
     """
 
     # 1. Put code in code area
+    page.locator("#student-name").fill("Student1")
+    page.locator("#start-button").click()
+
     codearea_locator = page.locator("#code-area")
     codearea_locator.fill("print('Hello World!')")
 
@@ -69,6 +75,9 @@ def test_check_output_incorrect(page: Page):
     """
 
     # 1. Put code in code area
+    page.locator("#student-name").fill("Student1")
+    page.locator("#start-button").click()
+
     codearea_locator = page.locator("#code-area")
     codearea_locator.fill("print('Hello Word')")
 
@@ -90,6 +99,9 @@ def test_error_message_displayed(page: Page):
     """
     Test that an error message is displayed when there is an execution error.
     """
+    page.locator("#student-name").fill("Student1")
+    page.locator("#start-button").click()
+
     textarea_locator = page.locator("#code-area")
     textarea_locator.fill("print('Hello world'")  # Missing closing parenthesis
 
@@ -106,6 +118,9 @@ def test_results_page(page: Page):
     """
 
     # 1. switch to stats view
+    page.locator("#student-name").fill("Student1")
+    page.locator("#start-button").click()
+
     page.locator("#switch").click()
 
     # 2. check that stats is on page
