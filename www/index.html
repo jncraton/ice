@@ -22,21 +22,6 @@
           <input id="assignment-code" value="Assignment1" />
         </fieldset>
       </div>
-      <div id="code-block">
-        <h1>Input:</h1>
-        <textarea id="code-area"></textarea>
-      </div>
-      <div id="output-displays">
-        <button id="run-button" autocomplete="off">Run</button>
-        <button id="end-button" autocomplete="off" disabled>End</button>
-        <p id="time-displayed"></p>
-        <h1>Code Output:</h1>
-        <span id="code-output"></span>
-        <button id="save-output">Save Output</button>
-        <h1>Desired Output:</h1>
-        <textarea type="text" id="target-text" name="output-text"></textarea>
-      </div>
-
       <fieldset>
         <select id="share-type">
           <option value="share">Share</option>
@@ -45,6 +30,32 @@
         <input id="share-text" readonly />
         <button id="copy">Copy</button>
       </fieldset>
+      <nav>
+        <div id="buttons">
+          <button id="run-button" autocomplete="off">Run</button>
+          <button id="end-button" autocomplete="off" disabled>End</button>
+        </div>
+      </nav>
+
+      <section id="code-view">
+        <label>
+          Input:
+          <textarea id="code-area" placeholder="Enter code..."></textarea>
+        </label>
+        <div id="output">
+          <p id="time-displayed"></p>
+          <label
+            >Code Output:<textarea id="code-output"></textarea>
+            <button id="save-output">Save Output</button>
+          </label>
+          <br />
+          <br />
+          <label>
+            Desired Output:
+            <textarea id="target-text" name="output-text"></textarea>
+          </label>
+        </div>
+      </section>
 
       <script src="main.js"></script>
       <script src="python_run.js"></script>
