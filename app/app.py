@@ -255,10 +255,9 @@ def create_app(testing=False):
         if request.method == "POST":
             try:
                 query_db(
-                    "INSERT INTO section (txt_section_name, txt_instructor_name, ts_time_recorded) VALUES (?, ?, ?);",
+                    "INSERT INTO section (txt_section_name, ts_time_recorded) VALUES (?, ?);",
                     (
                         request.json["txt_section_name"],
-                        request.json["txt_instructor_name"],
                         time.mktime(datetime.now().timetuple()),
                     ),
                 )
@@ -287,7 +286,6 @@ def create_app(testing=False):
 
             try:
                 section_name = f'%{request.json["txt_section_name"] if "txt_section_name" in request.json.keys() else ""}%'
-                instructor_name = f'%{request.json["txt_instructor_name"] if "txt_instructor_name" in request.json.keys() else ""}%'
                 time_recorded_min = (
                     request.json["ts_time_recorded_min"]
                     if "ts_time_recorded_min" in request.json.keys()
@@ -304,7 +302,6 @@ def create_app(testing=False):
                         "SELECT * FROM section WHERE txt_section_name LIKE ? AND txt_instructor_name LIKE ? AND ts_time_recorded BETWEEN ? AND ?;",
                         (
                             section_name,
-                            instructor_name,
                             time_recorded_min,
                             time_recorded_max,
                         ),
