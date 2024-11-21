@@ -8,7 +8,7 @@ VALUES
 
 INSERT INTO exercise (fk_section_id, txt_exercise_name, txt_starting_code, txt_desired_output, ts_time_recorded)
 VALUES
-    (1, 'Intro to For Loops', 'for i in range(5):', '0 1 2 3 4', 1694000000),
+    (1, 'Intro To For Loops', 'for i in range(5):', '0 1 2 3 4', 1694000000),
     (2, 'Intro to Pandas', 'import pandas as pd', 'DataFrame created', 1694100000),
     (3, 'Binary Search', 'def binary_search(): pass', 'Function implemented', 1694200000),
     (4, 'Intro to SQL', 'SELECT * FROM students;', 'Table displayed', 1694300000),
