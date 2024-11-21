@@ -169,7 +169,7 @@ def create_app(testing=False):
         if request.method == "POST":
             try:
                 query_db(
-                    "INSERT INTO exercise (fk_section_id, txt_exercise_name, txt_starting_code, txt_desired_output, ts_time_recorded) VALUES (?, ?, ?, ?);",
+                    "INSERT INTO exercise (fk_section_id, txt_exercise_name, txt_starting_code, txt_desired_output, ts_time_recorded) VALUES (?, ?, ?, ?, ?);",
                     (
                         request.json["fk_section_id"],
                         request.json["txt_exercise_name"],
