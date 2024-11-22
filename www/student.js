@@ -1,5 +1,7 @@
 'use strict'
 
+let stats_interval
+
 const switchView = document.querySelector('#switch')
 switchView.addEventListener('click', function (event) {
   const codeView = document.querySelector('#code-view')
@@ -8,7 +10,8 @@ switchView.addEventListener('click', function (event) {
     codeView.style.display = 'none'
     statsView.style.display = 'block'
     switchView.innerText = 'Show Code'
-    let stats_interval = setInterval(getStats, 10000)
+    getStats()
+    stats_interval = setInterval(getStats, 10000)
   } else {
     codeView.style.display = 'block'
     statsView.style.display = 'none'
@@ -80,4 +83,9 @@ function sendIntialData(){
     },
     body: JSON.stringify({ txt_student_name: student_name })
   })
+}
+
+
+function getStats(){
+  console.log("stats hit")
 }
