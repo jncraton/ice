@@ -195,7 +195,7 @@ def test_post_student_start(client):
 def test_post_student_end(client):
     initial_time = time.mktime(datetime.now().timetuple())
     response = client.post(
-        "api/student_start",
+        "api/student_end",
         data=json.dumps(
             {
                 "student_name": "Mike",
@@ -218,18 +218,11 @@ def test_post_student_end(client):
 
 def test_get_stats(client):
     initial_time = time.mktime(datetime.now().timetuple())
-    response = client.post(
-        "api/student_start",
-        data=json.dumps(
-            {
-                "exercise_starting_code": "for i in range(5):",
-                "exercise_desired_output": "1 2 3 4 5",
-                "section_name": "CPSC 2020",
-                "instructor_name": "Jon Craton",
-                "exercise_name": "Intro to For Loops",
-            }
-        ),
+    response = client.get(
+        "api/stats/Jon Craton/CPSC 2020/Intro To For Loops",
     )
+
+    print(response.json)
 
     assert response.json["total_submissions"] == 5
     assert response.json["completed_submissions"] == 3

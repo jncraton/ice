@@ -427,4 +427,48 @@ def create_app(testing=False):
             except Exception as e:
                 return f"An error occurred.\n{e}"
 
+    @app.route("/api/student_start", methods=["POST"])
+    def api_post_student_start():
+        """
+        Create a new student_submission object to show that a student began working on an exercise
+        Finds or creates new rows in the exercise, section, and student tables.
+        """
+
+        pass
+
+    @app.route("/api/student_end", methods=["POST"])
+    def api_post_student_end():
+        pass
+
+    @app.route(
+        "/api/stats/<instructor_name>/<section_name>/<exercise_name>", methods=["GET"]
+    )
+    def api_get_stats(instructor_name, section_name, exercise_name):
+        print(instructor_name, section_name, exercise_name)
+        return dict(
+            query_db(
+                """
+                SELECT
+                    COUNT(st_s.pk_student_submission_id) total_submissions,
+                    SUM(bool_is_complete) completed_submissions,
+                    (COUNT(st_s.pk_student_submission_id) - SUM(bool_is_complete)) incomplete_submissions
+                FROM student_submission st_s
+                INNER JOIN exercise e 
+                    ON e.pk_exercise_id = st_s.fk_exercise_id
+                INNER JOIN section s
+                    ON s.pk_section_id = e.fk_section_id 
+                WHERE 
+                    s.txt_section_name = ?
+                AND s.txt_instructor_name = ?
+                AND e.txt_exercise_name = ?;
+                """,
+                (
+                    section_name,
+                    instructor_name,
+                    exercise_name,
+                ),
+                one=True,
+            )
+        )
+
     return app
