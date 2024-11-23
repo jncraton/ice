@@ -7,6 +7,7 @@ switchView.addEventListener('click', function (event) {
   if (statsView.style.display == 'none') {
     codeView.style.display = 'none'
     statsView.style.display = 'block'
+    getStats()
     switchView.innerText = 'Show Code'
     let stats_interval = setInterval(getStats, 10000)
   } else {
@@ -19,6 +20,22 @@ switchView.addEventListener('click', function (event) {
 // Timer functionality
 let timer_interval
 let seconds = 0
+
+let startCode = ""
+let desiredOutput = ""
+let classCode = ""
+let assignmentCode = ""
+let teacherName = ""
+  
+//Pull class and assignment code out of link
+if (location.hash !== '') {
+  const urlList = JSON.parse(atob(location.hash.split('#')[1]))
+  startCode = urlList[0]
+  desiredOutput = urlList[1]
+  classCode = urlList[2]
+  assignmentCode = urlList[3]
+  teacherName = urlList[4]   
+}
 
 let student_name = ''
 document.querySelector('#start-button').addEventListener('click', function() {
@@ -42,19 +59,6 @@ function timer() {
 }
 
 function sendIntialData(){  
-  let startCode = ""
-  let desiredOutput = ""
-  let classCode = ""
-  let assignmentCode = ""
-  
-  //Pull class and assignment code out of link
-  if (location.hash !== '') {
-    const urlList = JSON.parse(atob(location.hash.split('#')[1]))
-    startCode = urlList[0]
-    desiredOutput = urlList[1]
-    classCode = urlList[2]
-    assignmentCode = urlList[3] 
-  }
   //Call API to send class code to the database
   fetch ('/api/section', {
     method: 'POST',
@@ -82,43 +86,18 @@ function sendIntialData(){
   })
 }
 
-function sendIntialData(){  
-  let startCode = ""
-  let desiredOutput = ""
-  let classCode = ""
-  let assignmentCode = ""
-  
-  //Pull class and assignment code out of link
-  if (location.hash !== '') {
-    const urlList = JSON.parse(atob(location.hash.split('#')[1]))
-    startCode = urlList[0]
-    desiredOutput = urlList[1]
-    classCode = urlList[2]
-    assignmentCode = urlList[3] 
-  }
-  //Call API to send class code to the database
-  fetch ('/api/section', {
-    method: 'POST',
+function getStats() {
+  fetch(`api/stats/${teacherName}/${classCode}/${assignmentCode}`, {
+    method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ txt_section_name: classCode }),
-  })
-  .then((response) => response.json())
-  //Call API to send assignment code to the database
-  fetch ('/api/exercise', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ txt_exercise_name: assignmentCode, txt_starting_code: startCode, txt_desired_output: desiredOutput })
-  })
-  //Call API to send username to the database 
-  fetch ('/api/student', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ txt_student_name: student_name })
-  })
+      'Content-Type': 'application/json'
+    }
+  }).then(response => response.json())
+    .then(data => {
+      document.querySelector('#students-started').innerHTML(data.incomplete_submissions)
+      document.querySelector('#students-completed').innerHTML(data.completed_submissions) 
+    })
+    .catch(error => {
+      console.error("Issues getting submitted and or unsubmitted students")
+    })
 }
