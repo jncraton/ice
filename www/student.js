@@ -49,6 +49,7 @@ function sendIntialData(){
   let desiredOutput
   let classCode
   let assignmentCode
+  let teacherName
   
   //Pull class and assignment code out of link
   if (location.hash !== '') {
