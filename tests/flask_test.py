@@ -41,16 +41,18 @@ def test_post_exercise(client):
         data=json.dumps(
             {
                 "fk_section_id": 0,
-                "txt_starting_code": "for i in range(5):",
-                "txt_desired_output": "0 1 2 3 4",
+                "txt_exercise_name": "Longer For Loops",
+                "txt_starting_code": "for i in range(10):",
+                "txt_desired_output": "0 1 2 3 4 5 6 7 8 9",
             }
         ),
         mimetype="application/json",
     )
 
+    print(response.data)
     assert response.json["fk_section_id"] == 0
-    assert response.json["txt_starting_code"] == "for i in range(5):"
-    assert response.json["txt_desired_output"] == "0 1 2 3 4"
+    assert response.json["txt_starting_code"] == "for i in range(10):"
+    assert response.json["txt_desired_output"] == "0 1 2 3 4 5 6 7 8 9"
 
 
 def test_post_student(client):
@@ -110,8 +112,18 @@ def test_get_section(client):
         mimetype="application/json",
     )
 
-    assert response.json["txt_instructor_name"] == "Dr. Smith"
-    assert response.json["txt_section_name"] == "Intro to Programming"
+    assert response.json["txt_instructor_name"] == "Jon Craton"
+    assert response.json["txt_section_name"] == "CPSC 2020"
+
+    response = client.get(
+        "/api/section",
+        data=json.dumps({"txt_instructor_name": "Jon Craton"}),
+        mimetype="application/json",
+    )
+
+    assert len(response.json) == 1
+    assert response.json[0]["txt_instructor_name"] == "Jon Craton"
+    assert response.json[0]["txt_section_name"] == "CPSC 2020"
 
     # Test Get Exercise
 
@@ -124,10 +136,11 @@ def test_get_exercise(client):
         mimetype="application/json",
     )
 
-    assert response.json["txt_desired_output"] == "Hello World"
-    assert response.json["txt_starting_code"] == 'print("Hello World")'
+    assert response.json["txt_desired_output"] == "0 1 2 3 4"
+    assert response.json["txt_starting_code"] == "for i in range(5):"
 
-    # Test Get Student
+
+# Test Get Student
 
 
 def test_get_student(client):
@@ -152,5 +165,66 @@ def test_get_submission(client):
     assert response.json["ts_starting_time"] == 1694000000
     assert response.json["ts_submission_time"] == 1694000200
     assert response.json["ts_time_recorded"] == 1694000250
-    assert response.json["txt_student_program"] == 'print("Hello")'
-    assert response.json["txt_student_program_output"] == "Hello"
+    assert response.json["txt_student_program"] == "for i in range(5):\n\tprint(i)"
+    assert response.json["txt_student_program_output"] == "0 1 2 3 4"
+
+
+def test_post_student_start(client):
+    initial_time = time.mktime(datetime.now().timetuple())
+    response = client.post(
+        "api/student_start",
+        data=json.dumps(
+            {
+                "student_name": "Mike",
+                "exercise_starting_code": "for i in range(5):",
+                "exercise_desired_output": "1 2 3 4 5",
+                "section_name": "CPSC 2020",
+                "instructor_name": "Jon Craton",
+                "exercise_name": "Intro to For Loops",
+            }
+        ),
+        mimetype="application/json",
+    )
+
+    assert (
+        initial_time
+        <= response.json["time_started"]
+        <= time.mktime(datetime.now().timetuple())
+    )
+
+
+def test_post_student_end(client):
+    initial_time = time.mktime(datetime.now().timetuple())
+    response = client.post(
+        "api/student_end",
+        data=json.dumps(
+            {
+                "student_name": "Mike",
+                "student_final_code": "for i in range(5):print(i)",
+                "exercise_starting_code": "for i in range(5):",
+                "exercise_desired_output": "1 2 3 4 5",
+                "section_name": "CPSC 2020",
+                "instructor_name": "Jon Craton",
+                "exercise_name": "Intro to For Loops",
+            }
+        ),
+    )
+
+    assert (
+        initial_time
+        <= response.json["time_finished"]
+        <= time.mktime(datetime.now().timetuple())
+    )
+
+
+def test_get_stats(client):
+    initial_time = time.mktime(datetime.now().timetuple())
+    response = client.get(
+        "api/stats/Jon Craton/CPSC 2020/Intro To For Loops",
+    )
+
+    print(response.json)
+
+    assert response.json["total_submissions"] == 5
+    assert response.json["completed_submissions"] == 3
+    assert response.json["incomplete_submissions"] == 2
