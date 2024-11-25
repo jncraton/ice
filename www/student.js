@@ -59,33 +59,19 @@ function sendIntialData(){
     assignmentCode = urlList[3] 
     teacherName = urlList[4]
   }
-  //Call API to send class code to the database
-  fetch ('/api/section', {
+
+  //Call API to send intial data to the database
+  fetch ('/api/student_start', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ txt_section_name: classCode }),
-  })
-  .then((response) => response.json())
-  //Call API to send assignment code to the database
-  fetch ('/api/exercise', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ txt_exercise_name: assignmentCode, txt_starting_code: startCode, txt_desired_output: desiredOutput })
-  })
-  //Call API to send username to the database 
-  fetch ('/api/student', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ txt_student_name: student_name})
+    body: JSON.stringify({ txt_section_name: classCode, txt_instructor_name: teacherName, 
+      txt_exercise_name: assignmentCode, txt_starting_code: startCode, txt_desired_output: desiredOutput, 
+      txt_student_name: student_name})
   })
 }
-// fk_section_id:
+
 
 function sendFinalData(){
   fetch ('', {
