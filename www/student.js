@@ -86,6 +86,17 @@ function sendIntialData(){
 }
 // fk_section_id:
 
+function sendFinalData(){
+  fetch ('', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({})
+  })
+}
+
+
 function getStats(){
   console.log("stats hit")
 }
