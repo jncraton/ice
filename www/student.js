@@ -45,10 +45,10 @@ function timer() {
 }
 
 function sendIntialData(){  
-  let startCode = ""
-  let desiredOutput = ""
-  let classCode = ""
-  let assignmentCode = ""
+  let startCode
+  let desiredOutput
+  let classCode
+  let assignmentCode
   
   //Pull class and assignment code out of link
   if (location.hash !== '') {
@@ -81,10 +81,10 @@ function sendIntialData(){
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ txt_student_name: student_name })
+    body: JSON.stringify({ txt_student_name: student_name})
   })
 }
-
+// fk_section_id:
 
 function getStats(){
   console.log("stats hit")
