@@ -1,5 +1,10 @@
 # Project Ice
 
+[![Lint](https://github.com/jncraton/ice/actions/workflows/lint.yml/badge.svg)](https://github.com/jncraton/ice/actions/workflows/lint.yml)
+[![Flask Tests](https://github.com/jncraton/ice/actions/workflows/test_flask.yml/badge.svg)](https://github.com/jncraton/ice/actions/workflows/test_flask.yml)
+[![Static HTML Tests](https://github.com/jncraton/ice/actions/workflows/test_default.yml/badge.svg)](https://github.com/jncraton/ice/actions/workflows/test_default.yml)
+[![Deploy to Pages](https://github.com/jncraton/ice/actions/workflows/pages.yml/badge.svg)](https://github.com/jncraton/ice/actions/workflows/pages.yml)
+
 Project Ice or the Integrated Coding Experience is a new way to teach and practice programming in the classroom. The goals of project Ice are as follows:
 
 1. Provide a tool for instructors to present, demonstrate, and build interactive activity to enhance their students learning
