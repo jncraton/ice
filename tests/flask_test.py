@@ -183,6 +183,7 @@ def test_post_student_start(client):
                 "exercise_name": "Intro to For Loops",
             }
         ),
+        mimetype="application/json",
     )
 
     assert (
