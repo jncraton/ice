@@ -57,6 +57,7 @@ function sendIntialData(){
     desiredOutput = urlList[1]
     classCode = urlList[2]
     assignmentCode = urlList[3] 
+    teacherName = urlList[4]
   }
   //Call API to send class code to the database
   fetch ('/api/section', {
