@@ -67,14 +67,15 @@ function sendIntialData(){
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ txt_section_name: classCode, txt_instructor_name: teacherName, 
-      txt_exercise_name: assignmentCode, txt_starting_code: startCode, txt_desired_output: desiredOutput, 
-      txt_student_name: student_name})
-  })
+    body: JSON.stringify({ section_name: classCode, instructor_name: teacherName, 
+      exercise_name: assignmentCode, exercise_starting_code: startCode, exercise_desired_output: desiredOutput, 
+      student_name: student_name}),
+    })
 }
 
 
 function sendFinalData(){
+  //Call API to send intial data to the database
   fetch ('', {
     method: 'POST',
     headers: {
