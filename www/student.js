@@ -72,7 +72,7 @@ function sendIntialData(){
       txt_student_name: student_name})
   })
 }
-
+// get response
 
 function sendFinalData(){
   fetch ('', {
