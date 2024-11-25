@@ -72,7 +72,7 @@ function sendIntialData(){
       student_name: student_name}),
     })
 }
-
+// get response
 
 function sendFinalData(){
   //Call API to send intial data to the database
