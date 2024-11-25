@@ -1,5 +1,6 @@
 'use strict'
 
+let stats_interval;
 const switchView = document.querySelector('#switch')
 switchView.addEventListener('click', function (event) {
   const codeView = document.querySelector('#code-view')
@@ -7,9 +8,8 @@ switchView.addEventListener('click', function (event) {
   if (statsView.style.display == 'none') {
     codeView.style.display = 'none'
     statsView.style.display = 'block'
-    getStats()
     switchView.innerText = 'Show Code'
-    let stats_interval = setInterval(getStats, 10000)
+    stats_interval = setInterval(getStats, 10000)
   } else {
     codeView.style.display = 'block'
     statsView.style.display = 'none'
