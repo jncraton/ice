@@ -55,3 +55,30 @@ def test_buttons_disable(page: Page, url):
     # 5. Expect run button to be enabled, end button to be disabled
     expect(page.locator("#run-button")).to_be_enabled()
     expect(page.locator("#end-button")).to_be_disabled()
+
+
+def test_python_code_execution_with_input(page: Page, url):
+    """
+    Test that Python code correctly handles user input via the worker.
+    """
+
+    page.goto(url)
+
+    # 1. Put code in the code area
+    codearea_locator = page.locator("#code-area")
+    python_code = """
+    name = await input("What is your name?")
+    print("Hello", name)
+    """
+    codearea_locator.fill(python_code)
+
+    # 2. Click Run Button
+    page.locator("#run-button").click()
+
+    # 3. Simulate user input with a mock 'hi' response
+    page.on(
+        "dialog", lambda dialog: dialog.accept("world")
+    )  # Simulate the prompt with 'world'
+
+    # 4. Assert that the output is correct
+    expect(page.locator("#code-output")).to_have_text("Hello world", timeout=20000)

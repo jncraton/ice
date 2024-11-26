@@ -32,6 +32,13 @@ function createCodeWorker() {
       runButton.disabled = false
       endButton.disabled = true
       checkOutput(msg.data.result)
+    } else if (msg.data.type === 'input-request') {
+      // Handle the input prompt request from the worker
+      const userInput = prompt(msg.data.message) // Use a simple prompt here for now
+      codeWorker.postMessage({
+        type: 'user-input',
+        input: userInput, // Send the user input back to the worker
+      })
     }
   })
 
