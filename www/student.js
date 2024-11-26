@@ -32,6 +32,7 @@ document.querySelector('#start-button').addEventListener('click', function () {
     document.querySelector('#start-button').disabled = true
     document.querySelector('#student-name').disabled = true
     document.querySelector('#code-area').disabled = false
+    document.querySelector('#run-button').disabled = false
   } else {
     alert('Cannot start without student name')
   }
