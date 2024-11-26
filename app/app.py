@@ -434,7 +434,127 @@ def create_app(testing=False):
         Finds or creates new rows in the exercise, section, and student tables.
         """
 
-        pass
+        # 1. Get time to log (do this first to maintain accuracy in timing!)
+        time_started = time.mktime(datetime.now().timetuple())
+
+        # 1. Find or Create Section
+        try:
+            # 1A. Query for section
+            section_query = query_db(
+                "SELECT pk_section_id FROM section WHERE txt_section_name = ? AND txt_instructor_name = ?;",
+                (request.json["section_name"], request.json["instructor_name"]),
+                one=True,
+            )
+            if section_query is not None:
+                section_id = dict(section_query)["pk_section_id"]
+            else:
+                # 1B. Create section if needed
+                query_db(
+                    "INSERT INTO section (txt_section_name, txt_instructor_name, ts_time_recorded) VALUES (?, ?, ?);",
+                    (
+                        request.json["section_name"],
+                        request.json["instructor_name"],
+                        time.mktime(datetime.now().timetuple()),
+                    ),
+                )
+
+                section_id = query_db(
+                    "SELECT last_insert_rowid() rowid;",
+                    one=True,
+                )["rowid"]
+
+        except Exception as e:
+            print(e)
+            return str(e)
+
+        # 2. Find or Create Exercise
+        try:
+            # 2A. Query for exercise
+            exercise_query = query_db(
+                "SELECT pk_exercise_id FROM exercise WHERE txt_exercise_name = ? AND txt_starting_code = ? AND txt_desired_output = ? AND fk_section_id = ?;",
+                (
+                    request.json["exercise_name"],
+                    request.json["exercise_starting_code"],
+                    request.json["exercise_desired_output"],
+                    section_id,
+                ),
+                one=True,
+            )
+            if exercise_query is not None:
+                print("Exercise found ")
+                exercise_id = exercise_query["pk_exercise_id"]
+            else:
+                print("Exercise needs recorded")
+                # 2B. Create exercise if needed
+                query_db(
+                    "INSERT INTO exercise (txt_exercise_name, txt_starting_code, txt_desired_output, fk_section_id, ts_time_recorded) VALUES (?, ?, ?, ?, ?);",
+                    (
+                        request.json["exercise_name"],
+                        request.json["exercise_starting_code"],
+                        request.json["exercise_desired_output"],
+                        section_id,
+                        time.mktime(datetime.now().timetuple()),
+                    ),
+                )
+
+                exercise_id = query_db(
+                    "SELECT last_insert_rowid() rowid;",
+                    one=True,
+                )["rowid"]
+
+        except Exception as e:
+            return str(e)
+        # 3. Find or Create Student
+        try:
+            # 3A. Query for student
+            student_query = query_db(
+                "SELECT pk_student_id FROM student WHERE txt_student_name = ? AND fk_section_id = ?;",
+                (
+                    request.json["student_name"],
+                    section_id,
+                ),
+                one=True,
+            )
+            if student_query is not None:
+                student_id = student_query["pk_student_id"]
+            else:
+                # 3B. Create student if needed
+                query_db(
+                    "INSERT INTO student (txt_student_name, fk_section_id, ts_time_recorded) VALUES (?, ?, ?);",
+                    (
+                        request.json["student_name"],
+                        section_id,
+                        time.mktime(datetime.now().timetuple()),
+                    ),
+                )
+
+                student_id = query_db(
+                    "SELECT last_insert_rowid() rowid;",
+                    one=True,
+                )["rowid"]
+        except Exception as e:
+            return str(e)
+
+        # 4. Create Student Submission Object
+        try:
+            query_db(
+                "INSERT INTO student_submission (txt_student_program, txt_student_program_output, bool_is_complete, ts_starting_time, ts_submission_time, ts_time_recorded, fk_exercise_id, fk_student_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?);",
+                (
+                    "",
+                    "",
+                    False,
+                    time_started,
+                    None,
+                    time.mktime(datetime.now().timetuple()),
+                    exercise_id,
+                    student_id,
+                ),
+            )
+        except Exception as e:
+            return str(e)
+
+        # 5. Return confirmation that student submission object was created with time X
+        return {"time_started": time_started}
 
     @app.route("/api/student_end", methods=["POST"])
     def api_post_student_end():
