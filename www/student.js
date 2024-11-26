@@ -94,7 +94,7 @@ function getStats() {
     }
   }).then(response => response.json())
     .then(data => {
-      document.querySelector('#students-started').innerHTML(data.incomplete_submissions)
+      document.querySelector('#students-started').innerHTML(data.total_submissions)
       document.querySelector('#students-completed').innerHTML(data.completed_submissions) 
     })
     .catch(error => {
