@@ -76,18 +76,6 @@ function sendIntialData() {
     }),
   })
 }
-// get response
-
-function sendFinalData() {
-  //Call API to send intial data to the database
-  fetch('', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({}),
-  })
-}
 
 function getStats() {
   console.log('stats hit')

@@ -87,11 +87,23 @@ function checkOutput(output) {
     label.classList.remove('labelIncorrect')
     clearInterval(timer_interval)
     document.querySelector('#submit-button').disabled = false
+    sendFinalData()
   } else {
     label.textContent = 'Does not match target output   ❌'
     label.classList.add('labelIncorrect')
     label.classList.remove('labelCorrect')
   }
+}
+
+function sendFinalData() {
+  //Call API to send intial data to the database
+  fetch('', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({}),
+  })
 }
 
 // Run code when button pressed.
