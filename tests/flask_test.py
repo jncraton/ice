@@ -194,24 +194,40 @@ def test_post_student_start(client):
 
 
 def test_post_student_end(client):
-    initial_time = time.mktime(datetime.now().timetuple())
+    # response = client.post(
+    #     "api/student_start",
+    #     data=json.dumps(
+    #         {
+    #             "student_name": "Mike",
+    #             "exercise_starting_code": "for i in range(5):",
+    #             "exercise_desired_output": "1 2 3 4 5",
+    #             "section_name": "CPSC 2020",
+    #             "instructor_name": "Jon Craton",
+    #             "exercise_name": "Intro to For Loops",
+    #         }
+    #     ),
+    #     mimetype="application/json",
+    # )
+
+    end_time = time.mktime(datetime.now().timetuple())
     response = client.post(
         "api/student_end",
         data=json.dumps(
             {
-                "student_name": "Mike",
-                "student_final_code": "for i in range(5):print(i)",
+                "student_name": "David",
+                "student_final_code": "for i in range(5):\n\tprint(i)",
+                "exercise_name": "Intro To For Loops",
                 "exercise_starting_code": "for i in range(5):",
-                "exercise_desired_output": "1 2 3 4 5",
+                "exercise_desired_output": "0 1 2 3 4",
                 "section_name": "CPSC 2020",
                 "instructor_name": "Jon Craton",
-                "exercise_name": "Intro to For Loops",
             }
         ),
+        mimetype="application/json",
     )
-
+    print(response.data)
     assert (
-        initial_time
+        end_time
         <= response.json["time_finished"]
         <= time.mktime(datetime.now().timetuple())
     )
