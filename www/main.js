@@ -13,10 +13,16 @@ function updateSharing() {
   const outputText = document.querySelector('#target-text').value
   const classCode = document.querySelector('#class-code').value
   const assignmentCode = document.querySelector('#assignment-code').value
-  const teacherName = document.querySelector("#instructor-name").value
+  const teacherName = document.querySelector('#instructor-name').value
 
   const base64String = btoa(
-    JSON.stringify([codeText, outputText, classCode, assignmentCode, teacherName]),
+    JSON.stringify([
+      codeText,
+      outputText,
+      classCode,
+      assignmentCode,
+      teacherName,
+    ]),
   )
 
   const url =
