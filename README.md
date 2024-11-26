@@ -6,6 +6,10 @@ Project Ice or the Integrated Coding Experience is a new way to teach and practi
 2. Provide a way for students' to practice their programming skills through instructor made activities or in a sandbox environment
 3. Allow for a more integrated way to demonstrate programming skills
 
+## Example Presentation
+
+An [example presentation](https://jncraton.github.io/slide-decks/python-for) is provided that shows three different embedded interactive coding exercises within a larger learning segment focused on `for` loops in Python.
+
 ## Running
 
 You can view a live version of the page at https://jncraton.github.io/ice/
