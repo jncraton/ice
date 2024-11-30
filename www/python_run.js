@@ -97,12 +97,19 @@ function checkOutput(output) {
 
 function sendFinalData() {
   //Call API to send intial data to the database
-  fetch('', {
+  fetch('/api/student_end', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({}),
+    body: JSON.stringify({
+      section_name: classCode,
+      instructor_name: teacherName,
+      exercise_name: assignmentCode,
+      exercise_starting_code: startCode,
+      exercise_desired_output: desiredOutput,
+      student_name: student_name,
+    }),
   })
 }
 
