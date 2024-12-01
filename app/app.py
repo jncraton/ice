@@ -436,10 +436,11 @@ def create_app(testing=False):
         Create a new student_submission object to show that a student began working on an exercise
         Finds or creates new rows in the exercise, section, and student tables.
         """
-
+        print("---POST START---")
         # 1. Get time to log (do this first to maintain accuracy in timing!)
         time_started = time.mktime(datetime.now().timetuple())
 
+        print("Find/Create section")
         # 1. Find or Create Section
         try:
             # 1A. Query for section
@@ -471,6 +472,7 @@ def create_app(testing=False):
             return str(e)
 
         # 2. Find or Create Exercise
+        print("Find/create exercise")
         try:
             # 2A. Query for exercise
             exercise_query = query_db(
@@ -508,6 +510,7 @@ def create_app(testing=False):
         except Exception as e:
             return str(e)
         # 3. Find or Create Student
+        print("Find/create Student")
         try:
             # 3A. Query for student
             student_query = query_db(
@@ -538,8 +541,30 @@ def create_app(testing=False):
         except Exception as e:
             return str(e)
 
-        # 4. Create Student Submission Object
+        # 4. Create Student Submission Object (but only if there isn't already one)
+        print("Find/create student submission object")
         try:
+            submission_query = query_db(
+                """SELECT 
+                        pk_student_submission_id, 
+                        ts_starting_time 
+                    FROM student_submission 
+                    WHERE fk_student_id = ? 
+                        AND fk_exercise_id = ? 
+                        AND bool_is_complete = FALSE;""",
+                (student_id, exercise_id),
+                one=True,
+            )
+
+            if submission_query is not None:
+                return {"time_started": submission_query["ts_starting_time"]}
+
+            print("Creating student submission object")
+            print(
+                len(
+                    list(dict(d) for d in query_db("SELECT * FROM student_submission;"))
+                )
+            )
             query_db(
                 "INSERT INTO student_submission (txt_student_program, txt_student_program_output, bool_is_complete, ts_starting_time, ts_submission_time, ts_time_recorded, fk_exercise_id, fk_student_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?);",
                 (
@@ -553,7 +578,14 @@ def create_app(testing=False):
                     student_id,
                 ),
             )
+            print("created")
+            print(
+                len(
+                    list(dict(d) for d in query_db("SELECT * FROM student_submission;"))
+                )
+            )
         except Exception as e:
+            print("exception occured")
             return str(e)
 
         # 5. Return confirmation that student submission object was created with time X
@@ -561,7 +593,76 @@ def create_app(testing=False):
 
     @app.route("/api/student_end", methods=["POST"])
     def api_post_student_end():
-        pass
+        print("---STUDENT END---")
+        time_ended = time.mktime(datetime.now().timetuple())
+        print(len(list(dict(d) for d in query_db("SELECT * FROM student_submission;"))))
+        # 1. Select the right query
+        query = query_db(
+            """SELECT pk_student_submission_id FROM student_submission st_s
+                INNER JOIN exercise e 
+                    ON e.pk_exercise_id = st_s.fk_exercise_id
+                INNER JOIN section s
+                    ON s.pk_section_id = e.fk_section_id 
+                INNER JOIN student st 
+                    ON st.pk_student_id = st_s.fk_student_id
+                WHERE 
+                    s.txt_section_name = ?
+                AND s.txt_instructor_name = ?
+                AND e.txt_exercise_name = ?
+                AND st.txt_student_name = ?
+                AND e.txt_starting_code = ?
+                AND e.txt_desired_output = ?
+                AND st_s.bool_is_complete = FALSE;
+                """,
+            (
+                request.json["section_name"],
+                request.json["instructor_name"],
+                request.json["exercise_name"],
+                request.json["student_name"],
+                request.json["exercise_starting_code"],
+                request.json["exercise_desired_output"],
+            ),
+            one=True,
+        )
+        print(
+            (
+                request.json["section_name"],
+                request.json["instructor_name"],
+                request.json["exercise_name"],
+                request.json["student_name"],
+                request.json["exercise_starting_code"],
+                request.json["exercise_desired_output"],
+            )
+        )
+
+        if query == None:
+            print("Can't find it")
+            print("404 error")
+            return {}, 404
+        else:
+            print(dict(query))
+        print("query")
+        query_db(
+            """UPDATE student_submission
+                SET txt_student_program = ?,
+                    txt_student_program_output = ?,
+                    bool_is_complete = ?,
+                    ts_submission_time = ?,
+                    ts_time_recorded = ?
+                WHERE 
+                    pk_student_submission_id = ?;
+            """,
+            (
+                request.json["student_final_code"],
+                request.json["exercise_desired_output"],
+                True,
+                time_ended,
+                time.mktime(datetime.now().timetuple()),
+                query["pk_student_submission_id"],
+            ),
+        )
+
+        return {"time_finished": time_ended}
 
     @app.route(
         "/api/stats/<instructor_name>/<section_name>/<exercise_name>", methods=["GET"]
