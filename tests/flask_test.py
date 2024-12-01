@@ -15,7 +15,7 @@ from app import create_app
 
 @pytest.fixture()
 def client():
-    """ Define client fixture for use in tests """
+    """Define client fixture for use in tests"""
     yield create_app(True).test_client()
 
 
