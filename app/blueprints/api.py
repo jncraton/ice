@@ -27,12 +27,12 @@ def get_db():
         else:
             # Regenerate database
             db = g._database = sqlite3.connect(current_app.config["DATABASE_PATH"])
-            with api.open_resource("db/schema.sql") as f:
+            with current_app.open_resource("db/schema.sql") as f:
                 db.cursor().executescript(f.read().decode("utf-8"))
 
             # If we are testing load test data
             if current_app.config["TESTING"]:
-                with api.open_resource("db/load_testing_data.sql") as f:
+                with current_app.open_resource("db/load_testing_data.sql") as f:
                     db.cursor().executescript(f.read().decode("utf-8"))
             db.commit()
 
@@ -360,5 +360,6 @@ def api_get_stats(instructor_name, section_name, exercise_name):
                 one=True,
             )
         )
-    except sqlite3.OperationalError:
+    except sqlite3.OperationalError as e:
+        print(e)
         return {"error": "A database error occurred. Please try again later. "}, 500
