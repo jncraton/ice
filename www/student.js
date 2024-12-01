@@ -27,6 +27,7 @@ let desiredOutput
 let classCode
 let assignmentCode
 let teacherName
+let studentFinalOutput
 
 document.querySelector('#start-button').addEventListener('click', function() {
 	student_name = document.querySelector('#student-name').value
@@ -40,6 +41,11 @@ document.querySelector('#start-button').addEventListener('click', function() {
 	else {
 		alert("Cannot start without student name")
 	}
+})
+
+document.querySelector('#submit-button').addEventListener('click', function(){
+  studentFinalOutput = document.querySelector("#code-output").value
+  sendFinalData();
 })
 
 function timer() {
@@ -67,19 +73,21 @@ function sendIntialData(){
     },
     body: JSON.stringify({ section_name: classCode, instructor_name: teacherName, 
       exercise_name: assignmentCode, exercise_starting_code: startCode, exercise_desired_output: desiredOutput, 
-      student_name: student_name}),
+      student_name: student_name }),
     })
 }
 // get response
 
 function sendFinalData(){
   //Call API to send intial data to the database
-  fetch ('', {
+  fetch ('/api/student_end', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({})
+    body: JSON.stringify({ section_name: classCode, instructor_name: teacherName, 
+      exercise_name: assignmentCode, exercise_starting_code: startCode, exercise_desired_output: desiredOutput, 
+      student_name: student_name, student_final_code: studentFinalOutput }),
   })
 }
 
