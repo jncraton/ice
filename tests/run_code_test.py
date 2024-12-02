@@ -17,6 +17,12 @@ def test_python_runs(page: Page, url):
 
     page.goto(url)
 
+#check if url contains student.html
+    if "student.html" in url:
+        #0. Insert name so page unlocks
+        page.locator("#student-name").fill("Student1")
+        page.locator("#start-button").click()
+
     # 1. Put code in code area
     textarea_locator = page.locator("#code-area")
     textarea_locator.fill('print("Hello, world!")')
@@ -36,6 +42,11 @@ def test_buttons_disable(page: Page, url):
     """
 
     page.goto(url)
+
+    if "student.html" in url:
+        #0. Insert name so page unlocks
+        page.locator("#student-name").fill("Student1")
+        page.locator("#start-button").click()
 
     # 1. Put code in code area
     textarea_locator = page.locator("#code-area")

@@ -39,6 +39,12 @@ textarea {
   margin-bottom: 10px;
 }
 
+sub {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 20px;
+}
+
 #code-view {
   text-align: left;
 }
@@ -52,10 +58,6 @@ textarea {
 
 #code-view #code-area {
   height: calc(75vh - 48px);
-}
-
-#identify-codes {
-  margin-top: 30px;
 }
 
 #check-code-result {

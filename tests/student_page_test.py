@@ -27,7 +27,10 @@ def test_python_runs(page: Page):
     Test that basic python code can execute
     """
 
-    # 1. Put code in code area
+    #0. Insert name so page unlocks
+    page.locator("#student-name").fill("Student1")
+    page.locator("#start-button").click()
+
     textarea_locator = page.locator("#code-area")
     textarea_locator.fill('print("Hello, world!")')
 
@@ -45,6 +48,9 @@ def test_check_output_correct(page: Page):
     """
 
     # 1. Put code in code area
+    page.locator("#student-name").fill("Student1")
+    page.locator("#start-button").click()
+
     codearea_locator = page.locator("#code-area")
     codearea_locator.fill("print('Hello World!')")
 
@@ -69,6 +75,9 @@ def test_check_output_incorrect(page: Page):
     """
 
     # 1. Put code in code area
+    page.locator("#student-name").fill("Student1")
+    page.locator("#start-button").click()
+
     codearea_locator = page.locator("#code-area")
     codearea_locator.fill("print('Hello Word')")
 
@@ -90,6 +99,9 @@ def test_error_message_displayed(page: Page):
     """
     Test that an error message is displayed when there is an execution error.
     """
+    page.locator("#student-name").fill("Student1")
+    page.locator("#start-button").click()
+
     textarea_locator = page.locator("#code-area")
     textarea_locator.fill("print('Hello world'")  # Missing closing parenthesis
 
@@ -106,6 +118,9 @@ def test_results_page(page: Page):
     """
 
     # 1. switch to stats view
+    page.locator("#student-name").fill("Student1")
+    page.locator("#start-button").click()
+
     page.locator("#switch").click()
 
     # 2. check that stats is on page
@@ -114,12 +129,17 @@ def test_results_page(page: Page):
 
 def test_timer(page: Page):
     """
-    Test that the timer runs at the start of the page and stops
-    when the correct output is found
+    Test that the timer runs when a name is entered && start-button is clicked
+    and stops when the correct output is found
     """
 
-    expect(page.locator("#timer_val")).to_have_text("00:00:01")
+    expect(page.locator("#timer_val")).to_have_text("00:00:00")
+    page.clock.run_for(5000)
+    start_time = page.locator("#timer_val").inner_text()
+    expect(page.locator("#timer_val")).to_have_text(start_time)
 
+    page.locator("#student-name").fill("Student1")
+    page.locator("#start-button").click()
     # Check timer after 13 seconds
     page.clock.run_for(11000)
     expect(page.locator("#timer_val")).to_have_text("00:00:13")
@@ -147,6 +167,10 @@ def test_infinite_loop_error_message(page: Page):
     """
     Test that an infinite loop is detected and feedback is given to the user.
     """
+    #0. Insert name so page unlocks
+    page.locator("#student-name").fill("Student1")
+    page.locator("#start-button").click()
+
     textarea_locator = page.locator("#code-area")
     textarea_locator.fill(
         """
