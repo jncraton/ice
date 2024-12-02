@@ -2,7 +2,7 @@
 
 from flask import Blueprint, request
 
-serve_static = Blueprint("serve_static", __name__, static_folder="../www")
+serve_static = Blueprint("serve_static", __name__, static_folder="../../www")
 
 
 # Web server routing
