@@ -67,10 +67,13 @@ def api_post_student_start():
             """
             SELECT pk_section_id 
             FROM section 
-            WHERE txt_section_name = ? 
-                AND txt_instructor_name = ?;
+            WHERE txt_section_name = :section_name
+                AND txt_instructor_name = :instructor_name;
             """,
-            (request.json["section_name"], request.json["instructor_name"]),
+            {
+                "section_name": request.json["section_name"],
+                "instructor_name": request.json["instructor_name"],
+            },
             one=True,
         )
         if section_query is not None:
@@ -85,13 +88,18 @@ def api_post_student_start():
                     txt_instructor_name, 
                     ts_time_recorded
                 )
-                VALUES (?, ?, ?);
-                """,
+                VALUES 
                 (
-                    request.json["section_name"],
-                    request.json["instructor_name"],
-                    time.mktime(datetime.now().timetuple()),
-                ),
+                    :section_name, 
+                    :instructor_name, 
+                    :time_recorded
+                );
+                """,
+                {
+                    "section_name": request.json["section_name"],
+                    "instructor_name": request.json["instructor_name"],
+                    "time_recorded": time.mktime(datetime.now().timetuple()),
+                },
             )
 
             section_id = query_db(
@@ -106,17 +114,17 @@ def api_post_student_start():
             """
             SELECT pk_exercise_id 
             FROM exercise 
-            WHERE txt_exercise_name = ? 
-                AND txt_starting_code = ? 
-                AND txt_desired_output = ? 
-                AND fk_section_id = ?;
+            WHERE txt_exercise_name = :exercise_name
+                AND txt_starting_code = :exercise_starting_code
+                AND txt_desired_output = :exercise_desired_output 
+                AND fk_section_id = :section_id;
             """,
-            (
-                request.json["exercise_name"],
-                request.json["exercise_starting_code"],
-                request.json["exercise_desired_output"],
-                section_id,
-            ),
+            {
+                "exercise_name": request.json["exercise_name"],
+                "exercise_starting_code": request.json["exercise_starting_code"],
+                "exercise_desired_output": request.json["exercise_desired_output"],
+                "section_id": section_id,
+            },
             one=True,
         )
         if exercise_query is not None:
@@ -135,15 +143,22 @@ def api_post_student_start():
                     fk_section_id, 
                     ts_time_recorded
                 ) 
-                VALUES (?, ?, ?, ?, ?);
-                """,
+                VALUES 
                 (
-                    request.json["exercise_name"],
-                    request.json["exercise_starting_code"],
-                    request.json["exercise_desired_output"],
-                    section_id,
-                    time.mktime(datetime.now().timetuple()),
-                ),
+                    :exercise_name,
+                    :exercise_starting_code,
+                    :exercise_desired_output,
+                    :section_id,
+                    :time_recorded
+                );
+                """,
+                {
+                    "exercise_name": request.json["exercise_name"],
+                    "exercise_starting_code": request.json["exercise_starting_code"],
+                    "exercise_desired_output": request.json["exercise_desired_output"],
+                    "section_id": section_id,
+                    "time_recorded": time.mktime(datetime.now().timetuple()),
+                },
             )
 
             exercise_id = query_db(
@@ -158,13 +173,13 @@ def api_post_student_start():
             """
             SELECT pk_student_id 
             FROM student 
-            WHERE txt_student_name = ?
-                AND fk_section_id = ?;
+            WHERE txt_student_name = :student_name
+                AND fk_section_id = :section_id;
             """,
-            (
-                request.json["student_name"],
-                section_id,
-            ),
+            {
+                "student_name": request.json["student_name"],
+                "section_id": section_id,
+            },
             one=True,
         )
         if student_query is not None:
@@ -179,13 +194,18 @@ def api_post_student_start():
                     fk_section_id, 
                     ts_time_recorded
                 ) 
-                VALUES (?, ?, ?);
-                """,
+                VALUES 
                 (
-                    request.json["student_name"],
-                    section_id,
-                    time.mktime(datetime.now().timetuple()),
-                ),
+                    :student_name, 
+                    :section_id, 
+                    :time_recorded
+                );
+                """,
+                {
+                    "student_name": request.json["student_name"],
+                    "section_id": section_id,
+                    "time_recorded": time.mktime(datetime.now().timetuple()),
+                },
             )
 
             student_id = query_db(
@@ -201,10 +221,10 @@ def api_post_student_start():
                     pk_student_submission_id, 
                     ts_starting_time 
                 FROM student_submission 
-                WHERE fk_student_id = ? 
-                    AND fk_exercise_id = ? 
+                WHERE fk_student_id = :student_id
+                    AND fk_exercise_id = :exercise_id
                     AND bool_is_complete = FALSE;""",
-            (student_id, exercise_id),
+            {"student_id": student_id, "exercise_id": exercise_id},
             one=True,
         )
 
@@ -226,21 +246,29 @@ def api_post_student_start():
                 fk_exercise_id, 
                 fk_student_id
             ) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?);
-            """,
+            VALUES 
             (
-                "",
-                "",
-                False,
-                time_started,
-                None,
-                time.mktime(datetime.now().timetuple()),
-                exercise_id,
-                student_id,
-            ),
+                :txt_student_program, 
+                :txt_student_program_output, 
+                :bool_is_complete, 
+                :ts_starting_time, 
+                :ts_submission_time, 
+                :ts_time_recorded, 
+                :fk_exercise_id, 
+                :fk_student_id
+            );
+            """,
+            {
+                "txt_student_program": "",
+                "txt_student_program_output": "",
+                "bool_is_complete": False,
+                "ts_starting_time": time_started,
+                "ts_submission_time": None,
+                "ts_time_recorded":time.mktime(datetime.now().timetuple()),
+                "fk_exercise_id": exercise_id,
+                "fk_student_id": student_id
+            },
         )
-        print("created")
-        print(len(list(dict(d) for d in query_db("SELECT * FROM student_submission;"))))
     except sqlite3.OperationalError as db_error:
         print(db_error)
         return {"error": "A database error occurred. Please try again later. "}, 500
@@ -269,33 +297,23 @@ def api_post_student_end():
             INNER JOIN student st 
                 ON st.pk_student_id = st_s.fk_student_id
             WHERE 
-                s.txt_section_name = ?
-            AND s.txt_instructor_name = ?
-            AND e.txt_exercise_name = ?
-            AND st.txt_student_name = ?
-            AND e.txt_starting_code = ?
-            AND e.txt_desired_output = ?
+                s.txt_section_name = :section_name
+            AND s.txt_instructor_name = :instructor_name
+            AND e.txt_exercise_name = :exercise_name
+            AND st.txt_student_name = :student_name
+            AND e.txt_starting_code = :exercise_starting_code
+            AND e.txt_desired_output = :exercise_desired_output
             AND st_s.bool_is_complete = FALSE;
             """,
-        (
-            request.json["section_name"],
-            request.json["instructor_name"],
-            request.json["exercise_name"],
-            request.json["student_name"],
-            request.json["exercise_starting_code"],
-            request.json["exercise_desired_output"],
-        ),
+        {
+            "section_name": request.json["section_name"],
+            "instructor_name": request.json["instructor_name"],
+            "exercise_name": request.json["exercise_name"],
+            "student_name": request.json["student_name"],
+            "exercise_starting_code": request.json["exercise_starting_code"],
+            "exercise_desired_output": request.json["exercise_desired_output"],
+        },
         one=True,
-    )
-    print(
-        (
-            request.json["section_name"],
-            request.json["instructor_name"],
-            request.json["exercise_name"],
-            request.json["student_name"],
-            request.json["exercise_starting_code"],
-            request.json["exercise_desired_output"],
-        )
     )
 
     if query is None:
@@ -304,22 +322,22 @@ def api_post_student_end():
         return {"error": "no previous submission started"}, 404
     query_db(
         """UPDATE student_submission
-            SET txt_student_program = ?,
-                txt_student_program_output = ?,
-                bool_is_complete = ?,
-                ts_submission_time = ?,
-                ts_time_recorded = ?
+            SET txt_student_program = :student_program,
+                txt_student_program_output = :student_program_output,
+                bool_is_complete = :is_complete,
+                ts_submission_time = :submission_time,
+                ts_time_recorded = :time_recorded
             WHERE 
-                pk_student_submission_id = ?;
+                pk_student_submission_id = :student_submission_id;
         """,
-        (
-            request.json["student_final_code"],
-            request.json["exercise_desired_output"],
-            True,
-            time_ended,
-            time.mktime(datetime.now().timetuple()),
-            query["pk_student_submission_id"],
-        ),
+        {
+            "student_program": request.json["student_final_code"],
+            "student_program_output": request.json["exercise_desired_output"],
+            "is_complete": True,
+            "submission_time": time_ended,
+            "time_recorded": time.mktime(datetime.now().timetuple()),
+            "student_submission_id": query["pk_student_submission_id"],
+        },
     )
 
     return {"time_finished": time_ended}
@@ -348,15 +366,15 @@ def api_get_stats(instructor_name, section_name, exercise_name):
                 INNER JOIN section s
                     ON s.pk_section_id = e.fk_section_id 
                 WHERE 
-                    s.txt_section_name = ?
-                AND s.txt_instructor_name = ?
-                AND e.txt_exercise_name = ?;
+                    s.txt_section_name = :section_name
+                AND s.txt_instructor_name = :instructor_name
+                AND e.txt_exercise_name = :exercise_name;
                 """,
-                (
-                    section_name,
-                    instructor_name,
-                    exercise_name,
-                ),
+                {
+                    "section_name": section_name,
+                    "instructor_name": instructor_name,
+                    "exercise_name": exercise_name,
+                },
                 one=True,
             )
         )
