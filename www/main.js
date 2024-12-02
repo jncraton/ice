@@ -1,5 +1,6 @@
 'use strict'
 
+//Allow instructor to save output of their code using button
 const saveOutput = document.querySelector('#save-output')
 saveOutput.addEventListener('click', function () {
   const outputText = document.querySelector('#target-text')
@@ -41,6 +42,7 @@ document.querySelectorAll('textarea,select').forEach(e => {
   e.addEventListener('input', updateSharing)
 })
 
+//Display link and allow it to be copied 
 const linkDisplay = document.querySelector('#copy')
 linkDisplay.addEventListener('click', function (event) {
   event.preventDefault()
@@ -61,7 +63,6 @@ linkDisplay.addEventListener('click', function (event) {
     )
 })
 
+//Automatically updates link when class or assignment code is changed
 document.querySelector('#class-code').addEventListener('input', updateSharing)
-document
-  .querySelector('#assignment-code')
-  .addEventListener('input', updateSharing)
+document.querySelector('#assignment-code').addEventListener('input', updateSharing)

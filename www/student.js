@@ -3,6 +3,7 @@
 let stats_interval
 
 const switchView = document.querySelector('#switch')
+//Allows you to use button to toggle between code and stats view 
 switchView.addEventListener('click', function (event) {
   const codeView = document.querySelector('#code-view')
   const statsView = document.querySelector('#stats-view')
