@@ -16,3 +16,4 @@ jobs:
       - run: black --check .
       - run: pylint tests/*.py
       - run: pylint app/*.py
+      - run: pylint app/blueprints/*.py
