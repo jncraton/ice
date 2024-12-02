@@ -51,7 +51,7 @@ function sendIntialData() {
   let assignmentCode
   let teacherName
 
-  //Pull class and assignment code out of link
+  //Pull information out of link
   if (location.hash !== '') {
     const urlList = JSON.parse(atob(location.hash.split('#')[1]))
     startCode = urlList[0]

@@ -96,6 +96,25 @@ function checkOutput(output) {
 }
 
 function sendFinalData() {
+  let startCode
+  let desiredOutput
+  let classCode
+  let assignmentCode
+  let teacherName
+
+  //Pull information out of link
+  if (location.hash !== '') {
+    const urlList = JSON.parse(atob(location.hash.split('#')[1]))
+    startCode = urlList[0]
+    desiredOutput = urlList[1]
+    classCode = urlList[2]
+    assignmentCode = urlList[3]
+    teacherName = urlList[4]
+  }
+
+  student_name = document.querySelector('#student-name').value
+
+  
   //Call API to send intial data to the database
   fetch('/api/student_end', {
     method: 'POST',
@@ -109,6 +128,7 @@ function sendFinalData() {
       exercise_starting_code: startCode,
       exercise_desired_output: desiredOutput,
       student_name: student_name,
+      student_final_code: 
     }),
   })
 }
