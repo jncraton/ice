@@ -18,7 +18,7 @@ def before_each(page: Page):
 def test_desired_outcome(page: Page):
     """Confirm that output text is visible"""
 
-    textbox_locator = page.locator("#output-text")
+    textbox_locator = page.locator("#target-text")
     assert textbox_locator.is_visible()
 
 
@@ -29,7 +29,7 @@ def test_student_link_navigates(page: Page):
     page.locator("#code-area").fill("test input")
 
     # Step 2: Input text in output field
-    page.locator("#output-text").fill("test output")
+    page.locator("#target-text").fill("test output")
 
     # Step 3: Copy Link
     try:
@@ -56,16 +56,19 @@ def test_embed_code_generation(page: Page):
     page.locator("#code-area").fill("Sample code")
 
     # Step 2: Input text in output field
-    page.locator("#output-text").fill("Sample output")
+    page.locator("#target-text").fill("Sample output")
 
-    # Step 3: Select embed mode
+    # Step 3: Input class code
+    page.locator("#class-code").fill("CLS1")
+
+    # Step 4: Select embed mode
     page.select_option("select#share-type", label="Embed")
 
-    # Step 4: Verify that the embed code is correct
+    # Step 5: Verify that the embed code is correct
     # Generate the expected URL based on the inputs
     expected_url = page.evaluate(
         """location.origin + location.pathname + "student.html#" + 
-        btoa(JSON.stringify(["Sample code", "Sample output"]))"""
+        btoa(JSON.stringify(["Sample code", "Sample output", "CLS1"])) """
     )
     # Construct the expected embed code
     expected_embed_code = (
