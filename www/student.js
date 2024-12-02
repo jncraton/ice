@@ -87,7 +87,7 @@ function sendFinalData(){
     },
     body: JSON.stringify({ section_name: classCode, instructor_name: teacherName, 
       exercise_name: assignmentCode, exercise_starting_code: startCode, exercise_desired_output: desiredOutput, 
-      student_name: student_name, student_final_code: studentFinalOutput }),
+      student_name: student_name, student_program: studentFinalOutput }),
   })
 }
 
