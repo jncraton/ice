@@ -11,6 +11,6 @@ jobs:
       - uses: actions/checkout@v4
       - run: pip install pytest-playwright
       - run: python -m playwright install
-      - run: pip install flask
-      - run: cd www && python -m http.server && cd .. &
+      - run: pip install flask twisted
+      - run: python -m twisted web --port tcp:8000 --path www &
       - run: pytest --browser chromium --browser firefox
