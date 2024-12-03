@@ -27,7 +27,7 @@ def test_python_runs(page: Page):
     Test that basic python code can execute
     """
 
-    #0. Insert name so page unlocks
+    # 0. Insert name so page unlocks
     page.locator("#student-name").fill("Student1")
     page.locator("#start-button").click()
 
@@ -167,7 +167,7 @@ def test_infinite_loop_error_message(page: Page):
     """
     Test that an infinite loop is detected and feedback is given to the user.
     """
-    #0. Insert name so page unlocks
+    # 0. Insert name so page unlocks
     page.locator("#student-name").fill("Student1")
     page.locator("#start-button").click()
 
