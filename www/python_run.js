@@ -129,11 +129,3 @@ endButton.addEventListener('click', function () {
   clearTimeout(warningTimeout) // Clear warning timeout if execution is stopped
   hideWarningBox() // Hide warning when execution is stopped
 })
-
-endButton.addEventListener('click', function () {
-  codeWorker.terminate()
-  codeWorker = createCodeWorker() // send in the next worker
-
-  runButton.disabled = false
-  endButton.disabled = true
-})
