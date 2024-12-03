@@ -86,7 +86,6 @@ function checkOutput(output) {
     label.classList.add('labelCorrect')
     label.classList.remove('labelIncorrect')
     clearInterval(timer_interval)
-    document.querySelector('#submit-button').disabled = false
     sendFinalData()
   } else {
     label.textContent = 'Does not match target output   ❌'
