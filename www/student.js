@@ -11,8 +11,8 @@ switchView.addEventListener('click', function (event) {
     codeView.style.display = 'none'
     statsView.style.display = 'block'
     switchView.innerText = 'Show Code'
-    getStats()
-    setInterval(getStats, 10000)
+    getStats() //refresh stats on page load
+    stats_interval = setInterval(getStats, 10000) //auto refresh stats view
   } else {
     codeView.style.display = 'block'
     statsView.style.display = 'none'
@@ -21,7 +21,6 @@ switchView.addEventListener('click', function (event) {
   }
 })
 // Timer functionality
-let timer_interval
 let timer_interval
 let seconds = 0
 
@@ -40,74 +39,44 @@ document.querySelector('#start-button').addEventListener('click', function () {
   }
 })
 
-let student_name = ''
-
-let startCode
-let desiredOutput
-let classCode
-let assignmentCode
-let teacherName
-let studentFinalOutput
-
-document.querySelector('#start-button').addEventListener('click', function() {
-	student_name = document.querySelector('#student-name').value
-	if (student_name) {
-		timer_interval = setInterval(timer, 1000)
-		document.querySelector("#start-button").disabled = true
-		document.querySelector("#student-name").disabled = true
-  	document.querySelector('#code-area').disabled = false
-    sendIntialData()
-	}
-	else {
-		alert("Cannot start without student name")
-	}
-})
-
-document.querySelector('#submit-button').addEventListener('click', function(){
-  studentFinalOutput = document.querySelector("#code-output").value
-  sendFinalData();
-})
-
 function timer() {
   let timerValue = new Date(1000 * seconds).toISOString().substr(11, 8)
   document.querySelector('#timer_val').innerHTML = timerValue
   seconds++
 }
 
-function sendIntialData(){  
-  //Pull class and assignment code out of link
+//Declare variables
+let startCode
+let desiredOutput
+let classCode
+let assignmentCode
+let teacherName
+
+function sendIntialData() {
+  //Pull information out of link
   if (location.hash !== '') {
     const urlList = JSON.parse(atob(location.hash.split('#')[1]))
     startCode = urlList[0]
     desiredOutput = urlList[1]
     classCode = urlList[2]
-    assignmentCode = urlList[3] 
+    assignmentCode = urlList[3]
     teacherName = urlList[4]
   }
 
   //Call API to send intial data to the database
-  fetch ('/api/student_start', {
+  fetch('/api/student_start', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ section_name: classCode, instructor_name: teacherName, 
-      exercise_name: assignmentCode, exercise_starting_code: startCode, exercise_desired_output: desiredOutput, 
-      student_name: student_name }),
-    })
-}
-// get response
-
-function sendFinalData(){
-  //Call API to send intial data to the database
-  fetch ('/api/student_end', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ section_name: classCode, instructor_name: teacherName, 
-      exercise_name: assignmentCode, exercise_starting_code: startCode, exercise_desired_output: desiredOutput, 
-      student_name: student_name, student_program: studentFinalOutput }),
+    body: JSON.stringify({
+      section_name: classCode,
+      instructor_name: teacherName,
+      exercise_name: assignmentCode,
+      exercise_starting_code: startCode,
+      exercise_desired_output: desiredOutput,
+      student_name: student_name,
+    }),
   })
 }
 
@@ -115,14 +84,17 @@ function getStats() {
   fetch(`api/stats/${teacherName}/${classCode}/${assignmentCode}`, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json'
-    }
-  }).then(response => response.json())
+      'Content-Type': 'application/json',
+    },
+  })
+    .then(response => response.json())
     .then(data => {
-      document.getElementById('students-started').textContent = data.total_submissions
-      document.getElementById('students-completed').textContent = data.completed_submissions
+      document.getElementById('students-started').textContent =
+        data.total_submissions
+      document.getElementById('students-completed').textContent =
+        data.completed_submissions
     })
     .catch(error => {
-      console.error("Issues getting submitted and or unsubmitted students")
+      console.error('Issues getting submitted and or unsubmitted students')
     })
 }
