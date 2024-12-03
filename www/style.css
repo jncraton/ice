@@ -58,6 +58,21 @@ textarea {
   margin-top: 30px;
 }
 
+#code-view {
+  text-align: left;
+}
+
+#code-view textarea {
+  height: calc(25vh - 48px);
+  width: 100%;
+  box-sizing: border-box;
+  resize: none;
+}
+
+#code-view #code-area {
+  height: calc(75vh - 48px);
+}
+
 #check-code-result {
   margin: -7px;
   float: right;

@@ -1,38 +1,38 @@
 CREATE TABLE section (
-    pk_section_id INTEGER PRIMARY KEY, -- alias for ROWID
-    txt_section_name TEXT,
-    txt_instructor_name TEXT,
-    ts_time_recorded INTEGER
-) STRICT;
+    section_id INTEGER PRIMARY KEY, -- alias for ROWID
+    section_name TEXT,
+    instructor_name TEXT,
+    time_recorded INTEGER
+);
 
 CREATE TABLE exercise (
-    pk_exercise_id INTEGER PRIMARY KEY, -- alias for ROWID
-    fk_section_id INTEGER,
-    txt_exercise_name TEXT,
-    txt_starting_code TEXT,
-    txt_desired_output TEXT,
-    ts_time_recorded INTEGER,
-    FOREIGN KEY (fk_section_id) REFERENCES section (pk_section_id)
-) STRICT;
+    exercise_id INTEGER PRIMARY KEY, -- alias for ROWID
+    section_id INTEGER,
+    exercise_name TEXT,
+    starting_code TEXT,
+    desired_output TEXT,
+    time_recorded INTEGER,
+    FOREIGN KEY (section_id) REFERENCES section (section_id)
+);
 
 CREATE TABLE student (
-    pk_student_id INTEGER PRIMARY KEY, -- alias for ROWID
-    txt_student_name TEXT,
-    fk_section_id INTEGER,
-    ts_time_recorded INTEGER,
-    FOREIGN KEY (fk_section_id) REFERENCES section (pk_section_id)
-) STRICT;
+    student_id INTEGER PRIMARY KEY, -- alias for ROWID
+    student_name TEXT,
+    section_id INTEGER,
+    time_recorded INTEGER,
+    FOREIGN KEY (section_id) REFERENCES section (section_id)
+);
 
 CREATE TABLE student_submission (
-    pk_student_submission_id INTEGER PRIMARY KEY, -- alias for ROWID
-    txt_student_program TEXT,
-    txt_student_program_output TEXT,
-    bool_is_complete INTEGER,
-    ts_starting_time INTEGER,
-    ts_submission_time INTEGER,
-    ts_time_recorded INTEGER,
-    fk_exercise_id INTEGER,
-    fk_student_id INTEGER,
-    FOREIGN KEY (fk_exercise_id) REFERENCES exercise (pk_exercise_id)
-    FOREIGN KEY (fk_student_id) REFERENCES student (pk_student_id)
-) STRICT;
+    student_submission_id INTEGER PRIMARY KEY, -- alias for ROWID
+    student_program TEXT,
+    student_program_output TEXT,
+    is_complete INTEGER,
+    starting_time INTEGER,
+    submission_time INTEGER,
+    time_recorded INTEGER,
+    exercise_id INTEGER,
+    student_id INTEGER,
+    FOREIGN KEY (exercise_id) REFERENCES exercise (exercise_id)
+    FOREIGN KEY (student_id) REFERENCES student (student_id)
+);

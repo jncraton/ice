@@ -1,6 +1,9 @@
 'use strict'
 
+let stats_interval
+
 const switchView = document.querySelector('#switch')
+//Allows you to use button to toggle between code and stats view
 switchView.addEventListener('click', function (event) {
   const codeView = document.querySelector('#code-view')
   const statsView = document.querySelector('#stats-view')
@@ -14,11 +17,28 @@ switchView.addEventListener('click', function (event) {
     codeView.style.display = 'block'
     statsView.style.display = 'none'
     switchView.innerText = 'Show Stats'
+    clearInterval(stats_interval)
   }
 })
 // Timer functionality
 let timer_interval
+let timer_interval
 let seconds = 0
+
+let student_name = ''
+document.querySelector('#start-button').addEventListener('click', function () {
+  student_name = document.querySelector('#student-name').value
+  if (student_name) {
+    timer_interval = setInterval(timer, 1000)
+    document.querySelector('#start-button').disabled = true
+    document.querySelector('#student-name').disabled = true
+    document.querySelector('#code-area').disabled = false
+    document.querySelector('#run-button').disabled = false
+    sendIntialData()
+  } else {
+    alert('Cannot start without student name')
+  }
+})
 
 let student_name = ''
 
