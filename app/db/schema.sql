@@ -3,7 +3,7 @@ CREATE TABLE section (
     section_name TEXT,
     instructor_name TEXT,
     time_recorded INTEGER
-) STRICT;
+);
 
 CREATE TABLE exercise (
     exercise_id INTEGER PRIMARY KEY, -- alias for ROWID
@@ -13,7 +13,7 @@ CREATE TABLE exercise (
     desired_output TEXT,
     time_recorded INTEGER,
     FOREIGN KEY (section_id) REFERENCES section (section_id)
-) STRICT;
+);
 
 CREATE TABLE student (
     student_id INTEGER PRIMARY KEY, -- alias for ROWID
@@ -21,7 +21,7 @@ CREATE TABLE student (
     section_id INTEGER,
     time_recorded INTEGER,
     FOREIGN KEY (section_id) REFERENCES section (section_id)
-) STRICT;
+);
 
 CREATE TABLE student_submission (
     student_submission_id INTEGER PRIMARY KEY, -- alias for ROWID
@@ -35,4 +35,4 @@ CREATE TABLE student_submission (
     student_id INTEGER,
     FOREIGN KEY (exercise_id) REFERENCES exercise (exercise_id)
     FOREIGN KEY (student_id) REFERENCES student (student_id)
-) STRICT;
+);
