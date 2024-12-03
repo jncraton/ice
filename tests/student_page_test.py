@@ -22,7 +22,6 @@ def test_student_input(page: Page):
     assert textarea_locator.is_visible()
 
 
-
 def test_check_output_correct(page: Page):
     """
     Test that the check output functionality works when the result of running the code
