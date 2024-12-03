@@ -25,8 +25,8 @@ function timer() {
 }
 
 // Fix firefox bug (again)
-if (document.querySelector("#student-name").value) {
-  document.querySelector("#student-name").value = ""
+if (document.querySelector('#student-name').value) {
+  document.querySelector('#student-name').value = ''
   document.querySelector('#start-button').disabled = false
   document.querySelector('#student-name').disabled = false
   document.querySelector('#code-area').disabled = true

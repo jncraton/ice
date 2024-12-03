@@ -1,66 +1,65 @@
 222<!doctype html>
 
 <html lang="EN">
+  <head>
+    <title>I.C.E Teacher</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<head>
-  <title>I.C.E Teacher</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-
-<body>
-  <main>
-    <h1>I.C.E</h1>
-    <sub>Teacher View</sub>
-    <div id="identify-codes">
-      <fieldset>
-        <label for="class-code">Class Code:</label>
-        <input id="class-code" value="CLS1" />
-      </fieldset>
-      <fieldset>
-        <label for="assignment-code">Assignment Code:</label>
-        <input id="assignment-code" value="Assignment1" />
-      </fieldset>
-    </div>
-    <fieldset>
-      <select id="share-type">
-        <option value="share">Share</option>
-        <option value="embed">Embed</option>
-      </select>
-      <input id="share-text" readonly />
-      <button id="copy">Copy</button>
-    </fieldset>
-    <nav>
-      <div id="buttons">
-        <button id="run-button" autocomplete="off">Run</button>
-        <button id="end-button" autocomplete="off" disabled>End</button>
+  <body>
+    <main>
+      <h1>I.C.E</h1>
+      <sub>Teacher View</sub>
+      <div id="identify-codes">
+        <fieldset>
+          <label for="class-code">Class Code:</label>
+          <input id="class-code" value="CLS1" />
+        </fieldset>
+        <fieldset>
+          <label for="assignment-code">Assignment Code:</label>
+          <input id="assignment-code" value="Assignment1" />
+        </fieldset>
       </div>
-    </nav>
+      <fieldset>
+        <select id="share-type">
+          <option value="share">Share</option>
+          <option value="embed">Embed</option>
+        </select>
+        <input id="share-text" readonly />
+        <button id="copy">Copy</button>
+      </fieldset>
+      <nav>
+        <div id="buttons">
+          <button id="run-button" autocomplete="off">Run</button>
+          <button id="end-button" autocomplete="off" disabled>End</button>
+        </div>
+      </nav>
 
-    <section id="code-view">
-      <label>
-        Input:
-        <textarea id="code-area" placeholder="Enter code..."></textarea>
-      </label>
-      <div id="output">
-        <p id="time-displayed"></p>
-        <label>Code Output:<textarea id="code-output"></textarea>
-          <button id="save-output">Save Output</button>
-        </label>
-        <br />
-        <br />
+      <section id="code-view">
         <label>
-          Desired Output:
-          <textarea id="target-text" name="output-text"></textarea>
+          Input:
+          <textarea id="code-area" placeholder="Enter code..."></textarea>
         </label>
-      </div>
-    </section>
+        <div id="output">
+          <p id="time-displayed"></p>
+          <label
+            >Code Output:<textarea id="code-output"></textarea>
+            <button id="save-output">Save Output</button>
+          </label>
+          <br />
+          <br />
+          <label>
+            Desired Output:
+            <textarea id="target-text" name="output-text"></textarea>
+          </label>
+        </div>
+      </section>
 
-    <script src="main.js"></script>
-    <script src="textarea.js"></script>
-    <script src="python_run.js"></script>
-  </main>
-</body>
-
+      <script src="main.js"></script>
+      <script src="textarea.js"></script>
+      <script src="python_run.js"></script>
+    </main>
+  </body>
 </html>
