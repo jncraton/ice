@@ -101,6 +101,8 @@ function sendFinalData() {
   let classCode
   let assignmentCode
   let teacherName
+  let studentName
+  let finalCode
 
   //Pull information out of link
   if (location.hash !== '') {
@@ -112,9 +114,9 @@ function sendFinalData() {
     teacherName = urlList[4]
   }
 
-  student_name = document.querySelector('#student-name').value
+  studentName = document.querySelector('#student-name').value
+  finalCode = document.querySelector('#code-area').value
 
-  
   //Call API to send intial data to the database
   fetch('/api/student_end', {
     method: 'POST',
@@ -127,8 +129,8 @@ function sendFinalData() {
       exercise_name: assignmentCode,
       exercise_starting_code: startCode,
       exercise_desired_output: desiredOutput,
-      student_name: student_name,
-      student_final_code: 
+      student_name: studentName,
+      student_final_code: finalCode
     }),
   })
 }
