@@ -105,7 +105,8 @@ def test_results_page(page: Page):
     page.locator("#switch").click()
 
     # 2. check that stats is on page
-    expect(page.locator("#students-started")).to_have_text("0", timeout=20000)
+    expect(page.locator("#students-started")).to_have_text("Students Started", timeout=20000)
+    expect(page.locator("#students-started")).to_have_text("Students Completed", timeout=20000)
 
 
 def test_timer(page: Page):
