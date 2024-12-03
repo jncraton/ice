@@ -9,6 +9,15 @@ from flask import Flask, g
 from blueprints.serve_static import serve_static
 from blueprints.api import api
 from config import Config, TestConfig
+'''from google_auth_oauthlib.flow import Flow'''
+
+'''For google auth with Flask, go to https://console.cloud.google.com/welcome?inv=1&invt=AbjJIg&project=ice-auth-442815, setup your
+client, get your client secret file and get it in the repository, import Flow, and setup oauth using routes in Flask
+refer to https://github.com/jncraton/flask-google'''
+'''flow = Flow.from_client_secrets_file(
+    client_secrets_file="client_secret.json",
+    scopes=["https://www.googleapis.com/auth/userinfo.email", "openid"],
+    redirect_uri="http://localhost/callback",'''
 
 
 def create_app(testing=False):
