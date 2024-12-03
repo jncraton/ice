@@ -22,24 +22,6 @@ def test_student_input(page: Page):
     assert textarea_locator.is_visible()
 
 
-def test_python_runs(page: Page):
-    """
-    Test that basic python code can execute
-    """
-
-    # 0. Insert name so page unlocks
-    page.locator("#student-name").fill("Student1")
-    page.locator("#start-button").click()
-
-    textarea_locator = page.locator("#code-area")
-    textarea_locator.fill('print("Hello, world!")')
-
-    # 2. Click Run Button
-    page.locator("#run-button").click()
-
-    # 3. Assert desired output is
-    expect(page.locator("#code-output")).to_have_text("Hello, world!", timeout=20000)
-
 
 def test_check_output_correct(page: Page):
     """
