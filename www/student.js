@@ -3,7 +3,7 @@
 let stats_interval
 
 const switchView = document.querySelector('#switch')
-//Allows you to use button to toggle between code and stats view 
+//Allows you to use button to toggle between code and stats view
 switchView.addEventListener('click', function (event) {
   const codeView = document.querySelector('#code-view')
   const statsView = document.querySelector('#stats-view')
@@ -12,7 +12,7 @@ switchView.addEventListener('click', function (event) {
     statsView.style.display = 'block'
     switchView.innerText = 'Show Code'
     getStats() //refresh stats on page load
-    stats_interval = setInterval(getStats, 10000) //auto refresh stats view 
+    stats_interval = setInterval(getStats, 10000) //auto refresh stats view
   } else {
     codeView.style.display = 'block'
     statsView.style.display = 'none'
