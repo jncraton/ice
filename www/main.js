@@ -58,3 +58,4 @@ document.querySelector('#class-code').addEventListener('input', updateSharing)
 document
   .querySelector('#assignment-code')
   .addEventListener('input', updateSharing)
+
