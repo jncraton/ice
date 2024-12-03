@@ -67,10 +67,10 @@ def test_embed_code_generation(page: Page):
     # Step 5: Input teacher name
     page.locator("instructor-name").fill("John Doe")
 
-    # Step 4: Select embed mode
+    # Step 6: Select embed mode
     page.select_option("select#share-type", label="Embed")
 
-    # Step 5: Verify that the embed code is correct
+    # Step 7: Verify that the embed code is correct
     # Generate the expected URL based on the inputs
     expected_url = page.evaluate(
         """location.origin + location.pathname + "student.html#" + 
