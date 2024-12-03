@@ -1,68 +1,58 @@
 <!doctype html>
 
 <html lang="EN">
-  <head>
-    <title>I.C.E Student</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
 
-  <body>
-    <main>
-      <nav>
-        <label for="student-name" style="float: left">Username: </label>
-        <input
-          type="text"
-          id="student-name"
-          style="float: left"
-          placeholder="Enter your name"
-        />
-        <button id="start-button" autocomplete="off" style="float: left">
-          Start
-        </button>
-        <span>Time: </span><span id="timer_val">00:00:00</span>
-        <button id="run-button" autocomplete="off" disabled>Run</button>
-        <button id="end-button" autocomplete="off" disabled>End</button>
-        <button id="submit-button" autocomplete="off" disabled>
-          Submit Code
-        </button>
-        <button id="switch">Show Stats</button>
-        <div id="warning-box" class="warningHidden">
-          Warning: Possible infinite loop detected. Press "End" if this is
-          unintended.
-        </div>
-      </nav>
-      <section id="code-view">
-        <label
-          >Code<textarea
-            id="code-area"
-            placeholder="Enter code..."
-            disabled
-          ></textarea>
+<head>
+  <title>I.C.E Student</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main>
+    <nav>
+      <label for="student-name" style="float: left">Username: </label>
+      <input type="text" id="student-name" style="float: left" placeholder="Enter your name" />
+      <button id="start-button" autocomplete="off" style="float: left">
+        Start
+      </button>
+      <span>Time: </span><span id="timer_val">00:00:00</span>
+      <button id="run-button" autocomplete="off" disabled>Run</button>
+      <button id="end-button" autocomplete="off" disabled>End</button>
+      <button id="submit-button" autocomplete="off" disabled>
+        Submit Code
+      </button>
+      <button id="switch">Show Stats</button>
+      <div id="warning-box" class="warningHidden">
+        Warning: Possible infinite loop detected. Press "End" if this is
+        unintended.
+      </div>
+    </nav>
+    <section id="code-view">
+      <label>Code<textarea id="code-area" placeholder="Enter code..." disabled></textarea>
+      </label>
+      <div id="output">
+        <label>Output<textarea id="code-output" disabled></textarea></label>
+        <label>Expected <span id="check-code-result"></span><textarea id="target-text" disabled></textarea>
         </label>
-        <div id="output">
-          <label>Output<textarea id="code-output"></textarea></label>
-          <label
-            >Expected <span id="check-code-result"></span
-            ><textarea id="target-text" disabled></textarea>
-          </label>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="stats-view" style="display: none">
-        <div id="result-area">
-          <h1>Students Started</h1>
-          <label class="result-output" id="students-started">1/10</label>
-        </div>
-        <div>
-          <h1>Students Completed</h1>
-          <label class="result-output" id="students-completed">1/10</label>
-        </div>
-      </section>
-      <script src="student.js"></script>
-      <script src="textarea.js"></script>
-      <script src="python_run.js"></script>
-    </main>
-  </body>
+    <section id="stats-view" style="display: none">
+      <div id="result-area">
+        <h1>Students Started</h1>
+        <label class="result-output" id="students-started">1/10</label>
+      </div>
+      <div>
+        <h1>Students Completed</h1>
+        <label class="result-output" id="students-completed">1/10</label>
+      </div>
+    </section>
+    <script src="student.js"></script>
+    <script src="textarea.js"></script>
+    <script src="python_run.js"></script>
+  </main>
+</body>
+
 </html>
