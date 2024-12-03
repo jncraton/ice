@@ -1,10 +1,19 @@
 # Project Ice
 
+[![Lint](https://github.com/jncraton/ice/actions/workflows/lint.yml/badge.svg)](https://github.com/jncraton/ice/actions/workflows/lint.yml)
+[![Flask Tests](https://github.com/jncraton/ice/actions/workflows/test_flask.yml/badge.svg)](https://github.com/jncraton/ice/actions/workflows/test_flask.yml)
+[![Static HTML Tests](https://github.com/jncraton/ice/actions/workflows/test_default.yml/badge.svg)](https://github.com/jncraton/ice/actions/workflows/test_default.yml)
+[![Deploy to Pages](https://github.com/jncraton/ice/actions/workflows/pages.yml/badge.svg)](https://github.com/jncraton/ice/actions/workflows/pages.yml)
+
 Project Ice or the Integrated Coding Experience is a new way to teach and practice programming in the classroom. The goals of project Ice are as follows:
 
 1. Provide a tool for instructors to present, demonstrate, and build interactive activity to enhance their students learning
 2. Provide a way for students' to practice their programming skills through instructor made activities or in a sandbox environment
 3. Allow for a more integrated way to demonstrate programming skills
+
+## Example Presentation
+
+An [example presentation](https://jncraton.github.io/slide-decks/python-for) is provided that shows three different embedded interactive coding exercises within a larger learning segment focused on `for` loops in Python.
 
 ## Running
 
