@@ -24,15 +24,6 @@ function timer() {
   seconds++
 }
 
-// Fix firefox bug (again)
-if (document.querySelector('#student-name').value) {
-  document.querySelector('#student-name').value = ''
-  document.querySelector('#start-button').disabled = false
-  document.querySelector('#student-name').disabled = false
-  document.querySelector('#code-area').disabled = true
-  document.querySelector('#run-button').disabled = true
-}
-
 let student_name = ''
 document.querySelector('#start-button').addEventListener('click', function () {
   student_name = document.querySelector('#student-name').value
