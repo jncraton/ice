@@ -130,7 +130,7 @@ function sendFinalData() {
       exercise_starting_code: startCode,
       exercise_desired_output: desiredOutput,
       student_name: studentName,
-      student_final_code: finalCode
+      student_final_code: finalCode,
     }),
   })
 }

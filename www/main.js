@@ -42,7 +42,7 @@ document.querySelectorAll('textarea,select').forEach(e => {
   e.addEventListener('input', updateSharing)
 })
 
-//Display link and allow it to be copied 
+//Display link and allow it to be copied
 const linkDisplay = document.querySelector('#copy')
 linkDisplay.addEventListener('click', function (event) {
   event.preventDefault()
@@ -65,4 +65,6 @@ linkDisplay.addEventListener('click', function (event) {
 
 //Automatically updates link when class or assignment code is changed
 document.querySelector('#class-code').addEventListener('input', updateSharing)
-document.querySelector('#assignment-code').addEventListener('input', updateSharing)
+document
+  .querySelector('#assignment-code')
+  .addEventListener('input', updateSharing)

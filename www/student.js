@@ -3,7 +3,7 @@
 let stats_interval
 
 const switchView = document.querySelector('#switch')
-//Allows you to use button to toggle between code and stats view 
+//Allows you to use button to toggle between code and stats view
 switchView.addEventListener('click', function (event) {
   const codeView = document.querySelector('#code-view')
   const statsView = document.querySelector('#stats-view')
@@ -11,8 +11,8 @@ switchView.addEventListener('click', function (event) {
     codeView.style.display = 'none'
     statsView.style.display = 'block'
     switchView.innerText = 'Show Code'
-    getStats()
-    stats_interval = setInterval(getStats, 10000)
+    getStats() //refresh stats on page load
+    stats_interval = setInterval(getStats, 10000) //auto refresh stats view
   } else {
     codeView.style.display = 'block'
     statsView.style.display = 'none'
@@ -32,6 +32,7 @@ document.querySelector('#start-button').addEventListener('click', function () {
     document.querySelector('#start-button').disabled = true
     document.querySelector('#student-name').disabled = true
     document.querySelector('#code-area').disabled = false
+    document.querySelector('#run-button').disabled = false
     sendIntialData()
   } else {
     alert('Cannot start without student name')
@@ -45,6 +46,7 @@ function timer() {
 }
 
 function sendIntialData() {
+  //Declare variables
   let startCode
   let desiredOutput
   let classCode
