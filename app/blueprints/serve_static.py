@@ -12,10 +12,15 @@ def serve_root():
     return serve_static.send_static_file("index.html")
 
 
-@serve_static.route("/<filename>.html")
 @serve_static.route("/<filename>.js")
 @serve_static.route("/<filename>.css")
 def serve_site(filename):
     """Correctly route all elements within the `www` directory"""
     # pylint: disable=unused-argument
     return serve_static.send_static_file(request.path.lstrip("/"))
+
+
+@serve_static.route("/exercise")
+def serve_page():
+    """Serve the primary pages without use file extension"""
+    return serve_static.send_static_file("student.html")
