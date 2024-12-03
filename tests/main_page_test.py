@@ -74,7 +74,7 @@ def test_embed_code_generation(page: Page):
     # Generate the expected URL based on the inputs
     expected_url = page.evaluate(
         """location.origin + location.pathname + "student.html#" + 
-        btoa(JSON.stringify(["Sample code", "Sample output", "CLS1", "Assignment1", "John Doe])) """
+        btoa(JSON.stringify(["Sample code", "Sample output", "CLS1", "Assignment1", "John Doe"])) """
     )
     # Construct the expected embed code
     expected_embed_code = (
