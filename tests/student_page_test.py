@@ -162,6 +162,8 @@ def test_infinite_loop_error_message(page: Page):
 
     page.locator("#run-button").click()
 
+    page.clock.run_for(30000)
+
     # Wait for the error message to appear in the output
     error_locator = page.locator("#code-output")
 
