@@ -25,9 +25,9 @@ You can view a live version of the page at https://jncraton.github.io/ice/
 2. Open the command prompt in the project directory
 3. Install required python libraries
    `pip install requirements.txt`
-3. Navigate to the app directory (`cd app`)
-4. Run the command: `flask run --port 8000`
-5. Open your browser and navigate to [localhost:8000](localhost:5000)
+4. Navigate to the app directory (`cd app`)
+5. Run the command: `flask run --port 8000`
+6. Open your browser and navigate to [localhost:8000](localhost:5000)
 
 ## Running With Stats
 
@@ -46,7 +46,7 @@ You can view a live version of the page at https://jncraton.github.io/ice/
 We use Playwright and PyTest to run unit tests.
 
 1. (Optional) Create a new Python Virtual Environment (venv or conda works)
-2. Ensure the dependencies from `requirements.txt` are installed. 
+2. Ensure the dependencies from `requirements.txt` are installed.
 3. Open your command line in your project directory and run the following command
    `playwright install`
 4. Run the server using the "running" directions above.
@@ -56,4 +56,5 @@ We use Playwright and PyTest to run unit tests.
 ## FAQ
 
 ### I'm getting database errors. What do I do?
-First, try deleting or moving the database file. Sometimes changes may be made to the database's structure, causing older versions of the database to break. A new database will be created when the app is next run. If the issue persists, please open an issue on GitHub. 
+
+First, try deleting or moving the database file. Sometimes changes may be made to the database's structure, causing older versions of the database to break. A new database will be created when the app is next run. If the issue persists, please open an issue on GitHub.
