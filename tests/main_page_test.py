@@ -62,7 +62,7 @@ def test_embed_code_generation(page: Page):
     page.locator("#class-code").fill("CLS1")
 
     # Step 4: Input assignment code
-    page.locator("#assginment-code").fill("Assignment1")
+    page.locator("#assignment-code").fill("Assignment1")
 
     # Step 5: Input teacher name
     page.locator("instructor-name").fill("John Doe")
