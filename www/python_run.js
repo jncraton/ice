@@ -86,11 +86,52 @@ function checkOutput(output) {
     label.classList.add('labelCorrect')
     label.classList.remove('labelIncorrect')
     clearInterval(timer_interval)
+    sendFinalData()
   } else {
     label.textContent = 'Does not match target output   ❌'
     label.classList.add('labelIncorrect')
     label.classList.remove('labelCorrect')
   }
+}
+
+function sendFinalData() {
+  let startCode
+  let desiredOutput
+  let classCode
+  let assignmentCode
+  let teacherName
+  let studentName
+  let finalCode
+
+  //Pull information out of link
+  if (location.hash !== '') {
+    const urlList = JSON.parse(atob(location.hash.split('#')[1]))
+    startCode = urlList[0]
+    desiredOutput = urlList[1]
+    classCode = urlList[2]
+    assignmentCode = urlList[3]
+    teacherName = urlList[4]
+  }
+
+  studentName = document.querySelector('#student-name').value
+  finalCode = document.querySelector('#code-area').value
+
+  //Call API to send intial data to the database
+  fetch('/api/student_end', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      section_name: classCode,
+      instructor_name: teacherName,
+      exercise_name: assignmentCode,
+      exercise_starting_code: startCode,
+      exercise_desired_output: desiredOutput,
+      student_name: studentName,
+      student_final_code: finalCode,
+    }),
+  })
 }
 
 // Run code when button pressed.

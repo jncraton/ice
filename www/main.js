@@ -1,5 +1,6 @@
 'use strict'
 
+//Allow instructor to save output of their code using button
 const saveOutput = document.querySelector('#save-output')
 saveOutput.addEventListener('click', function () {
   const outputText = document.querySelector('#target-text')
@@ -13,9 +14,16 @@ function updateSharing() {
   const outputText = document.querySelector('#target-text').value
   const classCode = document.querySelector('#class-code').value
   const assignmentCode = document.querySelector('#assignment-code').value
+  const teacherName = document.querySelector('#instructor-name').value
 
   const base64String = btoa(
-    JSON.stringify([codeText, outputText, classCode, assignmentCode]),
+    JSON.stringify([
+      codeText,
+      outputText,
+      classCode,
+      assignmentCode,
+      teacherName,
+    ]),
   )
 
   const url =
@@ -34,6 +42,7 @@ document.querySelectorAll('textarea,select').forEach(e => {
   e.addEventListener('input', updateSharing)
 })
 
+//Display link and allow it to be copied
 const linkDisplay = document.querySelector('#copy')
 linkDisplay.addEventListener('click', function (event) {
   event.preventDefault()
@@ -54,6 +63,7 @@ linkDisplay.addEventListener('click', function (event) {
     )
 })
 
+//Automatically updates link when class or assignment code is changed
 document.querySelector('#class-code').addEventListener('input', updateSharing)
 document
   .querySelector('#assignment-code')
