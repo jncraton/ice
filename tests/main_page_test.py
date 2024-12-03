@@ -65,7 +65,7 @@ def test_embed_code_generation(page: Page):
     page.locator("#assignment-code").fill("Assignment1")
 
     # Step 5: Input teacher name
-    page.locator("instructor-name").fill("John Doe")
+    page.locator("#instructor-name").fill("John Doe")
 
     # Step 6: Select embed mode
     page.select_option("select#share-type", label="Embed")
