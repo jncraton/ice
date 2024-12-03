@@ -105,7 +105,7 @@ def test_results_page(page: Page):
     page.locator("#switch").click()
 
     # 2. check that stats is on page
-    expect(page.locator('#stats-view')).to_be_visible()
+    expect(page.locator("#stats-view")).to_be_visible()
 
 
 def test_timer(page: Page):
