@@ -45,14 +45,14 @@ function timer() {
   seconds++
 }
 
-function sendIntialData() {
-  //Declare variables
-  let startCode
-  let desiredOutput
-  let classCode
-  let assignmentCode
-  let teacherName
+//Declare variables
+let startCode
+let desiredOutput
+let classCode
+let assignmentCode
+let teacherName
 
+function sendIntialData() {
   //Pull information out of link
   if (location.hash !== '') {
     const urlList = JSON.parse(atob(location.hash.split('#')[1]))
@@ -81,5 +81,20 @@ function sendIntialData() {
 }
 
 function getStats() {
-  console.log('stats hit')
+  fetch(`api/stats/${teacherName}/${classCode}/${assignmentCode}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('students-started').textContent =
+        data.total_submissions
+      document.getElementById('students-completed').textContent =
+        data.completed_submissions
+    })
+    .catch(error => {
+      console.error('Issues getting submitted and or unsubmitted students')
+    })
 }
