@@ -64,7 +64,7 @@ function sendIntialData() {
   }
 
   //Call API to send intial data to the database
-  fetch('/api/student_start', {
+  fetch('api/student_start', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
