@@ -223,7 +223,7 @@ def api_post_student_start():
                 FROM student_submission 
                 WHERE student_id = :student_id
                     AND exercise_id = :exercise_id
-                    AND is_complete = FALSE;""",
+                    AND is_complete = 0;""",
             {"student_id": student_id, "exercise_id": exercise_id},
             one=True,
         )
@@ -261,7 +261,7 @@ def api_post_student_start():
             {
                 "student_program": "",
                 "student_program_output": "",
-                "is_complete": False,
+                "is_complete": 0,
                 "starting_time": time_started,
                 "submission_time": None,
                 "time_recorded": time.mktime(datetime.now().timetuple()),
@@ -303,7 +303,7 @@ def api_post_student_end():
             AND st.student_name = :student_name
             AND e.starting_code = :exercise_starting_code
             AND e.desired_output = :exercise_desired_output
-            AND st_s.is_complete = FALSE;
+            AND st_s.is_complete = 0;
             """,
         {
             "section_name": request.json["section_name"],
@@ -333,7 +333,7 @@ def api_post_student_end():
         {
             "student_program": request.json["student_final_code"],
             "student_program_output": request.json["exercise_desired_output"],
-            "is_complete": True,
+            "is_complete": 1,
             "submission_time": time_ended,
             "time_recorded": time.mktime(datetime.now().timetuple()),
             "student_submission_id": query["student_submission_id"],
