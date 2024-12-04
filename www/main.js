@@ -27,7 +27,7 @@ function updateSharing() {
   )
 
   const url =
-    location.origin + location.pathname + 'student.html' + `#${base64String}`
+    location.origin + location.pathname + 'exercise' + `#${base64String}`
 
   if (document.querySelector('#share-type').value == 'share') {
     document.querySelector('#share-text').value = url

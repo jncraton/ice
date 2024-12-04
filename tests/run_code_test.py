@@ -6,7 +6,7 @@ from playwright.sync_api import Page, expect
 import pytest
 
 pytestmark = pytest.mark.parametrize(
-    "url", [("http://localhost:8000"), ("http://localhost:8000/student.html")]
+    "url", [("http://localhost:8000"), ("http://localhost:8000/exercise")]
 )
 
 
@@ -17,8 +17,8 @@ def test_python_runs(page: Page, url):
 
     page.goto(url)
 
-    # check if url contains student.html
-    if "student.html" in url:
+    # check if url contains student
+    if "exercise" in url:
         # 0. Insert name so page unlocks
         page.locator("#student-name").fill("Student1")
         page.locator("#start-button").click()
@@ -43,7 +43,7 @@ def test_buttons_disable(page: Page, url):
 
     page.goto(url)
 
-    if "student.html" in url:
+    if "exercise" in url:
         # 0. Insert name so page unlocks
         page.locator("#student-name").fill("Student1")
         page.locator("#start-button").click()
