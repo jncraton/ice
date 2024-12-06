@@ -81,7 +81,7 @@ function sendIntialData() {
 }
 
 function getStats() {
-  fetch(`api/stats/${teacherName}/${classCode}/${assignmentCode}`, {
+  fetch(`api/stats/${classCode}/${assignmentCode}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
