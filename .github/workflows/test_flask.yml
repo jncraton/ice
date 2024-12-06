@@ -13,4 +13,4 @@ jobs:
       - run: python -m playwright install
       - run: pip install flask
       - run: cd app && flask run --port 8000 && cd .. &
-      - run: pytest --browser chromium --browser firefox
+      - run: pytest --durations=5 --browser chromium --browser firefox
