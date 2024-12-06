@@ -1,4 +1,4 @@
-INSERT INTO section (section_name, instructor_name, time_recorded)
+INSERT INTO section (section_name, instructor_name, created)
 VALUES
     ('CPSC 2020', 'Jon Craton', 1693497600),
     ('Data Science Basics', 'Prof. Johnson', 1694000000),
@@ -6,7 +6,7 @@ VALUES
     ('Database Systems', 'Dr. Kim', 1695000000),
     ('Web Development', 'Ms. Taylor', 1695500000);
 
-INSERT INTO exercise (section_id, exercise_name, starting_code, desired_output, time_recorded)
+INSERT INTO exercise (section_id, exercise_name, starting_code, desired_output, created)
 VALUES
     (1, 'Intro To For Loops', 'for i in range(5):', '0 1 2 3 4', 1694000000),
     (2, 'Intro to Pandas', 'import pandas as pd', 'DataFrame created', 1694100000),
@@ -15,7 +15,7 @@ VALUES
     (5, 'Web Design Fundamentals', '<html><body>Hello!</body></html>', 'HTML displayed', 1694400000);
     
 
-INSERT INTO student (student_name, section_id, time_recorded)
+INSERT INTO student (student_name, section_id, created)
 VALUES
     ('Alice', 1, 1694500000),
     ('Bob', 2, 1694600000),
@@ -23,7 +23,7 @@ VALUES
     ('David', 4, 1694800000),
     ('Eve', 5, 1694900000);
 
-INSERT INTO student_submission (student_program, student_program_output, is_complete, starting_time, submission_time, time_recorded, exercise_id, student_id)
+INSERT INTO student_submission (student_program, student_program_output, is_complete, starting_time, submission_time, created, exercise_id, student_id)
 VALUES
     ('for i in range(5):' || char(10) || char(9) || 'print(i)', '0 1 2 3 4', 1, 1694000000, 1694000200, 1694000250, 1, 1),
     ('for i in range(5):' || char(10) || char(9) || 'print(i)', '0 1 2 3 4', 1, 1694000000, 1694000200, 1694000250, 1, 2),

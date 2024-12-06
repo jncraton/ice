@@ -127,7 +127,7 @@ def api_post_student_start():
                     starting_code, 
                     desired_output, 
                     section_id, 
-                    time_recorded
+                    created
                 ) 
                 VALUES 
                 (
@@ -135,14 +135,14 @@ def api_post_student_start():
                     :exercise_starting_code,
                     :exercise_desired_output,
                     :section_id,
-                    :time_recorded
+                    :created
                 );
                 """,
                 {
                     **request.json,
                     **{
                         "section_id": section_id,
-                        "time_recorded": time.mktime(datetime.now().timetuple()),
+                        "created": time.mktime(datetime.now().timetuple()),
                     },
                 },
             )
@@ -175,20 +175,20 @@ def api_post_student_start():
                 (
                     student_name, 
                     section_id, 
-                    time_recorded
+                    created
                 ) 
                 VALUES 
                 (
                     :student_name, 
                     :section_id, 
-                    :time_recorded
+                    :created
                 );
                 """,
                 {
                     **request.json,
                     **{
                         "section_id": section_id,
-                        "time_recorded": time.mktime(datetime.now().timetuple()),
+                        "created": time.mktime(datetime.now().timetuple()),
                     },
                 },
             )
@@ -227,7 +227,7 @@ def api_post_student_start():
                 is_complete, 
                 starting_time, 
                 submission_time, 
-                time_recorded, 
+                created, 
                 exercise_id, 
                 student_id
             ) 
@@ -238,7 +238,7 @@ def api_post_student_start():
                 :is_complete, 
                 :starting_time, 
                 :submission_time, 
-                :time_recorded, 
+                :created, 
                 :exercise_id, 
                 :student_id
             );
@@ -249,7 +249,7 @@ def api_post_student_start():
                 "is_complete": 0,
                 "starting_time": time_started,
                 "submission_time": None,
-                "time_recorded": time.mktime(datetime.now().timetuple()),
+                "created": time.mktime(datetime.now().timetuple()),
                 "exercise_id": exercise_id,
                 "student_id": student_id,
             },
@@ -304,7 +304,7 @@ def api_post_student_end():
                 student_program_output = :student_program_output,
                 is_complete = :is_complete,
                 submission_time = :submission_time,
-                time_recorded = :time_recorded
+                created = :created
             WHERE 
                 student_submission_id = :student_submission_id;
         """,
@@ -313,7 +313,7 @@ def api_post_student_end():
             "student_program_output": request.json["exercise_desired_output"],
             "is_complete": 1,
             "submission_time": time_ended,
-            "time_recorded": time.mktime(datetime.now().timetuple()),
+            "created": time.mktime(datetime.now().timetuple()),
             "student_submission_id": query["student_submission_id"],
         },
     )
