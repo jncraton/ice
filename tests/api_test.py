@@ -4,9 +4,7 @@ Tests for the application's database API
 Only tests the program's backend API, not the front-end. 
 """
 
-import time
 import json
-from datetime import datetime
 
 import pytest
 
@@ -34,13 +32,12 @@ def test_post_student_start(client):
         mimetype="application/json",
     )
 
-    assert (not response.json["error"])
+    assert not response.json["error"]
 
 
 def test_post_student_end(client):
     """Test the api/student_end endpoint"""
     # pylint: disable=redefined-outer-name
-    end_time = time.mktime(datetime.now().timetuple())
     response = client.post(
         "api/student_end",
         data=json.dumps(
@@ -52,7 +49,7 @@ def test_post_student_end(client):
         ),
         mimetype="application/json",
     )
-    assert (not response.json["error"])
+    assert not response.json["error"]
 
 
 def test_get_stats(client):

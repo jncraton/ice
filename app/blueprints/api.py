@@ -1,7 +1,5 @@
 """ Blueprint for handling user requests against the database """
 
-from datetime import datetime
-import time
 import sqlite3
 import os.path
 
@@ -57,7 +55,8 @@ def api_post_student_start():
     """
 
     try:
-        query_db("""
+        query_db(
+            """
             INSERT INTO student_submission 
             (
                 exercise_name, 
@@ -70,10 +69,15 @@ def api_post_student_start():
                 :section_name, 
                 :student_name
             );
-            """, request.json)
+            """,
+            request.json,
+        )
     except sqlite3.OperationalError as db_error:
         print(db_error)
-        return {"error": "A database error occurred. Please try again later. " + str(db_error)}, 500
+        return {
+            "error": "A database error occurred. Please try again later. "
+            + str(db_error)
+        }, 500
     except KeyError:
         return {"error: bad request"}, 400
 
@@ -96,7 +100,9 @@ def api_post_student_end():
                     exercise_name = :exercise_name and
                     section_name = :section_name and
                     student_name = :student_name;
-            """, request.json)
+            """,
+            request.json,
+        )
     except sqlite3.OperationalError as e:
         print(e)
         return {"error": "A database error occurred. Please try again later. "}, 500
