@@ -1,7 +1,7 @@
 """
 Tests for the student view of the application
 
-These are the end-to-end UI tests for student.html
+These are the end-to-end UI tests for exercise.html
 """
 
 from playwright.sync_api import Page, expect
