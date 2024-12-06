@@ -56,7 +56,7 @@ def test_get_stats(client):
     """Test the api/stats endpoint"""
     # pylint: disable=redefined-outer-name
     response = client.get(
-        "api/stats/1/1",
+        "api/stats/sec/ex",
     )
 
     assert response.json["total_submissions"] == 5
