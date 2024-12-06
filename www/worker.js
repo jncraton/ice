@@ -30,7 +30,7 @@ async function runPythonCode(code) {
       return self.pythonConsoleString + `\n\nReturned: ${result}`
     }
   } catch (error) {
-    // Return the error message to student.js
+    // Return the error message to exercise.js
     return `Error: ${error.message}`
   }
 }

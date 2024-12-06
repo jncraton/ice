@@ -23,4 +23,4 @@ def serve_site(filename):
 @serve_static.route("/exercise")
 def serve_page():
     """Serve the primary pages without use file extension"""
-    return serve_static.send_static_file("student.html")
+    return serve_static.send_static_file("exercise.html")
