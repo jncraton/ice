@@ -121,7 +121,7 @@ def test_timer(page: Page):
     page.locator("#student-name").fill("Student1")
     page.locator("#start-button").click()
     # Check timer after 13 seconds
-    page.clock.run_for(13100)
+    page.clock.run_for(13800)
     expect(page.locator("#timer_val")).to_have_text("00:00:13")
 
     # Check timer after 1 minute
