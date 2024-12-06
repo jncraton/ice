@@ -87,15 +87,19 @@ def api_post_student_end():
     show that the recorded student has finished the recorded exercise
     """
 
-    query_db(
-        """UPDATE student_submission
-            SET is_complete = 1,
-                submission_time = strftime('%s', 'now')
-            WHERE 
-                exercise_name = :exercise_name and
-                section_name = :section_name and
-                student_name = :student_name;
-        """, request.json)
+    try:
+        query_db(
+            """UPDATE student_submission
+                SET is_complete = 1,
+                    submission_time = strftime('%s', 'now')
+                WHERE 
+                    exercise_name = :exercise_name and
+                    section_name = :section_name and
+                    student_name = :student_name;
+            """, request.json)
+    except sqlite3.OperationalError as e:
+        print(e)
+        return {"error": "A database error occurred. Please try again later. "}, 500
 
     return {"error": None}
 
