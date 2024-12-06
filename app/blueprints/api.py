@@ -70,10 +70,7 @@ def api_post_student_start():
             WHERE section_name = :section_name
                 AND instructor_name = :instructor_name;
             """,
-            {
-                "section_name": request.json["section_name"],
-                "instructor_name": request.json["instructor_name"],
-            },
+            request.json,
             one=True,
         )
         if section_query is not None:
@@ -96,9 +93,8 @@ def api_post_student_start():
                 );
                 """,
                 {
-                    "section_name": request.json["section_name"],
-                    "instructor_name": request.json["instructor_name"],
-                    "time_recorded": time.mktime(datetime.now().timetuple()),
+                    **request.json,
+                    **{"time_recorded": time.mktime(datetime.now().timetuple())},
                 },
             )
 
@@ -119,12 +115,7 @@ def api_post_student_start():
                 AND desired_output = :exercise_desired_output 
                 AND section_id = :section_id;
             """,
-            {
-                "exercise_name": request.json["exercise_name"],
-                "exercise_starting_code": request.json["exercise_starting_code"],
-                "exercise_desired_output": request.json["exercise_desired_output"],
-                "section_id": section_id,
-            },
+            {**request.json, **{"section_id": section_id}},
             one=True,
         )
         if exercise_query is not None:
@@ -153,11 +144,11 @@ def api_post_student_start():
                 );
                 """,
                 {
-                    "exercise_name": request.json["exercise_name"],
-                    "exercise_starting_code": request.json["exercise_starting_code"],
-                    "exercise_desired_output": request.json["exercise_desired_output"],
-                    "section_id": section_id,
-                    "time_recorded": time.mktime(datetime.now().timetuple()),
+                    **request.json,
+                    **{
+                        "section_id": section_id,
+                        "time_recorded": time.mktime(datetime.now().timetuple()),
+                    },
                 },
             )
 
@@ -176,10 +167,7 @@ def api_post_student_start():
             WHERE student_name = :student_name
                 AND section_id = :section_id;
             """,
-            {
-                "student_name": request.json["student_name"],
-                "section_id": section_id,
-            },
+            {**request.json, **{"section_id": section_id}},
             one=True,
         )
         if student_query is not None:
@@ -202,9 +190,11 @@ def api_post_student_start():
                 );
                 """,
                 {
-                    "student_name": request.json["student_name"],
-                    "section_id": section_id,
-                    "time_recorded": time.mktime(datetime.now().timetuple()),
+                    **request.json,
+                    **{
+                        "section_id": section_id,
+                        "time_recorded": time.mktime(datetime.now().timetuple()),
+                    },
                 },
             )
 
@@ -224,7 +214,7 @@ def api_post_student_start():
                 WHERE student_id = :student_id
                     AND exercise_id = :exercise_id
                     AND is_complete = 0;""",
-            {"student_id": student_id, "exercise_id": exercise_id},
+            locals(),
             one=True,
         )
 
@@ -305,14 +295,7 @@ def api_post_student_end():
             AND e.desired_output = :exercise_desired_output
             AND st_s.is_complete = 0;
             """,
-        {
-            "section_name": request.json["section_name"],
-            "instructor_name": request.json["instructor_name"],
-            "exercise_name": request.json["exercise_name"],
-            "student_name": request.json["student_name"],
-            "exercise_starting_code": request.json["exercise_starting_code"],
-            "exercise_desired_output": request.json["exercise_desired_output"],
-        },
+        request.json,
         one=True,
     )
 
@@ -344,7 +327,7 @@ def api_post_student_end():
 
 
 @api.route("/stats/<instructor_name>/<section_name>/<exercise_name>", methods=["GET"])
-def api_get_stats(instructor_name, section_name, exercise_name):
+def api_get_stats(instructor_name, section_name, exercise_name): # pylint: disable=unused-argument
     """
     Returns the number of students who have attempted a specific exercise,
     the number of students who have completed the exercise, and the number
@@ -370,11 +353,7 @@ def api_get_stats(instructor_name, section_name, exercise_name):
                 AND s.instructor_name = :instructor_name
                 AND e.exercise_name = :exercise_name;
                 """,
-                {
-                    "section_name": section_name,
-                    "instructor_name": instructor_name,
-                    "exercise_name": exercise_name,
-                },
+                locals(),
                 one=True,
             )
         )
