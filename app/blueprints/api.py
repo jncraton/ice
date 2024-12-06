@@ -135,7 +135,8 @@ def api_post_student_start():
                     :exercise_desired_output,
                     :section_id
                 );
-                """, {**request.json, **locals()}
+                """,
+                {**request.json, **locals()},
             )
 
             exercise_id = query_db(
@@ -152,7 +153,8 @@ def api_post_student_start():
             FROM student 
             WHERE student_name = :student_name
                 AND section_id = :section_id;
-            """, {**request.json, **locals()},
+            """,
+            {**request.json, **locals()},
             one=True,
         )
         if student_query is not None:
@@ -171,7 +173,8 @@ def api_post_student_start():
                     :student_name, 
                     :section_id
                 );
-                """, {**request.json, **locals()}
+                """,
+                {**request.json, **locals()},
             )
 
             student_id = query_db(
@@ -213,7 +216,9 @@ def api_post_student_start():
                 :exercise_id, 
                 :student_id
             );
-            """, locals())
+            """,
+            locals(),
+        )
     except sqlite3.OperationalError as db_error:
         print(db_error)
         return {"error": "A database error occurred. Please try again later. "}, 500
