@@ -57,7 +57,7 @@ def api_post_student_start():
     """
     print("---POST START---")
     # 1. Get time to log (do this first to maintain accuracy in timing!)
-    time_started = time.mktime(datetime.now().timetuple())
+    starting_time = time.mktime(datetime.now().timetuple())
 
     try:
         print("Find/Create section")
@@ -126,25 +126,16 @@ def api_post_student_start():
                     exercise_name, 
                     starting_code, 
                     desired_output, 
-                    section_id, 
-                    created
+                    section_id
                 ) 
                 VALUES 
                 (
                     :exercise_name,
                     :exercise_starting_code,
                     :exercise_desired_output,
-                    :section_id,
-                    :created
+                    :section_id
                 );
-                """,
-                {
-                    **request.json,
-                    **{
-                        "section_id": section_id,
-                        "created": time.mktime(datetime.now().timetuple()),
-                    },
-                },
+                """, {**request.json, **locals()}
             )
 
             exercise_id = query_db(
@@ -161,8 +152,7 @@ def api_post_student_start():
             FROM student 
             WHERE student_name = :student_name
                 AND section_id = :section_id;
-            """,
-            {**request.json, **{"section_id": section_id}},
+            """, {**request.json, **locals()},
             one=True,
         )
         if student_query is not None:
@@ -174,23 +164,14 @@ def api_post_student_start():
                 INSERT INTO student 
                 (
                     student_name, 
-                    section_id, 
-                    created
+                    section_id
                 ) 
                 VALUES 
                 (
                     :student_name, 
-                    :section_id, 
-                    :created
+                    :section_id
                 );
-                """,
-                {
-                    **request.json,
-                    **{
-                        "section_id": section_id,
-                        "created": time.mktime(datetime.now().timetuple()),
-                    },
-                },
+                """, {**request.json, **locals()}
             )
 
             student_id = query_db(
@@ -222,38 +203,17 @@ def api_post_student_start():
             """
             INSERT INTO student_submission 
             (
-                student_program, 
-                student_program_output, 
-                is_complete, 
                 starting_time, 
-                submission_time, 
-                created, 
                 exercise_id, 
                 student_id
             ) 
             VALUES 
             (
-                :student_program, 
-                :student_program_output, 
-                :is_complete, 
                 :starting_time, 
-                :submission_time, 
-                :created, 
                 :exercise_id, 
                 :student_id
             );
-            """,
-            {
-                "student_program": "",
-                "student_program_output": "",
-                "is_complete": 0,
-                "starting_time": time_started,
-                "submission_time": None,
-                "created": time.mktime(datetime.now().timetuple()),
-                "exercise_id": exercise_id,
-                "student_id": student_id,
-            },
-        )
+            """, locals())
     except sqlite3.OperationalError as db_error:
         print(db_error)
         return {"error": "A database error occurred. Please try again later. "}, 500
@@ -261,7 +221,7 @@ def api_post_student_start():
         return {"error: bad request"}, 400
 
     # 5. Return confirmation that student submission object was created with time
-    return {"time_started": time_started}
+    return {"time_started": starting_time}
 
 
 @api.route("/student_end", methods=["POST"])
@@ -303,8 +263,7 @@ def api_post_student_end():
             SET student_program = :student_program,
                 student_program_output = :student_program_output,
                 is_complete = :is_complete,
-                submission_time = :submission_time,
-                created = :created
+                submission_time = :submission_time
             WHERE 
                 student_submission_id = :student_submission_id;
         """,
@@ -313,7 +272,6 @@ def api_post_student_end():
             "student_program_output": request.json["exercise_desired_output"],
             "is_complete": 1,
             "submission_time": time_ended,
-            "created": time.mktime(datetime.now().timetuple()),
             "student_submission_id": query["student_submission_id"],
         },
     )
