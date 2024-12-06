@@ -116,17 +116,16 @@ def test_timer(page: Page):
 
     expect(page.locator("#timer_val")).to_have_text("00:00:00")
     page.clock.run_for(5000)
-    start_time = page.locator("#timer_val").inner_text()
-    expect(page.locator("#timer_val")).to_have_text(start_time)
+    expect(page.locator("#timer_val")).to_have_text("00:00:00")
 
     page.locator("#student-name").fill("Student1")
     page.locator("#start-button").click()
     # Check timer after 13 seconds
-    page.clock.run_for(11000)
+    page.clock.run_for(13100)
     expect(page.locator("#timer_val")).to_have_text("00:00:13")
 
     # Check timer after 1 minute
-    page.clock.run_for(46000)
+    page.clock.run_for(47000)
     expect(page.locator("#timer_val")).to_have_text("00:01:00")
 
     # Check that timer stops when correct answer is found
