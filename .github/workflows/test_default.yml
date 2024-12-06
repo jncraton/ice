@@ -13,4 +13,4 @@ jobs:
       - run: python -m playwright install
       - run: pip install flask twisted
       - run: python -m twisted web --port tcp:8000 --path www &
-      - run: pytest --browser chromium --browser firefox
+      - run: pytest --durations=5 --browser chromium --browser firefox
