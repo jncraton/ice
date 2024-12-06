@@ -19,7 +19,7 @@ CREATE TABLE student (
     student_id INTEGER PRIMARY KEY, -- alias for ROWID
     student_name TEXT,
     section_id INTEGER,
-    time_recorded INTEGER,
+    time_recorded INTEGER DEFAULT (strftime('%s', 'now')),
     FOREIGN KEY (section_id) REFERENCES section (section_id)
 );
 

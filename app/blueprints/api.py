@@ -83,19 +83,14 @@ def api_post_student_start():
                 (
                     section_name, 
                     instructor_name, 
-                    time_recorded
                 )
                 VALUES 
                 (
                     :section_name, 
                     :instructor_name, 
-                    :time_recorded
                 );
                 """,
-                {
-                    **request.json,
-                    **{"time_recorded": time.mktime(datetime.now().timetuple())},
-                },
+                request.json,
             )
 
             section_id = query_db(
@@ -327,7 +322,9 @@ def api_post_student_end():
 
 
 @api.route("/stats/<instructor_name>/<section_name>/<exercise_name>", methods=["GET"])
-def api_get_stats(instructor_name, section_name, exercise_name): # pylint: disable=unused-argument
+def api_get_stats(
+    instructor_name, section_name, exercise_name
+):  # pylint: disable=unused-argument
     """
     Returns the number of students who have attempted a specific exercise,
     the number of students who have completed the exercise, and the number
