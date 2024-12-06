@@ -59,15 +59,15 @@ def api_post_student_start():
             """
             INSERT INTO student_submission 
             (
-                exercise_name, 
-                section_name,
-                student_name
+                exercise, 
+                section,
+                student
             ) 
             VALUES 
             (
-                :exercise_name, 
-                :section_name, 
-                :student_name
+                :exercise, 
+                :section, 
+                :student
             );
             """,
             request.json,
@@ -97,9 +97,9 @@ def api_post_student_end():
                 SET is_complete = 1,
                     submission_time = strftime('%s', 'now')
                 WHERE 
-                    exercise_name = :exercise_name and
-                    section_name = :section_name and
-                    student_name = :student_name;
+                    exercise = :exercise and
+                    section = :section and
+                    student = :student;
             """,
             request.json,
         )
@@ -110,8 +110,8 @@ def api_post_student_end():
     return {"error": None}
 
 
-@api.route("/stats/<section_name>/<exercise_name>", methods=["GET"])
-def api_get_stats(section_name, exercise_name):  # pylint: disable=unused-argument
+@api.route("/stats/<section>/<exercise>", methods=["GET"])
+def api_get_stats(section, exercise):  # pylint: disable=unused-argument
     """
     Returns the number of students who have attempted a specific exercise,
     the number of students who have completed the exercise, and the number
@@ -126,8 +126,8 @@ def api_get_stats(section_name, exercise_name):  # pylint: disable=unused-argume
                     SUM(is_complete) completed_submissions
                 FROM student_submission
                 WHERE 
-                    section_name = :section_name and
-                    exercise_name = :exercise_name;
+                    section = :section and
+                    exercise = :exercise;
                 """,
                 locals(),
                 one=True,

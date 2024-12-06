@@ -123,12 +123,12 @@ function sendFinalData() {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      section_name: classCode,
+      section: classCode,
       instructor_name: teacherName,
-      exercise_name: assignmentCode,
+      exercise: assignmentCode,
       exercise_starting_code: startCode,
       exercise_desired_output: desiredOutput,
-      student_name: studentName,
+      student: studentName,
       student_final_code: finalCode,
     }),
   })

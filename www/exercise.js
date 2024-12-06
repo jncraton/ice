@@ -24,10 +24,10 @@ switchView.addEventListener('click', function (event) {
 let timer_interval
 let seconds = 0
 
-let student_name = ''
+let student = ''
 document.querySelector('#start-button').addEventListener('click', function () {
-  student_name = document.querySelector('#student-name').value
-  if (student_name) {
+  student = document.querySelector('#student-name').value
+  if (student) {
     timer_interval = setInterval(timer, 1000)
     document.querySelector('#start-button').disabled = true
     document.querySelector('#student-name').disabled = true
@@ -70,12 +70,12 @@ function sendIntialData() {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      section_name: classCode,
+      section: classCode,
       instructor_name: teacherName,
-      exercise_name: assignmentCode,
+      exercise: assignmentCode,
       exercise_starting_code: startCode,
       exercise_desired_output: desiredOutput,
-      student_name: student_name,
+      student: student,
     }),
   })
 }

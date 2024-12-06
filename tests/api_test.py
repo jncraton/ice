@@ -24,9 +24,9 @@ def test_post_student_start(client):
         "api/student_start",
         data=json.dumps(
             {
-                "student_name": "Mike",
-                "section_name": "CPSC 2020",
-                "exercise_name": "Intro to For Loops",
+                "student": "Mike",
+                "section": "CPSC 2020",
+                "exercise": "Intro to For Loops",
             }
         ),
         mimetype="application/json",
@@ -42,9 +42,9 @@ def test_post_student_end(client):
         "api/student_end",
         data=json.dumps(
             {
-                "student_name": "David",
-                "exercise_name": "Intro To For Loops",
-                "section_name": "CPSC 2020",
+                "student": "David",
+                "exercise": "Intro To For Loops",
+                "section": "CPSC 2020",
             }
         ),
         mimetype="application/json",
