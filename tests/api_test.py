@@ -32,7 +32,7 @@ def test_post_student_start(client):
         mimetype="application/json",
     )
 
-    assert not response.json["error"]
+    assert not "error" in response.json
 
 
 def test_post_student_end(client):
@@ -49,7 +49,7 @@ def test_post_student_end(client):
         ),
         mimetype="application/json",
     )
-    assert not response.json["error"]
+    assert not "error" in response.json
 
 
 def test_get_stats(client):

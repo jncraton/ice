@@ -40,9 +40,16 @@ def get_db():
 
 def query_db(statement, args=(), one=False):
     """Executes a SQL statement against the database and returns the results."""
-    cur = get_db().execute(statement, args)
-    results = cur.fetchall()
-    cur.close()
+    try:
+        cur = get_db().execute(statement, args)
+        results = cur.fetchall()
+        cur.close()
+    except sqlite3.OperationalError as db_error:
+        return {"error": "Database error"}, 500
+    except KeyError:
+        return {"error": "Bad request"}, 400
+
+    results = [dict(r) for r in results]
 
     return (results[0] if results else None) if one else results
 
@@ -54,22 +61,11 @@ def api_post_student_start():
     Finds or creates new rows in the exercise, section, and student tables.
     """
 
-    try:
-        query_db(
-            """INSERT INTO attempts (exercise, section, student)
-               VALUES (:exercise, :section, :student)""",
-            request.json,
-        )
-    except sqlite3.OperationalError as db_error:
-        print(db_error)
-        return {
-            "error": "A database error occurred. Please try again later. "
-            + str(db_error)
-        }, 500
-    except KeyError:
-        return {"error: bad request"}, 400
-
-    return {"error": None}
+    return query_db(
+        """INSERT INTO attempts (exercise, section, student)
+           VALUES (:exercise, :section, :student)""",
+        request.json,
+    )
 
 
 @api.route("/student_end", methods=["POST"])
@@ -79,22 +75,16 @@ def api_post_student_end():
     show that the recorded student has finished the recorded exercise
     """
 
-    try:
-        query_db(
-            """UPDATE attempts
-               SET is_complete = 1,
-                   submission_time = strftime('%s', 'now')
-               WHERE
-                 exercise = :exercise
-                 and section = :section
-                 and student = :student""",
-            request.json,
-        )
-    except sqlite3.OperationalError as e:
-        print(e)
-        return {"error": "A database error occurred. Please try again later. "}, 500
-
-    return {"error": None}
+    return query_db(
+        """UPDATE attempts
+           SET is_complete = 1,
+               submission_time = strftime('%s', 'now')
+           WHERE
+             exercise = :exercise
+             and section = :section
+             and student = :student""",
+        request.json,
+    )
 
 
 @api.route("/stats/<section>/<exercise>", methods=["GET"])
@@ -103,16 +93,10 @@ def api_get_stats(section, exercise):  # pylint: disable=unused-argument
     Returns the number of students who have attempted a specific exercise
     and the number of students who have completed the exercise
     """
-    try:
-        return dict(
-            query_db(
-                """SELECT COUNT(1) started, SUM(is_complete) completed
-                   FROM attempts
-                   WHERE section = :section and exercise = :exercise""",
-                locals(),
-                one=True,
-            )
-        )
-    except sqlite3.OperationalError as e:
-        print(e)
-        return {"error": "A database error occurred. Please try again later. "}, 500
+    return query_db(
+        """SELECT COUNT(1) started, SUM(is_complete) completed
+           FROM attempts
+           WHERE section = :section and exercise = :exercise""",
+        locals(),
+        one=True,
+    )
