@@ -113,9 +113,8 @@ def api_post_student_end():
 @api.route("/stats/<section>/<exercise>", methods=["GET"])
 def api_get_stats(section, exercise):  # pylint: disable=unused-argument
     """
-    Returns the number of students who have attempted a specific exercise,
-    the number of students who have completed the exercise, and the number
-    of students who have not completed the exercise.
+    Returns the number of students who have attempted a specific exercise
+    and the number of students who have completed the exercise
     """
     try:
         return dict(
