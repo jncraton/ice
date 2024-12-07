@@ -10,8 +10,9 @@ api = Blueprint("api", __name__)
 
 def query_db(statement, args=(), one=False):
     """Executes a SQL statement against the database and returns the results."""
+
     if os.path.isfile(current_app.config["DATABASE_PATH"]):
-        # If the database file exists, load it
+        # If the database file exists, connect
         db = sqlite3.connect(current_app.config["DATABASE_PATH"])
     else:
         # Otherwise regenerate database
@@ -42,10 +43,7 @@ def query_db(statement, args=(), one=False):
 
 @api.route("/student_start", methods=["POST"])
 def api_post_student_start():
-    """
-    Create a new attempts object to show that a student began working on an exercise
-    Finds or creates new rows in the exercise, section, and student tables.
-    """
+    """Creates a new attempt to show that a student began working on an exercise"""
 
     return query_db(
         """INSERT INTO attempts (exercise, section, student)
@@ -56,10 +54,7 @@ def api_post_student_start():
 
 @api.route("/student_end", methods=["POST"])
 def api_post_student_end():
-    """
-    Updates a previous student submission record with information to
-    show that the recorded student has finished the recorded exercise
-    """
+    """Updates attempt to log completion"""
 
     return query_db(
         """UPDATE attempts
@@ -75,10 +70,8 @@ def api_post_student_end():
 
 @api.route("/stats/<section>/<exercise>", methods=["GET"])
 def api_get_stats(section, exercise):  # pylint: disable=unused-argument
-    """
-    Returns the number of students who have attempted a specific exercise
-    and the number of students who have completed the exercise
-    """
+    """Returns exercise stats"""
+
     return query_db(
         """SELECT COUNT(1) started, SUM(is_complete) completed
            FROM attempts
