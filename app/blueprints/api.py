@@ -8,7 +8,7 @@ from flask import Blueprint, request, current_app
 api = Blueprint("api", __name__)
 
 
-def query_db(statement, args=(), one=False):
+def query_db(statement, args=()):
     """Executes a SQL statement against the database and returns the results."""
 
     if os.path.isfile(current_app.config["DATABASE_PATH"]):
@@ -38,6 +38,7 @@ def query_db(statement, args=(), one=False):
 
     return {"results": [dict(r) for r in results]}
 
+
 @api.route("/markers", methods=["POST"])
 def post_marker():
     """Creates a new marker to track student progress on an exercise"""
@@ -45,7 +46,7 @@ def post_marker():
     return query_db(
         """INSERT OR IGNORE INTO markers (exercise, section, student, name)
            VALUES (:exercise, :section, :student, :name)""",
-        request.json
+        request.json,
     )
 
 
@@ -58,5 +59,4 @@ def get_markers():
            FROM markers
            WHERE section = :section and exercise = :exercise""",
         request.args,
-        one=True,
     )

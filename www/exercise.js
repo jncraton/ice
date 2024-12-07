@@ -64,24 +64,22 @@ function sendIntialData() {
   }
 
   //Call API to send intial data to the database
-  fetch('api/student_start', {
+  fetch('api/markers', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
+      name: 'start',
       section: classCode,
-      instructor_name: teacherName,
       exercise: assignmentCode,
-      exercise_starting_code: startCode,
-      exercise_desired_output: desiredOutput,
       student: student,
     }),
   })
 }
 
 function getStats() {
-  fetch(`api/stats/${classCode}/${assignmentCode}`, {
+  fetch(`api/markers?exercise=${assignmentCode}&section=${classCode}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -89,8 +87,10 @@ function getStats() {
   })
     .then(response => response.json())
     .then(data => {
-      document.getElementById('students-started').textContent = data.started
-      document.getElementById('students-completed').textContent = data.completed
+      document.getElementById('students-started').textContent =
+        data.results[0].started
+      document.getElementById('students-completed').textContent =
+        data.results[0].completed
     })
     .catch(error => {
       console.error('Issues getting submitted and or unsubmitted students')

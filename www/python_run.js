@@ -117,19 +117,16 @@ function sendFinalData() {
   finalCode = document.querySelector('#code-area').value
 
   //Call API to send intial data to the database
-  fetch('api/student_end', {
+  fetch('api/markers', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
+      name: 'complete',
       section: classCode,
-      instructor_name: teacherName,
       exercise: assignmentCode,
-      exercise_starting_code: startCode,
-      exercise_desired_output: desiredOutput,
       student: studentName,
-      student_final_code: finalCode,
     }),
   })
 }
