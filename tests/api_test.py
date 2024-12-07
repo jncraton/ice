@@ -21,17 +21,9 @@ def test_post_student_start(client):
     """Test the api/student_start endpoint"""
     # pylint: disable=redefined-outer-name
     response = client.post(
-        "api/student_start",
-        data=json.dumps(
-            {
-                "student": "Mike",
-                "section": "CPSC 2020",
-                "exercise": "Intro to For Loops",
-            }
-        ),
-        mimetype="application/json",
+        "api/markers",
+        json={"name": "start", "exercise": "ex1", "section": "sec1", "student": "Mike"},
     )
-
     assert not "error" in response.json
 
 
@@ -39,15 +31,8 @@ def test_post_student_end(client):
     """Test the api/student_end endpoint"""
     # pylint: disable=redefined-outer-name
     response = client.post(
-        "api/student_end",
-        data=json.dumps(
-            {
-                "student": "David",
-                "exercise": "Intro To For Loops",
-                "section": "CPSC 2020",
-            }
-        ),
-        mimetype="application/json",
+        "api/markers",
+        json={"name": "complete", "exercise": "e", "section": "s", "student": "Bob"},
     )
     assert not "error" in response.json
 
@@ -55,9 +40,7 @@ def test_post_student_end(client):
 def test_get_stats(client):
     """Test the api/stats endpoint"""
     # pylint: disable=redefined-outer-name
-    response = client.get(
-        "api/stats/sec/ex",
-    )
+    response = client.get("api/markers?exercise=ex&section=sec")
 
-    assert response.json["started"] == 5
-    assert response.json["completed"] == 3
+    assert response.json["results"][0]["started"] == 5
+    assert response.json["results"][0]["completed"] == 3

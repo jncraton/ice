@@ -1,10 +1,8 @@
-CREATE TABLE attempts (
+CREATE TABLE markers (
     exercise TEXT,
     section TEXT,
     student TEXT,
-    is_complete INTEGER DEFAULT 0,
-    starting_time INTEGER DEFAULT (strftime('%s', 'now')),
-    submission_time INTEGER,
+    name TEXT CHECK(name IN ('start','complete')) NOT NULL DEFAULT 'start',
     created INTEGER DEFAULT (strftime('%s', 'now')),
-    PRIMARY KEY (exercise, section, student)
+    PRIMARY KEY (exercise, section, student, name)
 );

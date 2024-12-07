@@ -36,46 +36,27 @@ def query_db(statement, args=(), one=False):
     except KeyError:
         return {"error": "Bad request"}, 400
 
-    results = [dict(r) for r in results]
+    return {"results": [dict(r) for r in results]}
 
-    return (results[0] if results else None) if one else results
-
-
-@api.route("/student_start", methods=["POST"])
-def api_post_student_start():
-    """Creates a new attempt to show that a student began working on an exercise"""
+@api.route("/markers", methods=["POST"])
+def post_marker():
+    """Creates a new marker to track student progress on an exercise"""
 
     return query_db(
-        """INSERT INTO attempts (exercise, section, student)
-           VALUES (:exercise, :section, :student)""",
-        request.json,
+        """INSERT OR IGNORE INTO markers (exercise, section, student, name)
+           VALUES (:exercise, :section, :student, :name)""",
+        request.json
     )
 
 
-@api.route("/student_end", methods=["POST"])
-def api_post_student_end():
-    """Updates attempt to log completion"""
-
-    return query_db(
-        """UPDATE attempts
-           SET is_complete = 1,
-               submission_time = strftime('%s', 'now')
-           WHERE
-             exercise = :exercise
-             and section = :section
-             and student = :student""",
-        request.json,
-    )
-
-
-@api.route("/stats/<section>/<exercise>", methods=["GET"])
-def api_get_stats(section, exercise):  # pylint: disable=unused-argument
+@api.route("/markers", methods=["GET"])
+def get_markers():
     """Returns exercise stats"""
 
     return query_db(
-        """SELECT COUNT(1) started, SUM(is_complete) completed
-           FROM attempts
+        """SELECT SUM(name = 'start') started, SUM(name = 'complete') completed
+           FROM markers
            WHERE section = :section and exercise = :exercise""",
-        locals(),
+        request.args,
         one=True,
     )

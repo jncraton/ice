@@ -1,9 +1,12 @@
-INSERT INTO attempts (is_complete, starting_time, submission_time, created, exercise, section, student)
+INSERT INTO markers (name, created, exercise, section, student)
 VALUES
-    (1, 1694000000, 1694000200, 1694000250, 'ex', 'sec', 'alice'),
-    (1, 1694000000, 1694000200, 1694000250, 'ex', 'sec', 'bob'),
-    (1, 1694000000, 1694000200, 1694000250, 'ex', 'sec', 'charlie'),
-    (0, 1694000000, NULL, 1694000250, 'ex', 'sec', 'sally'),
-    (0, 1694000000, NULL, 1694000250, 'ex', 'sec', 'juliet'),
-    (0, 1694000000, NULL, 1694000250, 'ex2', 'sec', 'juliet'),
-    (0, 1694000000, NULL, 1694000250, 'ex', 'sec2', 'juliet');
+    ('complete', 1694000250, 'ex', 'sec', 'alice'),
+    ('complete', 1694000250, 'ex', 'sec', 'bob'),
+    ('complete', 1694000250, 'ex', 'sec', 'charlie'),
+    ('start', 1694000250, 'ex', 'sec', 'alice'),
+    ('start', 1694000250, 'ex', 'sec', 'bob'),
+    ('start', 1694000250, 'ex', 'sec', 'charlie'),
+    ('start', 1694000250, 'ex', 'sec', 'sally'),
+    ('start', 1694000250, 'ex', 'sec', 'juliet'),
+    ('start', 1694000250, 'ex2', 'sec', 'juliet'),
+    ('start', 1694000250, 'ex', 'sec2', 'juliet');
