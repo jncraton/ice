@@ -31,7 +31,7 @@ def query_db(statement, args=(), one=False):
         results = db.execute(statement, args).fetchall()
         db.commit()
         db.close()
-    except sqlite3.OperationalError as db_error:
+    except sqlite3.OperationalError:
         return {"error": "Database error"}, 500
     except KeyError:
         return {"error": "Bad request"}, 400
