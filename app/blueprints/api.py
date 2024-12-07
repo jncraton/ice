@@ -56,20 +56,8 @@ def api_post_student_start():
 
     try:
         query_db(
-            """
-            INSERT INTO attempts 
-            (
-                exercise, 
-                section,
-                student
-            ) 
-            VALUES 
-            (
-                :exercise, 
-                :section, 
-                :student
-            );
-            """,
+            """INSERT INTO attempts (exercise, section, student)
+               VALUES (:exercise, :section, :student)""",
             request.json,
         )
     except sqlite3.OperationalError as db_error:
@@ -94,13 +82,12 @@ def api_post_student_end():
     try:
         query_db(
             """UPDATE attempts
-                SET is_complete = 1,
-                    submission_time = strftime('%s', 'now')
-                WHERE 
-                    exercise = :exercise and
-                    section = :section and
-                    student = :student;
-            """,
+               SET is_complete = 1,
+                   submission_time = strftime('%s', 'now')
+               WHERE
+                 exercise = :exercise
+                 and section = :section
+                 and student = :student""",
             request.json,
         )
     except sqlite3.OperationalError as e:
@@ -119,15 +106,11 @@ def api_get_stats(section, exercise):  # pylint: disable=unused-argument
     try:
         return dict(
             query_db(
-                """
-                SELECT
-                    COUNT(1) total_submissions,
-                    SUM(is_complete) completed_submissions
-                FROM attempts
-                WHERE 
-                    section = :section and
-                    exercise = :exercise;
-                """,
+                """SELECT
+                     COUNT(1) total_submissions,
+                     SUM(is_complete) completed_submissions
+                   FROM attempts
+                   WHERE section = :section and exercise = :exercise""",
                 locals(),
                 one=True,
             )
