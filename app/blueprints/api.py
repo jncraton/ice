@@ -50,14 +50,14 @@ def query_db(statement, args=(), one=False):
 @api.route("/student_start", methods=["POST"])
 def api_post_student_start():
     """
-    Create a new student_submission object to show that a student began working on an exercise
+    Create a new attempts object to show that a student began working on an exercise
     Finds or creates new rows in the exercise, section, and student tables.
     """
 
     try:
         query_db(
             """
-            INSERT INTO student_submission 
+            INSERT INTO attempts 
             (
                 exercise, 
                 section,
@@ -93,7 +93,7 @@ def api_post_student_end():
 
     try:
         query_db(
-            """UPDATE student_submission
+            """UPDATE attempts
                 SET is_complete = 1,
                     submission_time = strftime('%s', 'now')
                 WHERE 
@@ -123,7 +123,7 @@ def api_get_stats(section, exercise):  # pylint: disable=unused-argument
                 SELECT
                     COUNT(1) total_submissions,
                     SUM(is_complete) completed_submissions
-                FROM student_submission
+                FROM attempts
                 WHERE 
                     section = :section and
                     exercise = :exercise;

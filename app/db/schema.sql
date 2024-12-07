@@ -1,4 +1,4 @@
-CREATE TABLE student_submission (
+CREATE TABLE attempts (
     exercise TEXT,
     section TEXT,
     student TEXT,
