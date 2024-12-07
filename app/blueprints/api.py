@@ -3,47 +3,33 @@
 import sqlite3
 import os.path
 
-from flask import Blueprint, g, request, current_app
+from flask import Blueprint, request, current_app
 
-api = Blueprint(
-    "api",
-    __name__,
-)
-
-
-def get_db():
-    """
-    Establishes a connection to the database. Requires an app context to run.
-    See https://flask.palletsprojects.com/en/stable/patterns/sqlite3/ for more details.
-    """
-    db = getattr(g, "_database", None)
-    if db is None:
-        if os.path.isfile(current_app.config["DATABASE_PATH"]):
-            print(current_app.config["DATABASE_PATH"])
-            # If the database file exists, load it. Otherwise, init the database.
-            db = g._database = sqlite3.connect(current_app.config["DATABASE_PATH"])
-        else:
-            # Regenerate database
-            db = g._database = sqlite3.connect(current_app.config["DATABASE_PATH"])
-            with current_app.open_resource("db/schema.sql") as f:
-                db.cursor().executescript(f.read().decode("utf-8"))
-
-            # If we are testing load test data
-            if current_app.config["TESTING"]:
-                with current_app.open_resource("db/load_testing_data.sql") as f:
-                    db.cursor().executescript(f.read().decode("utf-8"))
-            db.commit()
-
-    db.row_factory = sqlite3.Row
-    return db
+api = Blueprint("api", __name__)
 
 
 def query_db(statement, args=(), one=False):
     """Executes a SQL statement against the database and returns the results."""
+    if os.path.isfile(current_app.config["DATABASE_PATH"]):
+        # If the database file exists, load it
+        db = sqlite3.connect(current_app.config["DATABASE_PATH"])
+    else:
+        # Otherwise regenerate database
+        db = sqlite3.connect(current_app.config["DATABASE_PATH"])
+        with current_app.open_resource("db/schema.sql") as f:
+            db.executescript(f.read().decode("utf-8"))
+
+        # If we are testing load test data
+        if current_app.config["TESTING"]:
+            with current_app.open_resource("db/load_testing_data.sql") as f:
+                db.cursor().executescript(f.read().decode("utf-8"))
+
+    db.row_factory = sqlite3.Row
+
     try:
-        cur = get_db().execute(statement, args)
-        results = cur.fetchall()
-        cur.close()
+        results = db.execute(statement, args).fetchall()
+        db.commit()
+        db.close()
     except sqlite3.OperationalError as db_error:
         return {"error": "Database error"}, 500
     except KeyError:
