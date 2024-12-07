@@ -106,9 +106,7 @@ def api_get_stats(section, exercise):  # pylint: disable=unused-argument
     try:
         return dict(
             query_db(
-                """SELECT
-                     COUNT(1) total_submissions,
-                     SUM(is_complete) completed_submissions
+                """SELECT COUNT(1) started, SUM(is_complete) completed
                    FROM attempts
                    WHERE section = :section and exercise = :exercise""",
                 locals(),

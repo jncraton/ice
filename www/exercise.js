@@ -90,9 +90,9 @@ function getStats() {
     .then(response => response.json())
     .then(data => {
       document.getElementById('students-started').textContent =
-        data.total_submissions
+        data.started
       document.getElementById('students-completed').textContent =
-        data.completed_submissions
+        data.completed
     })
     .catch(error => {
       console.error('Issues getting submitted and or unsubmitted students')

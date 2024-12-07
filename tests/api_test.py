@@ -59,5 +59,5 @@ def test_get_stats(client):
         "api/stats/sec/ex",
     )
 
-    assert response.json["total_submissions"] == 5
-    assert response.json["completed_submissions"] == 3
+    assert response.json["started"] == 5
+    assert response.json["completed"] == 3
