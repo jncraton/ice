@@ -4,8 +4,6 @@ Tests for the application's database API
 Only tests the program's backend API, not the front-end. 
 """
 
-import json
-
 import pytest
 
 from app import create_app
