@@ -24,10 +24,10 @@ switchView.addEventListener('click', function (event) {
 let timer_interval
 let seconds = 0
 
-let student_name = ''
+let student = ''
 document.querySelector('#start-button').addEventListener('click', function () {
-  student_name = document.querySelector('#student-name').value
-  if (student_name) {
+  student = document.querySelector('#student-name').value
+  if (student) {
     timer_interval = setInterval(timer, 1000)
     document.querySelector('#start-button').disabled = true
     document.querySelector('#student-name').disabled = true
@@ -64,24 +64,22 @@ function sendIntialData() {
   }
 
   //Call API to send intial data to the database
-  fetch('api/student_start', {
+  fetch('api/checkpoints', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      section_name: classCode,
-      instructor_name: teacherName,
-      exercise_name: assignmentCode,
-      exercise_starting_code: startCode,
-      exercise_desired_output: desiredOutput,
-      student_name: student_name,
+      name: 'start',
+      section: classCode,
+      exercise: assignmentCode,
+      student: student,
     }),
   })
 }
 
 function getStats() {
-  fetch(`api/stats/${teacherName}/${classCode}/${assignmentCode}`, {
+  fetch(`api/checkpoints?exercise=${assignmentCode}&section=${classCode}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -90,9 +88,9 @@ function getStats() {
     .then(response => response.json())
     .then(data => {
       document.getElementById('students-started').textContent =
-        data.total_submissions
+        data.results[0].started
       document.getElementById('students-completed').textContent =
-        data.completed_submissions
+        data.results[0].completed
     })
     .catch(error => {
       console.error('Issues getting submitted and or unsubmitted students')
