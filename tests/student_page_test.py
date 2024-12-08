@@ -12,7 +12,7 @@ import pytest
 def before_each(page: Page):
     """Load the page before each test"""
     page.clock.install()
-    page.goto("http://localhost:8000/exercise#WyIiLCI0MiIsIkNTMTAxLTEiLCJPcmRlciBvZiBvcGVyYXRpb25zIl0=")
+    page.goto("http://localhost:8000/exercise#WyIiLCI0MiIsInMiLCJlIl0=")
 
 
 def test_student_input(page: Page):
