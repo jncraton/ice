@@ -16,12 +16,7 @@ function updateSharing() {
   const assignmentCode = document.querySelector('#assignment-code').value
 
   const base64String = btoa(
-    JSON.stringify([
-      codeText,
-      outputText,
-      classCode,
-      assignmentCode,
-    ]),
+    JSON.stringify([codeText, outputText, classCode, assignmentCode]),
   )
 
   const url =
