@@ -64,7 +64,7 @@ function sendIntialData() {
   }
 
   //Call API to send intial data to the database
-  fetch('api/markers', {
+  fetch('api/checkpoints', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ function sendIntialData() {
 }
 
 function getStats() {
-  fetch(`api/markers?exercise=${assignmentCode}&section=${classCode}`, {
+  fetch(`api/checkpoints?exercise=${assignmentCode}&section=${classCode}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

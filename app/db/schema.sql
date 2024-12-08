@@ -1,4 +1,4 @@
-CREATE TABLE markers (
+CREATE TABLE checkpoints (
     exercise TEXT,
     section TEXT,
     student TEXT,

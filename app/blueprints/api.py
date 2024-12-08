@@ -39,24 +39,24 @@ def query_db(statement, args=()):
     return {"results": [dict(r) for r in results]}
 
 
-@api.route("/markers", methods=["POST"])
-def post_marker():
-    """Creates a new marker to track student progress on an exercise"""
+@api.route("/checkpoints", methods=["POST"])
+def post_checkpoint():
+    """Creates a new checkpoint to track student progress on an exercise"""
 
     return query_db(
-        """INSERT OR IGNORE INTO markers (exercise, section, student, name)
+        """INSERT OR IGNORE INTO checkpoints (exercise, section, student, name)
            VALUES (:exercise, :section, :student, :name)""",
         request.json,
     )
 
 
-@api.route("/markers", methods=["GET"])
-def get_markers():
+@api.route("/checkpoints", methods=["GET"])
+def get_checkpoints():
     """Returns exercise stats"""
 
     return query_db(
         """SELECT SUM(name = 'start') started, SUM(name = 'complete') completed
-           FROM markers
+           FROM checkpoints
            WHERE section = :section and exercise = :exercise""",
         request.args,
     )

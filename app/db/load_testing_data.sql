@@ -1,4 +1,4 @@
-INSERT INTO markers (name, created, exercise, section, student)
+INSERT INTO checkpoints (name, created, exercise, section, student)
 VALUES
     ('complete', 1694000250, 'ex', 'sec', 'alice'),
     ('complete', 1694000250, 'ex', 'sec', 'bob'),

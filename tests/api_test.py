@@ -19,7 +19,7 @@ def test_post_student_start(client):
     """Test the api/student_start endpoint"""
     # pylint: disable=redefined-outer-name
     response = client.post(
-        "api/markers",
+        "api/checkpoints",
         json={"name": "start", "exercise": "ex1", "section": "sec1", "student": "Mike"},
     )
     assert not "error" in response.json
@@ -29,7 +29,7 @@ def test_post_student_end(client):
     """Test the api/student_end endpoint"""
     # pylint: disable=redefined-outer-name
     response = client.post(
-        "api/markers",
+        "api/checkpoints",
         json={"name": "complete", "exercise": "e", "section": "s", "student": "Bob"},
     )
     assert not "error" in response.json
@@ -38,7 +38,7 @@ def test_post_student_end(client):
 def test_get_stats(client):
     """Test the api/stats endpoint"""
     # pylint: disable=redefined-outer-name
-    response = client.get("api/markers?exercise=ex&section=sec")
+    response = client.get("api/checkpoints?exercise=ex&section=sec")
 
     assert response.json["results"][0]["started"] == 5
     assert response.json["results"][0]["completed"] == 3
