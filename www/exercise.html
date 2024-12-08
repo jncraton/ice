@@ -10,28 +10,25 @@
 
   <body>
     <main>
+      <div id="warning-box" class="warningHidden">
+        Warning: Possible infinite loop detected. Press "End" if this is
+        unintended.
+      </div>
       <nav>
-        <label for="student-name" style="float: left">Username: </label>
-        <input
-          type="text"
-          id="student-name"
-          style="float: left"
-          placeholder="Enter your name"
-        />
-        <button id="start-button" autocomplete="off" style="float: left">
-          Start
-        </button>
-        <span>Time: </span><span id="timer_val">00:00:00</span>
-        <button id="run-button" autocomplete="off" disabled>Run</button>
-        <button id="end-button" autocomplete="off" disabled>End</button>
-        <button id="submit-button" autocomplete="off" disabled>
-          Submit Code
-        </button>
-        <button id="switch">Show Stats</button>
-        <div id="warning-box" class="warningHidden">
-          Warning: Possible infinite loop detected. Press "End" if this is
-          unintended.
-        </div>
+        <fieldset>
+          <label for="student-name">Username</label>
+          <input id="student-name" placeholder="Enter your name" />
+          <button id="start-button" autocomplete="off">Start</button>
+          <span>Time: </span><span id="timer_val">00:00:00</span>
+        </fieldset>
+        <fieldset>
+          <button id="run-button" autocomplete="off" disabled>Run</button>
+          <button id="end-button" autocomplete="off" disabled>Stop</button>
+          <button id="submit-button" autocomplete="off" disabled>
+            Submit Code
+          </button>
+          <button id="switch">Show Stats</button>
+        </fieldset>
       </nav>
       <section id="code-view">
         <label

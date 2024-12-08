@@ -2,7 +2,7 @@
 
 <html lang="EN">
   <head>
-    <title>I.C.E Teacher</title>
+    <title>ICE - Create Exercise</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
@@ -10,40 +10,28 @@
 
   <body>
     <main>
-      <h1>I.C.E</h1>
-      <sub>Teacher View</sub>
-      <div id="identify-codes">
+      <nav style="display: flex">
         <fieldset>
-          <label for="instructor-name">Teacher Name:</label>
-          <input id="instructor-name" value="John Doe" />
+          <label for="assignment-code">Exercise</label>
+          <input id="assignment-code" value="Order of operations" />
+          <label for="class-code">Section</label>
+          <input id="class-code" value="CS101-1" size="8" />
         </fieldset>
         <fieldset>
-          <label for="class-code">Class Code:</label>
-          <input id="class-code" value="CLS1" />
-        </fieldset>
-        <fieldset>
-          <label for="assignment-code">Assignment Code:</label>
-          <input id="assignment-code" value="Assignment1" />
-        </fieldset>
-      </div>
-      <fieldset>
-        <select id="share-type">
-          <option value="share">Share</option>
-          <option value="embed">Embed</option>
-        </select>
-        <input id="share-text" readonly />
-        <button id="copy">Copy</button>
-      </fieldset>
-      <nav>
-        <div id="buttons">
+          <select id="share-type">
+            <option value="share">Share</option>
+            <option value="embed">Embed</option>
+          </select>
+          <input id="share-text" readonly />
+          <button id="copy">Copy</button>
           <button id="run-button" autocomplete="off">Run</button>
-          <button id="end-button" autocomplete="off" disabled>End</button>
-        </div>
+          <button id="end-button" autocomplete="off" disabled>Stop</button>
+        </fieldset>
       </nav>
 
       <section id="code-view">
         <label>
-          Input:
+          Code
           <textarea
             id="code-area"
             placeholder="Enter code..."
@@ -54,15 +42,9 @@
           ></textarea>
         </label>
         <div id="output">
-          <p id="time-displayed"></p>
-          <label
-            >Code Output:<textarea id="code-output"></textarea>
-            <button id="save-output">Save Output</button>
-          </label>
-          <br />
-          <br />
+          <label>Output<textarea id="code-output"></textarea></label>
           <label>
-            Desired Output:
+            Expected
             <textarea id="target-text" name="output-text"></textarea>
           </label>
         </div>

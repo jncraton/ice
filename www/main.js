@@ -1,29 +1,14 @@
 'use strict'
 
-//Allow instructor to save output of their code using button
-const saveOutput = document.querySelector('#save-output')
-saveOutput.addEventListener('click', function () {
-  const outputText = document.querySelector('#target-text')
-  outputText.value = document.querySelector('#code-output').innerHTML
-  outputText.dispatchEvent(new Event('input', { bubbles: true }))
-})
-
 // Make share button generate link to current page.
 function updateSharing() {
   const codeText = document.querySelector('#code-area').value
   const outputText = document.querySelector('#target-text').value
   const classCode = document.querySelector('#class-code').value
   const assignmentCode = document.querySelector('#assignment-code').value
-  const teacherName = document.querySelector('#instructor-name').value
 
   const base64String = btoa(
-    JSON.stringify([
-      codeText,
-      outputText,
-      classCode,
-      assignmentCode,
-      teacherName,
-    ]),
+    JSON.stringify([codeText, outputText, classCode, assignmentCode]),
   )
 
   const url =
