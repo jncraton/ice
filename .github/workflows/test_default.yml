@@ -12,7 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: pip install -r requirements.txt
+      - run: pip install -r requirements.txt twisted
+      - run: cd www && ln -s exercise.html exercise && cd ..
       - run: python -m playwright install ${{ matrix.browser }}
       - run: python -m twisted web --port tcp:8000 --path www &
       - run: pytest --durations=5 --browser ${{ matrix.browser }}
