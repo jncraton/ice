@@ -6,11 +6,13 @@ on:
     branches: ['main']
 jobs:
   test:
+    strategy:
+      matrix:
+        browser: [firefox, chromium]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: pip install pytest-playwright
-      - run: python -m playwright install
-      - run: pip install flask twisted
+      - run: pip install -r requirements.txt
+      - run: python -m playwright install ${{ matrix.browser }}
       - run: python -m twisted web --port tcp:8000 --path www &
-      - run: pytest --durations=5 --browser chromium --browser firefox
+      - run: pytest --durations=5 --browser ${{ matrix.browser }}

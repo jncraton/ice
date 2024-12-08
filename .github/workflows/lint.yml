@@ -7,13 +7,20 @@ on:
     branches:
       - main
 jobs:
-  Lint:
+  prettier:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run: npm run lint
-      - run: pip install -r requirements.txt
+  black:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install black
       - run: black --check .
-      - run: pylint tests/*.py
-      - run: pylint app/*.py
-      - run: pylint app/blueprints/*.py
+  pylint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -r requirements.txt
+      - run: pylint tests/*.py app/*.py app/blueprints/*.py
