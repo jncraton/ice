@@ -12,7 +12,7 @@ import pytest
 def before_each(page: Page):
     """Load the page before each test"""
     page.clock.install()
-    page.goto("http://localhost:8000/exercise")
+    page.goto("http://localhost:8000/exercise#WyIiLCI0MiIsIkNTMTAxLTEiLCJPcmRlciBvZiBvcGVyYXRpb25zIl0=")
 
 
 def test_student_input(page: Page):
@@ -33,14 +33,9 @@ def test_check_output_correct(page: Page):
     page.locator("#start-button").click()
 
     codearea_locator = page.locator("#code-area")
-    codearea_locator.fill("print('Hello World!')")
+    codearea_locator.fill("print(42)")
 
-    # 2. Put code in Desired output
-    targettext_locator = page.locator("#target-text")
-    targettext_locator.evaluate("element => element.removeAttribute('disabled')")
-    targettext_locator.fill("Hello World!")
-
-    # 3. Click Run Button
+    # 2. Click Run Button
     page.locator("#run-button").click()
 
     # 4. Check Output
@@ -60,12 +55,7 @@ def test_check_output_incorrect(page: Page):
     page.locator("#start-button").click()
 
     codearea_locator = page.locator("#code-area")
-    codearea_locator.fill("print('Hello Word')")
-
-    # 2. Put code in Desired output
-    targettext_locator = page.locator("#target-text")
-    targettext_locator.evaluate("element => element.removeAttribute('disabled')")
-    targettext_locator.fill("Hello World!")
+    codearea_locator.fill("print(43)")
 
     # 3. Click Run Button
     page.locator("#run-button").click()
@@ -131,11 +121,8 @@ def test_timer(page: Page):
     # Check that timer stops when correct answer is found
 
     codearea_locator = page.locator("#code-area")
-    codearea_locator.fill("print('Hello World')")
+    codearea_locator.fill("print(42)")
 
-    targettext_locator = page.locator("#target-text")
-    targettext_locator.evaluate("element => element.removeAttribute('disabled')")
-    targettext_locator.fill("Hello World!")
     page.locator("#run-button").click()
 
     prev_time = page.locator("#timer_val")
