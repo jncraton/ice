@@ -12,9 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          cache: 'pip'
       - run: pip install pytest-playwright flask
       - run: python -m playwright install ${{ matrix.browser }}
       - run: cd app && flask run --port 8000 && cd .. &
