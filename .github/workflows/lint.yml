@@ -7,18 +7,20 @@ on:
     branches:
       - main
 jobs:
-  Lint:
+  prettier:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          cache: 'pip'
-          python-version: '3.x'
-      - uses: actions/setup-node@v4
-        with:
-          cache: 'npm'
       - run: npm run lint
-      - run: pip install -r requirements.txt
+  black:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install black
       - run: black --check .
+  pylint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -r requirements.txt
       - run: pylint tests/*.py app/*.py app/blueprints/*.py
