@@ -12,10 +12,10 @@
     <main>
       <nav style="display: flex">
         <fieldset>
-          <label for="class-code">Class</label>
-          <input id="class-code" value="CLS1" size="8" />
-          <label for="assignment-code">Assignment</label>
-          <input id="assignment-code" value="Assignment1" />
+          <label for="assignment-code">Exercise</label>
+          <input id="assignment-code" value="Order of operations" />
+          <label for="class-code">Section</label>
+          <input id="class-code" value="CS101-1" size="8" />
         </fieldset>
         <fieldset>
           <select id="share-type">
@@ -25,13 +25,13 @@
           <input id="share-text" readonly />
           <button id="copy">Copy</button>
           <button id="run-button" autocomplete="off">Run</button>
-          <button id="end-button" autocomplete="off" disabled>End</button>
+          <button id="end-button" autocomplete="off" disabled>Stop</button>
         </fieldset>
       </nav>
 
       <section id="code-view">
         <label>
-          Input:
+          Code
           <textarea
             id="code-area"
             placeholder="Enter code..."
@@ -44,13 +44,13 @@
         <div id="output">
           <p id="time-displayed"></p>
           <label
-            >Code Output:<textarea id="code-output"></textarea>
+            >Output<textarea id="code-output"></textarea>
             <button id="save-output">Save Output</button>
           </label>
           <br />
           <br />
           <label>
-            Desired Output:
+            Expected
             <textarea id="target-text" name="output-text"></textarea>
           </label>
         </div>
