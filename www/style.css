@@ -1,7 +1,7 @@
 /* General Styles */
 
 main {
-  text-align: center;
+  text-align: right;
   max-width: 960px;
   min-width: 480px;
   margin: 0 auto;
@@ -9,16 +9,17 @@ main {
 
 fieldset {
   border: 0;
-}
-
-nav {
+  margin: 0;
+  padding: 0;
   text-align: right;
 }
 
-sub {
-  font-weight: bold;
-  font-style: italic;
-  font-size: 20px;
+nav {
+  display: flex;
+}
+
+nav *:last-child {
+  flex-grow: 1;
 }
 
 textarea {
@@ -106,6 +107,7 @@ textarea {
 
 #warning-box {
   position: absolute;
+  display: inline-block;
   width: 420px;
   margin-left: -442px;
   top: 36px;
@@ -135,10 +137,10 @@ textarea {
   font-size: 50px;
 }
 
-.warningHidden {
+#warning-box.warningHidden {
   display: none;
 }
 
-.warningVisible {
+#warning-box.warningVisible {
   display: inline-block;
 }

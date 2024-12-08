@@ -50,7 +50,6 @@ let startCode
 let desiredOutput
 let classCode
 let assignmentCode
-let teacherName
 
 function sendIntialData() {
   //Pull information out of link
@@ -60,7 +59,6 @@ function sendIntialData() {
     desiredOutput = urlList[1]
     classCode = urlList[2]
     assignmentCode = urlList[3]
-    teacherName = urlList[4]
   }
 
   //Call API to send intial data to the database

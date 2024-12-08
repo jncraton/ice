@@ -99,7 +99,6 @@ function sendFinalData() {
   let desiredOutput
   let classCode
   let assignmentCode
-  let teacherName
   let studentName
   let finalCode
 
@@ -110,7 +109,6 @@ function sendFinalData() {
     desiredOutput = urlList[1]
     classCode = urlList[2]
     assignmentCode = urlList[3]
-    teacherName = urlList[4]
   }
 
   studentName = document.querySelector('#student-name').value

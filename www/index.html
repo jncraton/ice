@@ -2,7 +2,7 @@
 
 <html lang="EN">
   <head>
-    <title>I.C.E Teacher</title>
+    <title>ICE - Create Exercise</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
@@ -10,35 +10,23 @@
 
   <body>
     <main>
-      <h1>I.C.E</h1>
-      <sub>Teacher View</sub>
-      <div id="identify-codes">
+      <nav style="display:flex">
         <fieldset>
-          <label for="instructor-name">Teacher Name:</label>
-          <input id="instructor-name" value="John Doe" />
-        </fieldset>
-        <fieldset>
-          <label for="class-code">Class Code:</label>
-          <input id="class-code" value="CLS1" />
-        </fieldset>
-        <fieldset>
-          <label for="assignment-code">Assignment Code:</label>
+          <label for="class-code">Class</label>
+          <input id="class-code" value="CLS1" size=8 />
+          <label for="assignment-code">Assignment</label>
           <input id="assignment-code" value="Assignment1" />
         </fieldset>
-      </div>
-      <fieldset>
-        <select id="share-type">
-          <option value="share">Share</option>
-          <option value="embed">Embed</option>
-        </select>
-        <input id="share-text" readonly />
-        <button id="copy">Copy</button>
-      </fieldset>
-      <nav>
-        <div id="buttons">
+        <fieldset>
+          <select id="share-type">
+            <option value="share">Share</option>
+            <option value="embed">Embed</option>
+          </select>
+          <input id="share-text" readonly />
+          <button id="copy">Copy</button>
           <button id="run-button" autocomplete="off">Run</button>
           <button id="end-button" autocomplete="off" disabled>End</button>
-        </div>
+        </fieldset>
       </nav>
 
       <section id="code-view">
